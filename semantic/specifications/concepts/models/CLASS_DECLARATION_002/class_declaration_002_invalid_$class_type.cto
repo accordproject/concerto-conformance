@@ -1,0 +1,6 @@
+namespace org.example.invalid
+
+concept SampleConcept {
+  o Integer $class  
+}
+

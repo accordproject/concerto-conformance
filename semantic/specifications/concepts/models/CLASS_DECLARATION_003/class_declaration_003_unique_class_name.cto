@@ -1,0 +1,9 @@
+namespace org.example.valid
+
+concept SampleConceptA {
+  o String name
+}
+
+concept SampleConceptB {
+  o String description
+}

@@ -1,0 +1,9 @@
+namespace org.example.invalid
+
+concept BaseConcept {
+  o String name
+}
+
+concept SubConcept extends BaseConcept {
+  o String name 
+}

@@ -1,0 +1,7 @@
+namespace org.example.invalid
+
+concept SampleConcept {
+  o String name
+  o String $class  
+}
+
