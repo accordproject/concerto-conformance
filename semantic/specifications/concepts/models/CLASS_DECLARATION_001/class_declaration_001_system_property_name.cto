@@ -5,3 +5,4 @@ concept SampleConcept {
   o String $class  
 }
 
+

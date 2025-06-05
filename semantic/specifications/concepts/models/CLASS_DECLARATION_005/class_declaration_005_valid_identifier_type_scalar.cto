@@ -6,3 +6,4 @@ concept Book identified by isbn {
   o CustomString isbn
   o String title
 }
+

@@ -7,3 +7,4 @@ concept BaseConcept {
 concept DerivedConcept extends BaseConcept {
   o String detail
 }
+

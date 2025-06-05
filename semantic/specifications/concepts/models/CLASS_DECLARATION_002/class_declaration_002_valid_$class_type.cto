@@ -3,3 +3,4 @@ namespace org.example.valid
 concept SampleConcept {
   o String name
 }
+

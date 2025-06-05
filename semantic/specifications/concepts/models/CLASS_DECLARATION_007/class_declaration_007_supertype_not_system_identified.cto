@@ -7,3 +7,4 @@ concept BaseConcept {
 concept SubConcept extends BaseConcept identified by subId {
   o String subId 
 }
+

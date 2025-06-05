@@ -4,3 +4,4 @@ concept Entity identified by id {
   o Integer id 
   o String name
 }
+

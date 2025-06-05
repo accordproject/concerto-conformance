@@ -4,3 +4,4 @@ concept SampleConcept {
   o Integer $class  
 }
 
+

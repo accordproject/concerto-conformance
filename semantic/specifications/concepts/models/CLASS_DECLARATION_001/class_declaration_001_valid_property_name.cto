@@ -4,3 +4,4 @@ concept SampleConcept {
   o String name
   o String category
 }
+

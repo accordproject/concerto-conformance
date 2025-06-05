@@ -7,3 +7,4 @@ concept SampleConceptA {
 concept SampleConceptB {
   o String description
 }
+

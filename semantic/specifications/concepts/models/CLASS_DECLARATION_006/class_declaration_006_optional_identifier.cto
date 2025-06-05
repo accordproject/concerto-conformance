@@ -4,3 +4,4 @@ concept Product identified by productId {
   o String productId optional 
   o String name
 }
+
