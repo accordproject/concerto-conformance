@@ -1,0 +1,7 @@
+namespace org.example.valid
+
+concept Product identified by productId {
+  o String productId  
+  o String name
+}
+

@@ -1,0 +1,9 @@
+namespace org.example.scalarid
+
+scalar CustomString extends String
+
+concept Book identified by isbn {
+  o CustomString isbn
+  o String title
+}
+

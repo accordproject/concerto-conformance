@@ -1,0 +1,10 @@
+namespace org.example.invalid
+
+concept BaseConcept {
+  o String id
+}
+
+concept SubConcept extends BaseConcept identified by subId {
+  o String subId 
+}
+

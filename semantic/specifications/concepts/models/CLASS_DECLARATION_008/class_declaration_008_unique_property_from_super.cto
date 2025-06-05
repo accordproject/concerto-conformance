@@ -1,0 +1,10 @@
+namespace org.example.valid
+
+concept BaseConcept {
+  o String name
+}
+
+concept SubConcept extends BaseConcept {
+  o String description
+}
+
