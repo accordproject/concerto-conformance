@@ -1,6 +1,6 @@
-namespace org.example.valid.relationship001
+namespace org.example.valid.relationship003
 
-concept Person identified by id {
+concept Employee identified by id {
   o String id
   --> Department dept
 }

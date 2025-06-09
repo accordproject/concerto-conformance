@@ -1,0 +1,6 @@
+namespace org.example.valid.property003
+
+concept Device identified by serial {
+  o String serial
+  o String type
+}
