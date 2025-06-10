@@ -1,0 +1,10 @@
+namespace org.example.invalid
+
+concept SampleConcept {
+  o String name
+}
+
+concept SampleConcept {
+  o String description
+}
+

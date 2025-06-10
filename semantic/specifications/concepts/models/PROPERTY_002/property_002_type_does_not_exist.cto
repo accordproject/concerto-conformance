@@ -1,0 +1,6 @@
+namespace org.example.invalid.property002
+
+concept User identified by id {
+  o String id
+  o Profile profile 
+}

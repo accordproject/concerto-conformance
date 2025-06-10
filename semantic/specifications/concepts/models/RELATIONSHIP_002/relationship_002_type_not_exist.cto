@@ -1,0 +1,6 @@
+namespace org.example.invalid.relationship002
+
+concept Student identified by id {
+  o String id
+  --> School school
+}

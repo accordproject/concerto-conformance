@@ -1,0 +1,7 @@
+namespace org.example.valid
+
+concept Entity identified by id {
+  o String id
+  o String name
+}
+

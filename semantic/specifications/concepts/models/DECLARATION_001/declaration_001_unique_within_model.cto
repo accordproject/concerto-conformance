@@ -1,0 +1,7 @@
+namespace org.example.valid.declaration001
+
+concept User identified by id {
+  o String id
+  o String name
+  o Integer age
+}

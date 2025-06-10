@@ -1,0 +1,6 @@
+namespace org.example.invalid.relationship001
+
+concept Person identified by id {
+  o String id
+  --> String managerId
+}

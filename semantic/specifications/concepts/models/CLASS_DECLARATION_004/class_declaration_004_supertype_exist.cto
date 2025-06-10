@@ -1,0 +1,10 @@
+namespace org.example.valid
+
+concept BaseConcept {
+  o String baseProperty
+}
+
+concept DerivedConcept extends BaseConcept {
+  o String detail
+}
+

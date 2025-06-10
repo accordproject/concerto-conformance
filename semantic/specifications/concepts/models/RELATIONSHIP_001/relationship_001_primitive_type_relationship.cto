@@ -1,0 +1,10 @@
+namespace org.example.valid.relationship001
+
+concept Person identified by id {
+  o String id
+  --> Department dept
+}
+
+concept Department identified by code {
+  o String code
+}

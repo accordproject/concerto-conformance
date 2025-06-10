@@ -4,9 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No tests defined. Skipping...\" && exit 0"
+    "test": "npx vitest semantic/specifications/concepts/tests/concepts.test.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@accordproject/concerto-core": "^3.21.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "vitest": "^3.2.2"
+  }
 }
