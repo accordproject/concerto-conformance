@@ -1,0 +1,13 @@
+namespace org.example.enums.invalid
+
+enum Status {
+  o ACTIVE
+  o INACTIVE
+}
+
+enum Status {
+  o ENABLED
+  o DISABLED
+}
+
+

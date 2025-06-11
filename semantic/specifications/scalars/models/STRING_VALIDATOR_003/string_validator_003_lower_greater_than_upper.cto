@@ -1,0 +1,5 @@
+namespace org.invalid.strings
+
+concept SwappedBounds {
+  o String field length=[10, 5]
+}

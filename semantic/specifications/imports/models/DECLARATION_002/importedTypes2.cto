@@ -1,0 +1,5 @@
+namespace org.other.types
+
+enum OtherType {
+  o VALUE
+}

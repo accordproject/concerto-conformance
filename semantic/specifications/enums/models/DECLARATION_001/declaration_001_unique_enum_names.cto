@@ -1,0 +1,12 @@
+namespace org.example.enums.valid
+
+enum Status {
+  o ACTIVE
+  o INACTIVE
+}
+
+enum Priority {
+  o HIGH
+  o MEDIUM
+  o LOW
+}

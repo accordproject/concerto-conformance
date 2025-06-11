@@ -1,0 +1,7 @@
+namespace org.example.test
+
+import org.external.types.Type
+
+concept TestConcept {
+  o Type t
+}

@@ -1,0 +1,7 @@
+namespace org.example.unique
+
+import org.external.types.Type
+
+enum LocalType {
+  o SOMETHING
+}

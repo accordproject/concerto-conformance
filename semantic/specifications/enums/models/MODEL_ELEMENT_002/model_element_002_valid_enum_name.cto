@@ -1,0 +1,6 @@
+namespace org.example.valid
+
+enum Status {
+  o PENDING
+  o APPROVED
+}

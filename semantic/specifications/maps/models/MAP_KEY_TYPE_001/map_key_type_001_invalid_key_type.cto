@@ -1,0 +1,6 @@
+namespace org.example.invalid
+
+map InvalidMap {
+  o Double
+  o String
+}

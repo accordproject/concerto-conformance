@@ -1,0 +1,6 @@
+namespace org.example.invalid
+
+map MyMap {
+  o String
+  o UnknownType
+}
