@@ -1,0 +1,8 @@
+namespace org.example.valid
+
+import org.external.imported.ConflictEnum
+
+enum LocalEnum {
+  o VALUE1
+  o VALUE2
+}

@@ -1,0 +1,5 @@
+namespace org.valid.strings
+
+concept Email {
+  o String email regex=/^.+@.+\..+$/
+}

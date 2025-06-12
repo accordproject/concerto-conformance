@@ -1,0 +1,5 @@
+namespace org.valid.numbers
+
+concept ValidNumber {
+  o Double value range=[0.0, 100.0]
+}

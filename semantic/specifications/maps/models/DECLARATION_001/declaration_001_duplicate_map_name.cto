@@ -1,0 +1,11 @@
+namespace org.example.invalid
+
+map MyDuplicateMap {
+  o String
+  o String
+}
+
+map MyDuplicateMap {
+  o String
+  o String
+}

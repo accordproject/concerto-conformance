@@ -1,0 +1,6 @@
+namespace org.example.invalid
+
+enum 123InvalidName {
+  o OK
+  o FAIL
+}

@@ -1,0 +1,10 @@
+namespace org.example.valid
+
+concept ValueType {
+  o String GOOD
+}
+
+map MyMap {
+  o String
+  o ValueType
+}

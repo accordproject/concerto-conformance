@@ -1,0 +1,7 @@
+namespace org.example.conflict
+
+import org.external.types.Type
+
+enum Type {
+  o OTHER
+}

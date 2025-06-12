@@ -1,0 +1,5 @@
+namespace org.invalid.numbers
+
+concept InvalidRange {
+  o Double value range=[10.0, 5.0]
+}

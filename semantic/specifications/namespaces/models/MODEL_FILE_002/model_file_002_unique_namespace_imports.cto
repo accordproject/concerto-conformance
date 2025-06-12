@@ -1,0 +1,7 @@
+namespace org.using.imports
+
+import org.external.types.ImportedType
+
+concept LocalType {
+  o String VALUE
+}

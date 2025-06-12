@@ -1,0 +1,5 @@
+namespace org.external.imported
+
+enum ConflictEnum {
+  o GOOD
+}

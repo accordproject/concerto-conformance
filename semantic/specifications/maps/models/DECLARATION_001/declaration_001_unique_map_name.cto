@@ -1,0 +1,11 @@
+namespace org.example.valid
+
+map MyUniqueMap {
+  o String
+  o String
+}
+
+map AnotherMap {
+  o String
+  o String
+}

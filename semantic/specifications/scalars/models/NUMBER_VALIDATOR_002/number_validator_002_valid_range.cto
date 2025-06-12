@@ -1,0 +1,5 @@
+namespace org.valid.numbers
+
+concept BoundedInteger {
+  o Integer score range=[1, 10]
+}

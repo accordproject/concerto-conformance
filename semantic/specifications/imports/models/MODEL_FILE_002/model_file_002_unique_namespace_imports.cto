@@ -1,0 +1,8 @@
+namespace org.example.uniques
+
+import org.external.types.Type
+import org.other.types.OtherType
+
+enum MyEnum {
+  o OK
+}

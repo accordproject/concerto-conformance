@@ -1,0 +1,5 @@
+namespace org.invalid.strings
+
+concept NegativeLength {
+  o String message length=[-1, 5]
+}

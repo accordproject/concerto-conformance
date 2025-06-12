@@ -1,0 +1,5 @@
+namespace org.valid.strings
+
+concept Code {
+  o String code length=[1, 10]
+}

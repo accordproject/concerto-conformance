@@ -1,0 +1,7 @@
+namespace org.example.invalid
+
+import org.ghost.types.Nonexistent
+
+concept Example {
+  o Nonexistent something
+}

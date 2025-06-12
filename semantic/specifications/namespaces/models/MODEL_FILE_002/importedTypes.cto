@@ -1,0 +1,5 @@
+namespace org.external.types
+
+concept ImportedType {
+  o String id
+}

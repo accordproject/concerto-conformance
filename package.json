@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx vitest semantic/specifications/concepts/tests/concepts.test.js"
+    "test": "npx vitest semantic/specifications/"
   },
   "keywords": [],
   "author": "",
