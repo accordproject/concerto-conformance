@@ -24,6 +24,5 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Unit Tests
-        run: npm test
-
+      - name: Run Cucumber BDD Tests
+        run: npm run bdd
