@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "npx vitest semantic/specifications/"
+    "test": "npx vitest semantic/specifications/",
+    "bdd": "cucumber-js --loader ts-node/esm --import semantic/features/support/**/*.ts semantic/features"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,11 @@
     "@accordproject/concerto-core": "^3.21.0",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.1"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
