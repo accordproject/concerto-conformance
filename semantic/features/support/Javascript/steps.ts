@@ -1,12 +1,17 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { loadCTO } from './utils/loadCTO.ts';
+import { Parser } from '@accordproject/concerto-cto';
+import { ModelFile } from '@accordproject/concerto-core';
 import assert from 'assert';
 
 Given('I load the following models:', function (dataTable) {
   for (const row of dataTable.hashes()) {
     const modelContent = loadCTO(row.model_file);
     try {
-      this.modelManager.addCTOModel(modelContent, row.model_file, true);
+      // this.modelManager.addCTOModel(modelContent, row.model_file, true);
+      const ast = Parser.parse(modelContent, row.model_file);
+      const modelFile = new ModelFile(this.modelManager, ast, modelContent, row.model_file);
+      this.modelManager.addModelFile(modelFile, null, modelFile.getName(), true);
     } catch (err) {
       this.error = err as Error;
       break;

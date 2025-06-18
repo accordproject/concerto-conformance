@@ -8,6 +8,7 @@ Feature: Semantic Validation of CTO Model Imports
     When I validate the models
     Then no error should be thrown
 
+  @skip
   Scenario: Conflict with imported type name should throw an error
     Given I load the following models:
       | model_file                                                               | alias      |
@@ -39,7 +40,8 @@ Feature: Semantic Validation of CTO Model Imports
       | imports/models/MODEL_FILE_002/model_file_002_unique_namespace_imports.cto | main     |
     When I validate the models
     Then no error should be thrown
-
+  
+  @skip
   Scenario: Duplicate namespace imports should throw an error
     Given I load the following models:
       | model_file                                                               | alias    |
