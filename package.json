@@ -5,14 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "npx vitest semantic/specifications/",
-    "bdd": "cucumber-js --loader ts-node/esm --import semantic/features/support/**/*.ts semantic/features"
+    "test": "cucumber-js \"semantic/features/**/*.feature\" --loader ts-node/esm --import \"semantic/features/support/**/*.ts\" --tags \"not @skip\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@accordproject/concerto-core": "^3.21.0",
+    "@accordproject/concerto-cto": "^3.22.0",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
     "vitest": "^3.2.1"

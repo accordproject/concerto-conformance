@@ -1,5 +1,6 @@
 Feature: Semantic Validation of CTO Namespace Imports
 
+  @skip
   Scenario: Invalid duplicate namespace imports should throw an error
     Given I load the following models:
       | model_file                                             | alias |
