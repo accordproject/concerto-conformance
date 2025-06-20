@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "cucumber-js \"semantic/features/**/*.feature\" --loader ts-node/esm --import \"semantic/features/support/**/*.ts\" --tags \"not @skip\""
+    "test": "cucumber-js \"semantic/features/**/*.feature\" --loader ts-node/esm --import \"semantic/features/support/**/*.ts\" --tags \"not @skip\"",
+    "test:csharp": "dotnet test semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj"
   },
   "keywords": [],
   "author": "",
