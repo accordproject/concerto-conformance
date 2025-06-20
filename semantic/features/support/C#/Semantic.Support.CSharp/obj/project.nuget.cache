@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "H/C/IckNVec=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Asus\\OneDrive\\Desktop\\concerto-conformance-official\\concerto-conformance\\semantic\\features\\support\\C#\\Semantic.Support.CSharp\\Semantic.Support.CSharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\cucumber.cucumberexpressions\\17.1.0\\cucumber.cucumberexpressions.17.1.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\fluentassertions\\6.9.0\\fluentassertions.6.9.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\gherkin\\30.0.0\\gherkin.30.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.extensions.dependencymodel\\8.0.2\\microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\nunit\\3.13.1\\nunit.3.13.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\reqnroll\\2.4.1\\reqnroll.2.4.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\reqnroll.nunit\\2.4.1\\reqnroll.nunit.2.4.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\reqnroll.tools.msbuild.generation\\2.4.1\\reqnroll.tools.msbuild.generation.2.4.1.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.0\\system.configuration.configurationmanager.4.4.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.4.0\\system.security.cryptography.protecteddata.4.4.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\system.text.json\\8.0.5\\system.text.json.8.0.5.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\Asus\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
+  ],
+  "logs": []
+}

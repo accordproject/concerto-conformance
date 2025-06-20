@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <GenerateSpecFlowAssemblyHooks>true</GenerateSpecFlowAssemblyHooks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.9.0" />
+    <PackageReference Include="Reqnroll" Version="2.4.1" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.4.1" />
+    <PackageReference Include="Reqnroll.Tools.MsBuild.Generation" Version="2.4.1" />
+  </ItemGroup>
+
+</Project>

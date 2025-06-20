@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)system.text.json\8.0.5\buildTransitive\net6.0\System.Text.Json.targets" Condition="Exists('$(NuGetPackageRoot)system.text.json\8.0.5\buildTransitive\net6.0\System.Text.Json.targets')" />
+    <Import Project="$(NuGetPackageRoot)reqnroll\2.4.1\build\Reqnroll.targets" Condition="Exists('$(NuGetPackageRoot)reqnroll\2.4.1\build\Reqnroll.targets')" />
+    <Import Project="$(NuGetPackageRoot)reqnroll.tools.msbuild.generation\2.4.1\build\Reqnroll.Tools.MsBuild.Generation.targets" Condition="Exists('$(NuGetPackageRoot)reqnroll.tools.msbuild.generation\2.4.1\build\Reqnroll.Tools.MsBuild.Generation.targets')" />
+    <Import Project="$(NuGetPackageRoot)netstandard.library\2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('$(NuGetPackageRoot)netstandard.library\2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
+    <Import Project="$(NuGetPackageRoot)reqnroll.nunit\2.4.1\build\Reqnroll.NUnit.targets" Condition="Exists('$(NuGetPackageRoot)reqnroll.nunit\2.4.1\build\Reqnroll.NUnit.targets')" />
+  </ImportGroup>
+</Project>
