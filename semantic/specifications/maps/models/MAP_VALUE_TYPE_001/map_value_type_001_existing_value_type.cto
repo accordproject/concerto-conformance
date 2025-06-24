@@ -1,4 +1,4 @@
-namespace org.example.valid
+namespace org.concerto.maps.valid.value001@1.0.0
 
 concept ValueType {
   o String GOOD

@@ -1,4 +1,4 @@
-namespace org.valid.numbers
+namespace org.concerto.scalars.valid.num002@1.0.0
 
 concept BoundedInteger {
   o Integer score range=[1, 10]

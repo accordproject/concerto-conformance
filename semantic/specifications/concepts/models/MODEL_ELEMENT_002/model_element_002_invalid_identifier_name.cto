@@ -1,4 +1,4 @@
-namespace org.example.invalid.modelelement002
+namespace org.example.modelelement002.invalid@1.0.0
 
 concept Invalid-Name {
   o String something 

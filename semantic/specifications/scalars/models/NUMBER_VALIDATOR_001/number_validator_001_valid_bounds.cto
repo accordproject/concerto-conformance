@@ -1,4 +1,4 @@
-namespace org.valid.numbers
+namespace org.concerto.scalars.valid.num001@1.0.0
 
 concept ValidNumber {
   o Double value range=[0.0, 100.0]

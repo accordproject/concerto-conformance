@@ -1,4 +1,4 @@
-namespace org.example.invalid
+namespace org.concerto.concepts.cd008.invalid@1.0.0
 
 concept BaseConcept {
   o String name

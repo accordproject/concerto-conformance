@@ -1,4 +1,4 @@
-namespace org.example.enums.valid
+namespace org.example.enums.declaration001.invalid@1.0.0
 
 enum Status {
   o ACTIVE

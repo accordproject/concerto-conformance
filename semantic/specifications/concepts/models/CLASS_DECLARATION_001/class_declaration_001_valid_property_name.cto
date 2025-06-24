@@ -1,4 +1,4 @@
-namespace org.example.valid
+namespace org.concerto.concepts.cd001.valid@1.0.0
 
 concept SampleConcept {
   o String name

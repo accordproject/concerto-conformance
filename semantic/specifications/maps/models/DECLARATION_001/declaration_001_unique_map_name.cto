@@ -1,4 +1,4 @@
-namespace org.example.valid
+namespace org.concerto.maps.valid.name001@1.0.0
 
 map MyUniqueMap {
   o String

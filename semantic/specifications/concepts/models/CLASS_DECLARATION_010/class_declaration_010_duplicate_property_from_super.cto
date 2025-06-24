@@ -1,0 +1,9 @@
+namespace org.inherited.duplicate
+
+concept Parent {
+  o String name
+}
+
+concept Child extends Parent {
+  o String name
+}

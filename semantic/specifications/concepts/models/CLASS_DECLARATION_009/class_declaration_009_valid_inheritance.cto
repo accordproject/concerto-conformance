@@ -1,0 +1,13 @@
+namespace org.valid.circular
+
+concept A {
+  o String name
+}
+
+concept B extends A {
+  o String description
+}
+
+concept C extends B {
+  o String detail
+}

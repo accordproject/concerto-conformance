@@ -114,6 +114,34 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
+  Scenario: Unique property names across inheritance
+    Given I load the following models:
+      | model_file                                                                 | alias       |
+      | concepts/models/CLASS_DECLARATION_009/class_declaration_009_circular_inheritance.cto | main        |
+    When I validate the models
+    Then an error should be thrown with message "Maximum call stack size exceeded"
+
+  Scenario: Unique property names across inheritance
+    Given I load the following models:
+      | model_file                                                                 | alias       |
+      | concepts/models/CLASS_DECLARATION_009/class_declaration_009_valid_inheritance.cto | main        |
+    When I validate the models
+    Then no error should be thrown
+
+  Scenario: Unique property names across inheritance
+    Given I load the following models:
+      | model_file                                                                 | alias       |
+      | concepts/models/CLASS_DECLARATION_010/class_declaration_010_duplicate_property_from_super.cto | main        |
+    When I validate the models
+    Then an error should be thrown with message "has more than one field"
+
+  Scenario: Unique property names across inheritance
+    Given I load the following models:
+      | model_file                                                                 | alias       |
+      | concepts/models/CLASS_DECLARATION_010/class_declaration_010_unique_property_from_super.cto | main        |
+    When I validate the models
+    Then no error should be thrown
+
   Scenario: Duplicate declarations should throw
     Given I load the following models:
       | model_file                                                                                          | alias |

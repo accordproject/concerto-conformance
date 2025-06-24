@@ -1,4 +1,4 @@
-namespace org.example.invalid.relationship003
+namespace org.example.relationship003.invalid@1.0.0
 
 concept Employee identified by id {
   o String id

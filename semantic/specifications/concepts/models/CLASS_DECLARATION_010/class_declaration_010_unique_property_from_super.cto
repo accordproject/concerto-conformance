@@ -1,0 +1,9 @@
+namespace org.inherited.valid
+
+concept Parent {
+  o String name
+}
+
+concept Child extends Parent {
+  o String description
+}

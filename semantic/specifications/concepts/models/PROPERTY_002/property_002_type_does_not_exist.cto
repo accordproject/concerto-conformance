@@ -1,4 +1,4 @@
-namespace org.example.invalid.property002
+namespace org.example.property002.invalid@1.0.0
 
 concept User identified by id {
   o String id
