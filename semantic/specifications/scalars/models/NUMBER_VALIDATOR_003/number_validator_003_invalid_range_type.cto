@@ -1,0 +1,5 @@
+namespace org.concerto.scalars.valid.num003@1.0.0
+
+concept InvalidInteger {
+  o Integer value range=[0.5, 100]
+}

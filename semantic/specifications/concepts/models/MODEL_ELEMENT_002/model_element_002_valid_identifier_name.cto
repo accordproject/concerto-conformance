@@ -1,4 +1,4 @@
-namespace org.example.valid.modelelement002
+namespace org.example.modelelement002.valid@1.0.0
 
 concept ValidName {
   o String something

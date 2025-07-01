@@ -1,0 +1,7 @@
+namespace org.concerto.namespaces.invalid.element004@1.0.0
+
+import org.concerto.namespaces.invalid.element004.LocalType
+
+concept LocalType {
+  o String VALUE
+}

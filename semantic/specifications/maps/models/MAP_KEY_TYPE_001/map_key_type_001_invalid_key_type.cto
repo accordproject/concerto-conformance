@@ -1,4 +1,4 @@
-namespace org.example.invalid
+namespace org.concerto.maps.valid.key001@1.0.0
 
 map InvalidMap {
   o Double

@@ -1,4 +1,4 @@
-namespace org.example.invalid
+namespace org.concerto.concepts.cd002.invalid@1.0.0
 
 concept SampleConcept {
   o Integer $class  

@@ -1,4 +1,4 @@
-namespace org.invalid.strings
+namespace org.concerto.scalars.invalid.str001@1.0.0
 
 concept EmptyLength {
   o String data length=[]

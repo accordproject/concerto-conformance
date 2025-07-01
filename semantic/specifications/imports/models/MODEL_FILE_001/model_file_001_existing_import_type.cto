@@ -1,6 +1,6 @@
-namespace org.example.test
+namespace org.concerto.imports.modelfile001.valid@1.0.0
 
-import org.external.types.Type
+import org.concerto.imports.external.types@1.0.0.Type
 
 concept TestConcept {
   o Type t

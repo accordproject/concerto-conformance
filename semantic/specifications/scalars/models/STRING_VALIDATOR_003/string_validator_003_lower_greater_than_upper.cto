@@ -1,4 +1,4 @@
-namespace org.invalid.strings
+namespace org.concerto.scalars.invalid.str003@1.0.0
 
 concept SwappedBounds {
   o String field length=[10, 5]

@@ -24,6 +24,19 @@ Feature: Semantic Validation of CTO Scalars specification
       |  scalars/models/NUMBER_VALIDATOR_002/number_validator_002_lower_greater_than_upper.cto          |main|
     Then an error should be thrown with message "/Lower bound must be less than or equal to upper bound/"
 
+  
+  Scenario: Invalid floating point range on Integer property should throw an error
+    Given I load the following models:
+      | model_file                                                                 | alias |
+      | scalars/models/NUMBER_VALIDATOR_003/number_validator_003_invalid_range_type.cto | main  |
+    Then an error should be thrown with message 'Expected ","'
+
+  Scenario: Valid integer range on Integer property should pass validation
+    Given I load the following models:
+      | model_file                                                                 | alias |
+      | scalars/models/NUMBER_VALIDATOR_003/number_validator_003_valid_range_type.cto   | main  |
+    Then no error should be thrown
+
   Scenario: should pass for valid string length bounds
     Given I load the following models:
       |  model_file                     |alias|

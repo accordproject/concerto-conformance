@@ -1,4 +1,4 @@
-namespace org.example.valid.property003
+namespace org.example.property003.valid@1.0.0
 
 concept Device identified by serial {
   o String serial

@@ -1,4 +1,4 @@
-namespace org.using.imports
+namespace org.concerto.namespaces.invalid.element001@1.0.0
 
 import org.external.types.ImportedType
 import org.external.types.ImportedType

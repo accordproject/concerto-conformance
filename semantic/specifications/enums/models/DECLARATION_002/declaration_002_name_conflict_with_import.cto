@@ -1,4 +1,4 @@
-namespace org.example.invalid
+namespace org.example.enums.declaration002.invalid@1.0.0
 
 import org.external.imported.ConflictEnum
 

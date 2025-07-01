@@ -1,4 +1,4 @@
-namespace org.example.valid
+namespace org.concerto.concepts.cd004.valid@1.0.0
 
 concept BaseConcept {
   o String baseProperty

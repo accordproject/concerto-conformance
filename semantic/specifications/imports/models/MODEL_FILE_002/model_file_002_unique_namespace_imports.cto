@@ -1,7 +1,7 @@
-namespace org.example.uniques
+org.concerto.imports.modelfile002.valid@1.0.0
 
-import org.external.types.Type
-import org.other.types.OtherType
+import org.concerto.imports.external.types@1.0.0.Type
+import org.concerto.imports.other.types@1.0.0.OtherType
 
 enum MyEnum {
   o OK

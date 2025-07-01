@@ -1,4 +1,4 @@
-namespace org.example.invalid
+namespace org.concerto.concepts.cd006.invalid@1.0.0
 
 concept Product identified by productId {
   o String productId optional 

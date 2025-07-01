@@ -1,10 +1,10 @@
-namespace org.example.invalid
+namespace org.concerto.concepts.cd003.invalid@1.0.0
 
-concept SampleConcept {
+concept SampleConceptA {
   o String name
 }
 
-concept SampleConcept {
+concept SampleConceptA {
   o String description
 }
 

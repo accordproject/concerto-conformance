@@ -19,6 +19,7 @@ Given('I load the following models:', function (dataTable) {
   }
 });
 
+
 When('I validate the models', function () {
   try {
     this.modelManager.validateModelFiles();

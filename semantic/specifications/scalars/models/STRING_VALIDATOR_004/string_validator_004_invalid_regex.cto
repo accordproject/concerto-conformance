@@ -1,4 +1,4 @@
-namespace org.invalid.strings
+namespace org.concerto.scalars.invalid.str004@1.0.0
 
 concept BadRegex {
   o String value regex=/*invalid/

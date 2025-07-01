@@ -1,4 +1,4 @@
-namespace org.invalid.strings
+namespace org.concerto.scalars.invalid.str002@1.0.0
 
 concept NegativeLength {
   o String message length=[-1, 5]

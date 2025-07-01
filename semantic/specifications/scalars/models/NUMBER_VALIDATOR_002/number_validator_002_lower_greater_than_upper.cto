@@ -1,4 +1,4 @@
-namespace org.invalid.numbers
+namespace org.concerto.scalars.invalid.num002@1.0.0
 
 concept InvalidRange {
   o Double value range=[10.0, 5.0]

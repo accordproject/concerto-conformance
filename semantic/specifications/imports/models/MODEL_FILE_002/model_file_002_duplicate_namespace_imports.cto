@@ -1,7 +1,7 @@
-namespace org.example.bad
+org.concerto.imports.modelfile002.invalid@1.0.0
 
-import org.external.types.Type
-import org.external.types.AnotherType
+import org.concerto.imports.external.types@1.0.0.Type
+import org.concerto.imports.external.types@1.0.0.AnotherType
 
 enum Thing {
   o ISSUE

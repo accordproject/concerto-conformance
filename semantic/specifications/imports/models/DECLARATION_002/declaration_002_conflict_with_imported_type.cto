@@ -1,6 +1,6 @@
-namespace org.example.conflict
+namespace org.concerto.imports.declaration002.invalid@1.0.0
 
-import org.external.types.Type
+import org.concerto.imports.external.types@1.0.0.Type
 
 enum Type {
   o OTHER
