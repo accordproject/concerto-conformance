@@ -1,4 +1,4 @@
-import { ModelManager } from '@accordproject/concerto-core';
+{{MODELMANAGER_IMPORT}}
 
 import { setWorldConstructor, IWorldOptions } from '@cucumber/cucumber';
 
