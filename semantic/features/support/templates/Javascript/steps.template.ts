@@ -4,7 +4,7 @@ import { loadCTO } from './utils/loadCTO.ts';
 {{MODELFILE_IMPORT}}
 import assert from 'assert';
 
-Given('I load the following models using the follwoing model files:', function (dataTable) {
+Given('I load the following models:', function (dataTable) {
   for (const row of dataTable.hashes()) {
     const modelContent = loadCTO(row.model_file);
     try {
