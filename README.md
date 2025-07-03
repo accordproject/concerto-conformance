@@ -6,7 +6,7 @@ This repository includes:
 1. A curated set of semantic validation rules
 2. Comprehensive valid and invalid model examples
 3. Tests written using Cucumber, offering behavior-driven, human-readable test definitions
-4. Support for both JavaScript and C# environments
+4. Support for both JavaScript and C# runtimes
 The suite specifically tests core components of the Concerto ecosystem:
 1. The Parser from `@accordproject/concerto-cto`
 2. The ModelFile and ModelManager from `@accordproject/concerto-core`
