@@ -1,16 +1,16 @@
 # Concerto Conformance Test Suite
+
 ## Desription
 The Concerto Conformance Test Suite provides a standardized, automated testing suite to validate models and semantic behavior across Accord Project's Concerto implementation.
 
 ## Overview
 This repository includes:
-1. A curated set of semantic validation rules
+1. A set of semantic validation rules
 2. Comprehensive valid and invalid model examples
 3. Tests written using Cucumber, offering behavior-driven, human-readable test definitions
 4. Support for both JavaScript and C# runtimes
-The suite specifically tests core components of the Concerto ecosystem:
-1. The Parser from `@accordproject/concerto-cto`
-2. The `ModelFile` and `ModelManager` classes from `@accordproject/concerto-core`
+The suite specifically tests core components of the Concerto ecosystem: the `ModelFile` and `ModelManager` classes from `@accordproject/concerto-core`
+
 ## Getting started
 1. Install dependencies:
     `npm install`
@@ -18,14 +18,12 @@ The suite specifically tests core components of the Concerto ecosystem:
     `npm test`
 3. Run tests for C#:
     `npm run test:csharp`
+
 ## Interactive CLI:
 You can also use the built-in CLI for a guided setup:
     `npm start`   
-The CLI allows you to:   
-1. Provide custom ModelManager, Parser, or ModelFile sources for testing
-2. Choose between JavaScript or C# environments
-3. Automatically generate test files with proper imports
-4. Run the relevant conformance tests seamlessly
+The CLI allows you to provide custom ModelManager, Parser, or ModelFile sources for testing.
+
 ## Future Roadmap
 Enabling straightforward integration with CI/CD pipelines, so projects like Concerto itself can:   
 1. Automatically run conformance tests on every push
