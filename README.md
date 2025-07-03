@@ -9,7 +9,7 @@ This repository includes:
 4. Support for both JavaScript and C# runtimes
 The suite specifically tests core components of the Concerto ecosystem:
 1. The Parser from `@accordproject/concerto-cto`
-2. The ModelFile and ModelManager from `@accordproject/concerto-core`
+2. The `ModelFile` and `ModelManager` classes from `@accordproject/concerto-core`
 ## Getting started
 1. Install dependencies:
     `npm install`
