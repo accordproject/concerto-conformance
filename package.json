@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "cucumber-js \"semantic/features/**/*.feature\" --loader ts-node/esm --import \"semantic/features/support/**/*.ts\" --tags \"not @skip\"",
-    "test:csharp": "dotnet test semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj"
+    "test": "cucumber-js \"semantic/features/**/*.feature\" --loader ts-node/esm --import \"semantic/features/support/Javascript/*.ts\" --tags \"not @skip\"",
+    "test:csharp": "dotnet test semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj",
+    "start": "node cli.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +15,9 @@
   "dependencies": {
     "@accordproject/concerto-core": "^3.21.0",
     "@accordproject/concerto-cto": "^3.22.0",
+    "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
+    "inquirer": "^12.6.3",
     "path": "^0.12.7",
     "vitest": "^3.2.1"
   },

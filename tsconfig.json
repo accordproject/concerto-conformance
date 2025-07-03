@@ -12,6 +12,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["semantic/features/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules","semantic/features/support/Javascript/**/*.template.ts"],
+  "include": ["semantic/features/support/Javascript/*.ts", "semantic/features/support/templates/Javascript/world.template.ts", "semantic/features/support/templates/Javascript/steps.template.ts"]
 }

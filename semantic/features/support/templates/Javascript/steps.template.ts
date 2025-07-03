@@ -1,7 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { loadCTO } from './utils/loadCTO.ts';
-import { Parser } from '@accordproject/concerto-cto';
-import { ModelFile } from '@accordproject/concerto-core';
+{{PARSER_IMPORT}}
+{{MODELFILE_IMPORT}}
 import assert from 'assert';
 
 Given('I load the following models:', function (dataTable) {
