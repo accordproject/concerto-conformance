@@ -1,8 +1,17 @@
-import { Given, When, Then } from '@cucumber/cucumber';
+import { Given, When, Then, Before } from '@cucumber/cucumber';
 import { loadCTO } from './utils/loadCTO.ts';
-import { Parser } from '@accordproject/concerto-cto';
-import { ModelFile } from '@accordproject/concerto-core';
+import { loadDependencies } from './utils/dynamicLoader.ts';
 import assert from 'assert';
+
+let Parser: any;
+let ModelFile: any;
+
+Before(async function () {
+  await this.initialize();
+  const deps = await loadDependencies();
+  Parser = deps.Parser;
+  ModelFile = deps.ModelFile;
+});
 
 Given('I load the following models:', function (dataTable) {
   for (const row of dataTable.hashes()) {
