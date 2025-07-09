@@ -16,6 +16,7 @@
     "@accordproject/concerto-core": "^3.21.0",
     "@accordproject/concerto-cto": "^3.22.0",
     "child_process": "^1.0.2",
+    "dotenv": "^17.0.1",
     "fs": "^0.0.1-security",
     "inquirer": "^12.6.3",
     "path": "^0.12.7",
