@@ -1,0 +1,5 @@
+{
+  "$class": "org.acme@1.0.0.Person",
+  "name": "Alice",
+  "age": 30
+}

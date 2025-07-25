@@ -1,0 +1,7 @@
+namespace org.acme@1.0.0
+
+concept Person {
+  o String name
+  o Integer age
+  o InvalidType test
+}
