@@ -1,4 +1,4 @@
-namespace org.external.imported
+namespace org.external.imported@1.0.0
 
 enum ConflictEnum {
   o GOOD

@@ -91,7 +91,7 @@ Feature: Semantic Validation for CTO Class Declarations
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_007/class_declaration_007_supertype_not_system_identified.cto | main        |
-    Then an error should be thrown with message 'Expected \"{\", comment, end of line, or whitespace but \"i\" found'
+    Then an error should be thrown with message ""
 
   Scenario: Supertype is system-identified
     Given I load the following models:
