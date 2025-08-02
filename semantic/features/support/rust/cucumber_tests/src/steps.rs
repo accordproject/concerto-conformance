@@ -156,7 +156,7 @@ fn load_ast_from_cto_path(cto_path: &str) -> Result<Value, String> {
         .ok_or("Non-UTF8 filename")?;
 
     // Construct the full path to the .cto file by joining with "semantic/specifications"
-    let full_cto_path = Path::new("../../../../../specifications").join(cto_path);
+    let full_cto_path = Path::new("concerto-conformance/semantic/specifications").join(cto_path);
 
     // Get the directory of the .cto file
     let dir = full_cto_path
