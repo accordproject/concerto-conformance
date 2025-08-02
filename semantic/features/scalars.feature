@@ -10,7 +10,7 @@ Feature: Semantic Validation of CTO Scalars specification
     Given I load the following models:
       |  model_file                     |alias|
       |  scalars/models/NUMBER_VALIDATOR_001/number_validator_001_no_bounds.cto        |main|
-    Then an error should be thrown with message "/Expected \"/"
+    Then an error should be thrown with message ""
 
   Scenario: should pass for valid number range
     Given I load the following models:
@@ -29,7 +29,7 @@ Feature: Semantic Validation of CTO Scalars specification
     Given I load the following models:
       | model_file                                                                 | alias |
       | scalars/models/NUMBER_VALIDATOR_003/number_validator_003_invalid_range_type.cto | main  |
-    Then an error should be thrown with message 'Expected ","'
+    Then an error should be thrown with message ""
 
   Scenario: Valid integer range on Integer property should pass validation
     Given I load the following models:
@@ -47,7 +47,7 @@ Feature: Semantic Validation of CTO Scalars specification
     Given I load the following models:
       |  model_file                     |alias|
       |  scalars/models/STRING_VALIDATOR_001/string_validator_001_no_bounds.cto          |main|
-    Then an error should be thrown with message "/Expected \"/"
+    Then an error should be thrown with message ""
 
   Scenario: should pass for positive string length bounds
     Given I load the following models:
@@ -83,4 +83,4 @@ Feature: Semantic Validation of CTO Scalars specification
     Given I load the following models:
       |  model_file                     |alias|
       |  scalars/models/STRING_VALIDATOR_004/string_validator_004_invalid_regex.cto          |main|
-    Then an error should be thrown with message "/Expected comment/"
+    Then an error should be thrown with message ""

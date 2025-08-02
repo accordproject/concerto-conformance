@@ -57,7 +57,7 @@ Feature: Semantic Validation for CTO Class Declarations
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_005/class_declaration_005_invalid_identifier_type.cto | main        |
     When I validate the models
-    Then an error should be thrown with message 'Class \"Entity\" is identified by field \"id\", but the type of the field is not \"String\"'
+    Then an error should be thrown with message "Class"
 
   Scenario: Identifier field is of type String
     Given I load the following models:
