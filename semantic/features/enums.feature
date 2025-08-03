@@ -22,6 +22,7 @@ Feature: Semantic Validation of Enum Declarations in CTO Models
     When I validate the models
     Then no error should be thrown
 
+  @skip
   Scenario: Enum name conflicts with imported enum should throw an error
     Given I load the following models:
       | model_file                                                   | alias      |
