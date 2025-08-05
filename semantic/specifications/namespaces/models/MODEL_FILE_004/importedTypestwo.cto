@@ -1,4 +1,4 @@
-namespace org.external.types@1.0.0
+namespace org.external.typestwo@1.0.0
 
 concept ImportedType {
   o String id

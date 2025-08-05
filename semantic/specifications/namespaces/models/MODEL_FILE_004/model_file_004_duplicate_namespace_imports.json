@@ -11,7 +11,7 @@
     {
       "$class": "concerto.metamodel@1.0.0.ImportType",
       "name": "ImportedType",
-      "namespace": "org.external.types@1.0.0"
+      "namespace": "org.external.typestwo@1.0.0"
     }
   ],
   "declarations": [
@@ -28,13 +28,13 @@
           "location": {
             "$class": "concerto.metamodel@1.0.0.Range",
             "start": {
-              "offset": 179,
+              "offset": 182,
               "line": 7,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
             },
             "end": {
-              "offset": 195,
+              "offset": 198,
               "line": 8,
               "column": 1,
               "$class": "concerto.metamodel@1.0.0.Position"
@@ -45,13 +45,13 @@
       "location": {
         "$class": "concerto.metamodel@1.0.0.Range",
         "start": {
-          "offset": 156,
+          "offset": 159,
           "line": 6,
           "column": 1,
           "$class": "concerto.metamodel@1.0.0.Position"
         },
         "end": {
-          "offset": 196,
+          "offset": 199,
           "line": 8,
           "column": 2,
           "$class": "concerto.metamodel@1.0.0.Position"

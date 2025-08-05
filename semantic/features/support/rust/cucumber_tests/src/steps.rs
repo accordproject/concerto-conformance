@@ -147,32 +147,17 @@ fn resolve_path(base: &str, relative: &str) -> PathBuf {
 
 
 
-fn load_ast_from_cto_path(cto_path: &str) -> Result<Value, String> {
-    // Get the base name of the .cto file (e.g., "my_model" from "my_model.cto")
-    let base_name = Path::new(cto_path)
-        .file_stem()
-        .ok_or("Invalid CTO path")?
-        .to_str()
-        .ok_or("Non-UTF8 filename")?;
-
+fn load_ast_from_cto_path(ast_path: &str) -> Result<Value, String> {
     // Construct the full path to the .cto file by joining with "semantic/specifications"
-    let full_cto_path = Path::new("concerto-conformance/semantic/specifications").join(cto_path);
-
-    // Get the directory of the .cto file
-    let dir = full_cto_path
-        .parent()
-        .ok_or("CTO file has no parent directory")?;
-
-    // Construct the AST path: same directory, with .json extension
-    let ast_path = dir.join(format!("{}.json", base_name));
+    let full_ast_path = Path::new("concerto-conformance/semantic/specifications").join(ast_path);
 
     // Check if file exists
-    if !ast_path.exists() {
-        return Err(format!("AST JSON not found at: {}", ast_path.display()));
+    if !full_ast_path.exists() {
+        return Err(format!("AST JSON not found at: {}", full_ast_path.display()));
     }
 
     // Read and parse the AST JSON
-    let ast_content = fs::read_to_string(&ast_path)
+    let ast_content = fs::read_to_string(&full_ast_path)
         .map_err(|e| format!("Failed to read AST JSON: {}", e))?;
 
     let json: Value = serde_json::from_str(&ast_content)

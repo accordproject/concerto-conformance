@@ -1,7 +1,7 @@
 namespace org.concerto.namespaces.invalid.element001@1.0.0
 
 import org.external.types@1.0.0.ImportedType
-import org.external.types@1.0.0.ImportedType
+import org.external.typestwo@1.0.0.ImportedType
 
 concept LocalType {
   o String VALUE

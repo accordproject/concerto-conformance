@@ -15,22 +15,20 @@ Before(async function () {
   ModelFile = deps.ModelFile;
 });
 
-function loadAST(ctoPath: string): any {
-  const baseName = path.basename(ctoPath, '.cto'); // get file name without .cto extension
-  const dirName = path.dirname(path.resolve('semantic/specifications', ctoPath)); // get directory of the .cto file
-  const astPath = path.join(dirName, `${baseName}.json`); // AST is in the same folder as .cto
-
-  if (!fs.existsSync(astPath)) {
+function loadAST(astPath: string): any {
+  const basePath = path.resolve('semantic/specifications/');
+  let currPath=astPath;
+  astPath = path.join(basePath, currPath);
+  if (!fs.existsSync(astPath) || !fs.statSync(astPath).isFile()) {
     throw new Error(`AST JSON not found at: ${astPath}`);
   }
-
   const astContent = fs.readFileSync(astPath, 'utf8');
   return JSON.parse(astContent);
 }
 
 Given('I load the following models:', function (dataTable) {
   for (const row of dataTable.hashes()) {
-    const modelContent = loadCTO(row.model_file);
+    const modelContent = undefined;
     try {
       const ast = loadAST(row.model_file);
       const modelFile = new ModelFile(this.modelManager, ast, modelContent, row.model_file);
