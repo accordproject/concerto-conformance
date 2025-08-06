@@ -1,6 +1,6 @@
-namespace org.concerto.imports.modelfile001.invalid@1.0.0
+namespace org.concerto.imports.modelfileone.invalid@1.0.0
 
-import org.ghost.types.Nonexistent
+import org.ghost.types@1.0.0.Nonexistent
 
 concept Example {
   o Nonexistent something

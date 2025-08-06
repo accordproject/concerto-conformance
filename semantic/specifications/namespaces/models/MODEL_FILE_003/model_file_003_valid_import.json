@@ -1,7 +1,7 @@
 {
   "$class": "concerto.metamodel@1.0.0.Model",
   "decorators": [],
-  "namespace": "org.concerto.namespaces.valid.element004@1.0.0",
+  "namespace": "org.concerto.namespaces.modelfilethree.invalid@1.0.0",
   "imports": [],
   "declarations": [
     {
@@ -17,13 +17,13 @@
           "location": {
             "$class": "concerto.metamodel@1.0.0.Range",
             "start": {
-              "offset": 83,
+              "offset": 89,
               "line": 4,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
             },
             "end": {
-              "offset": 99,
+              "offset": 105,
               "line": 5,
               "column": 1,
               "$class": "concerto.metamodel@1.0.0.Position"
@@ -34,13 +34,13 @@
       "location": {
         "$class": "concerto.metamodel@1.0.0.Range",
         "start": {
-          "offset": 60,
+          "offset": 66,
           "line": 3,
           "column": 1,
           "$class": "concerto.metamodel@1.0.0.Position"
         },
         "end": {
-          "offset": 100,
+          "offset": 106,
           "line": 5,
           "column": 2,
           "$class": "concerto.metamodel@1.0.0.Position"
