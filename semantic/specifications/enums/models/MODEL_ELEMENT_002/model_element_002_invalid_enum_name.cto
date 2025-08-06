@@ -1,4 +1,4 @@
-namespace org.example.enums.modelelement.002.invalid@1.0.0
+namespace org.example.enums.modelelement002.invalid@1.0.0
 
 enum 123InvalidName {
   o OK

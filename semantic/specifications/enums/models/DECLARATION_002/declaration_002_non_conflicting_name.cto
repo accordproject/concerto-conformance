@@ -1,6 +1,6 @@
 namespace org.example.enums.declaration002.valid@1.0.0
 
-import org.external.imported.ConflictEnum@1.0.0
+import org.external.imported@1.0.0.ConflictEnum
 
 enum LocalEnum {
   o VALUE1

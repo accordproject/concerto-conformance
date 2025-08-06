@@ -1,0 +1,34 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.imports.modelfile002.valid",
+  "version": "1.0.0",
+  "imports": [
+    {
+      "$class": "concerto.metamodel@1.0.0.Import",
+      "namespace": "org.concerto.imports.external.types",
+      "version": "1.0.0",
+      "type": "Type"
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.Import",
+      "namespace": "org.concerto.imports.other.types",
+      "version": "1.0.0",
+      "type": "OtherType"
+    }
+  ],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.EnumDeclaration",
+      "name": "MyEnum",
+      "decorators": [],
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.EnumValueDeclaration",
+          "name": "OK",
+          "decorators": []
+        }
+      ]
+    }
+  ]
+}

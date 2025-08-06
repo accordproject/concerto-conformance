@@ -9,7 +9,8 @@
     "test:semantic": "cucumber-js \"semantic/features/**/*.feature\" --loader ts-node/esm --import \"semantic/features/support/Javascript/*.ts\" --tags \"not @skip\"",
     "test:instances": "cucumber-js validate/features --import validate/validateSteps.js",
     "test:csharp": "dotnet test semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj",
-    "start": "node cli.js"
+    "start": "node cli.js",
+    "convert-ast": "node convertToASTpath.js"
   },
   "keywords": [],
   "author": "",
