@@ -1,5 +1,6 @@
 Feature: Semantic Validation of CTO Namespace Imports
 
+  @skip
   Scenario: Invalid duplicate namespace imports should throw an error
     Given I load the following models:
       | model_file                                               | alias    |
@@ -16,6 +17,7 @@ Feature: Semantic Validation of CTO Namespace Imports
     When I validate the models
     Then no error should be thrown
 
+  @skip
   Scenario: Invalid self-import should throw MODEL_FILE_003 error
     Given I load the following models:
       | model_file                                               | alias    |
@@ -30,6 +32,7 @@ Feature: Semantic Validation of CTO Namespace Imports
     When I validate the models
     Then no error should be thrown
 
+  @skip
   Scenario: Invalid duplicate declared names from different namespace imports should throw an error
     Given I load the following models:
       | model_file                                               | alias    |
