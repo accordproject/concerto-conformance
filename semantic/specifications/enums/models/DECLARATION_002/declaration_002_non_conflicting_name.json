@@ -4,9 +4,18 @@
   "namespace": "org.example.enums.declaration002.valid@1.0.0",
   "imports": [
     {
-      "$class": "concerto.metamodel@1.0.0.ImportType",
-      "name": "ConflictEnum",
-      "namespace": "org.external.imported@1.0.0"
+      "$class": "concerto.metamodel@1.0.0.ImportTypes",
+      "namespace": "org.external.imported@1.0.0",
+      "types": [
+        "ConflictEnum"
+      ],
+      "aliasedTypes": [
+        {
+          "$class": "concerto.metamodel@1.0.0.AliasedType",
+          "name": "ConflictEnum",
+          "aliasedName": "Coenum"
+        }
+      ]
     }
   ],
   "declarations": [
@@ -20,13 +29,13 @@
           "location": {
             "$class": "concerto.metamodel@1.0.0.Range",
             "start": {
-              "offset": 129,
+              "offset": 141,
               "line": 6,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
             },
             "end": {
-              "offset": 141,
+              "offset": 153,
               "line": 7,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
@@ -39,13 +48,13 @@
           "location": {
             "$class": "concerto.metamodel@1.0.0.Range",
             "start": {
-              "offset": 141,
+              "offset": 153,
               "line": 7,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
             },
             "end": {
-              "offset": 151,
+              "offset": 163,
               "line": 8,
               "column": 1,
               "$class": "concerto.metamodel@1.0.0.Position"
@@ -56,13 +65,13 @@
       "location": {
         "$class": "concerto.metamodel@1.0.0.Range",
         "start": {
-          "offset": 109,
+          "offset": 121,
           "line": 5,
           "column": 1,
           "$class": "concerto.metamodel@1.0.0.Position"
         },
         "end": {
-          "offset": 152,
+          "offset": 164,
           "line": 8,
           "column": 2,
           "$class": "concerto.metamodel@1.0.0.Position"
