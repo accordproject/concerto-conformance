@@ -21,7 +21,7 @@
   "declarations": [
     {
       "$class": "concerto.metamodel@1.0.0.EnumDeclaration",
-      "name": "LocalEnum",
+      "name": "ConflictEnum",
       "properties": [
         {
           "$class": "concerto.metamodel@1.0.0.EnumProperty",
@@ -29,13 +29,13 @@
           "location": {
             "$class": "concerto.metamodel@1.0.0.Range",
             "start": {
-              "offset": 141,
+              "offset": 144,
               "line": 6,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
             },
             "end": {
-              "offset": 153,
+              "offset": 156,
               "line": 7,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
@@ -48,13 +48,13 @@
           "location": {
             "$class": "concerto.metamodel@1.0.0.Range",
             "start": {
-              "offset": 153,
+              "offset": 156,
               "line": 7,
               "column": 3,
               "$class": "concerto.metamodel@1.0.0.Position"
             },
             "end": {
-              "offset": 163,
+              "offset": 166,
               "line": 8,
               "column": 1,
               "$class": "concerto.metamodel@1.0.0.Position"
@@ -71,7 +71,7 @@
           "$class": "concerto.metamodel@1.0.0.Position"
         },
         "end": {
-          "offset": 164,
+          "offset": 167,
           "line": 8,
           "column": 2,
           "$class": "concerto.metamodel@1.0.0.Position"
