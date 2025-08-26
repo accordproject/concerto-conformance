@@ -84,3 +84,4 @@ Feature: Semantic Validation of CTO Scalars specification
       |  model_file                     |alias|
       |  scalars/models/STRING_VALIDATOR_004/string_validator_004_invalid_regex.json          |main|
     Then an error should be thrown with message ""
+    
