@@ -1,4 +1,4 @@
-namespace org.invalid.circular
+namespace org.invalid.circular@1.0.0
 
 concept A extends C {
   o String name

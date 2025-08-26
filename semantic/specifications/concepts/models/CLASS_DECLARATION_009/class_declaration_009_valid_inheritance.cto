@@ -1,4 +1,4 @@
-namespace org.valid.circular
+namespace org.valid.circular@1.0.0
 
 concept A {
   o String name

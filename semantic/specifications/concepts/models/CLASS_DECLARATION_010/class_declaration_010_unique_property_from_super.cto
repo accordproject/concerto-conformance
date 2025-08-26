@@ -1,4 +1,4 @@
-namespace org.inherited.valid
+namespace org.inherited.valid@1.0.0
 
 concept Parent {
   o String name

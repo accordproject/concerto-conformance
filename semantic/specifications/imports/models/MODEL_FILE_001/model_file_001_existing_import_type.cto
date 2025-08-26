@@ -1,5 +1,4 @@
-namespace org.concerto.imports.modelfile001.valid@1.0.0
-
+namespace org.concerto.imports.modelfileone.valid@1.0.0
 import org.concerto.imports.external.types@1.0.0.Type
 
 concept TestConcept {

@@ -1,7 +1,7 @@
 {
   "$class": "concerto.metamodel@1.0.0.Model",
   "decorators": [],
-  "namespace": "org.concerto.imports.modelfile001.valid@1.0.0",
+  "namespace": "org.concerto.imports.modelfileone.valid@1.0.0",
   "imports": [
     {
       "$class": "concerto.metamodel@1.0.0.ImportType",
