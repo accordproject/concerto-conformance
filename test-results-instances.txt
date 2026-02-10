@@ -1,0 +1,10 @@
+
+> concerto-conformance@1.0.0 test:instances
+> cucumber-js validate/features --import validate/validateSteps.js
+
+This Node.js version (v24.12.0) has not been tested with this version of Cucumber; it should work normally, but please raise an issue if you see anything unexpected.
+....................
+
+10 scenarios (10 passed)
+20 steps (20 passed)
+0m00.089s (executing steps: 0m00.062s)
