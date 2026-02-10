@@ -1,0 +1,9 @@
+{
+  "$class": "org.acme.test@1.0.0.AllTypes",
+  "name": "Test",
+  "count": 42,
+  "price": 19.99,
+  "bigNumber": 9999999999,
+  "isActive": true,
+  "created": "2024-01-15T10:30:00.000Z"
+}

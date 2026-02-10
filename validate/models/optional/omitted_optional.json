@@ -1,0 +1,4 @@
+{
+  "$class": "org.acme.test@1.0.0.Person",
+  "name": "Alice"
+}
