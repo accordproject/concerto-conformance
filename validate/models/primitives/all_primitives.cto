@@ -1,0 +1,10 @@
+namespace org.acme.test@1.0.0
+
+concept AllTypes {
+  o String name
+  o Integer count
+  o Double price
+  o Long bigNumber
+  o Boolean isActive
+  o DateTime created
+}

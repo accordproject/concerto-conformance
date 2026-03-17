@@ -1,0 +1,12 @@
+namespace org.acme.test@1.0.0
+
+enum Color {
+  o Red
+  o Blue
+  o Green
+}
+
+concept Car {
+  o String make
+  o Color color
+}

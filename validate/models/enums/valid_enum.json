@@ -1,0 +1,5 @@
+{
+  "$class": "org.acme.test@1.0.0.Car",
+  "make": "Toyota",
+  "color": "Red"
+}
