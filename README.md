@@ -30,3 +30,7 @@ This test suite enables straightforward integration with CI/CD pipelines, so Con
 You can also use the built-in CLI for a guided setup:
     `npm start`   
 The CLI allows you to provide custom ModelManager, Parser, or ModelFile sources for testing.
+
+## Detailed Documentation
+
+For a deep dive into the testing framework, architecture, and advanced usage, please read the [Testing Guide](docs/TESTING_GUIDE.md).
