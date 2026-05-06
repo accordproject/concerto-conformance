@@ -12,7 +12,7 @@ export class CustomWorld {
   async initialize() {
     const deps = await loadDependencies();
     const ModelManager = deps.ModelManager;
-    this.modelManager = new ModelManager({ strict: true, importAliasing: true, enableMapType: true });
+    this.modelManager = new ModelManager({ importAliasing: true, enableMapType: true });
   }
 }
 
