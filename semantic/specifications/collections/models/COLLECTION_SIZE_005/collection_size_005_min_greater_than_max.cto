@@ -1,0 +1,5 @@
+namespace org.concerto.collections.invalid.col005@1.0.0
+
+concept InvalidSize {
+  o String[] items size=[10,2]
+}

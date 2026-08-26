@@ -1,0 +1,4 @@
+{
+  "$class": "org.acme.collections@1.0.0.BoundedTags",
+  "tags": ["alpha", "beta", "gamma"]
+}

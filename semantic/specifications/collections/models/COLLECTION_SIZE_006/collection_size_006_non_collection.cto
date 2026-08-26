@@ -1,0 +1,5 @@
+namespace org.concerto.collections.invalid.col006@1.0.0
+
+concept InvalidTarget {
+  o String name size=[1,5]
+}

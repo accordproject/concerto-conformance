@@ -1,0 +1,10 @@
+namespace org.concerto.collections.valid.col002@1.0.0
+
+map PhoneBook {
+  o String
+  o String
+}
+
+concept ContactList {
+  o PhoneBook contacts size=[1,5]
+}
