@@ -1,0 +1,5 @@
+namespace org.concerto.collections.valid.col003@1.0.0
+
+concept Inventory {
+  o String[] items size=[2,]
+}

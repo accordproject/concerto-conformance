@@ -1,0 +1,5 @@
+namespace org.acme.collections@1.0.0
+
+concept BoundedTags {
+  o String[] tags size=[2,5]
+}

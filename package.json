@@ -16,9 +16,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@accordproject/concerto-cli": "^4.0.0",
-    "@accordproject/concerto-core": "^4.0.3",
-    "@accordproject/concerto-cto": "^4.0.3",
+    "@accordproject/concerto-cli": "^4.1.0",
+    "@accordproject/concerto-core": "^4.2.0",
+    "@accordproject/concerto-cto": "^4.2.0",
     "child_process": "^1.0.2",
     "dotenv": "^17.0.1",
     "fs": "^0.0.1-security",

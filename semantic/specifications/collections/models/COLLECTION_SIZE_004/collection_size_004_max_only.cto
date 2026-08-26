@@ -1,0 +1,5 @@
+namespace org.concerto.collections.valid.col004@1.0.0
+
+concept LimitedList {
+  o String[] items size=[,5]
+}

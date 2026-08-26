@@ -1,0 +1,5 @@
+namespace org.concerto.collections.valid.col001@1.0.0
+
+concept TaggedItem {
+  o String[] tags size=[1,10]
+}

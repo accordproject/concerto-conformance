@@ -47,3 +47,25 @@ Feature: Instance Validation against Concerto Models
   Scenario: Non-existent $class type should fail
     When I validate "validate/models/class_type/unknown_class.json" with models "validate/models/class_type/person.cto"
     Then the validation should fail
+
+  # --- Collection Size Validation ---
+
+  Scenario: Array within size bounds should pass
+    When I validate "validate/models/collection_size/valid_within_bounds.json" with models "validate/models/collection_size/collection_size.cto"
+    Then the validation should succeed
+
+  Scenario: Array at minimum bound should pass
+    When I validate "validate/models/collection_size/at_min_bound.json" with models "validate/models/collection_size/collection_size.cto"
+    Then the validation should succeed
+
+  Scenario: Array at maximum bound should pass
+    When I validate "validate/models/collection_size/at_max_bound.json" with models "validate/models/collection_size/collection_size.cto"
+    Then the validation should succeed
+
+  Scenario: Array with too few elements should fail
+    When I validate "validate/models/collection_size/too_few_elements.json" with models "validate/models/collection_size/collection_size.cto"
+    Then the validation should fail
+
+  Scenario: Array with too many elements should fail
+    When I validate "validate/models/collection_size/too_many_elements.json" with models "validate/models/collection_size/collection_size.cto"
+    Then the validation should fail
