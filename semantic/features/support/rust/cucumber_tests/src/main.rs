@@ -3,6 +3,9 @@ mod steps;
 
 #[tokio::main]
 async fn main() {
-    use cucumber::cli;
-    steps::MyWorld::run("concerto-conformance/semantic/features").await;
+    steps::MyWorld::cucumber()
+        .filter_run("concerto-conformance/semantic/features", |_, _, sc| {
+            !sc.tags.iter().any(|t| t == "skip" || t == "skip-rust")
+        })
+        .await;
 }

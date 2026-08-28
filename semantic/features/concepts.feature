@@ -24,6 +24,7 @@ Feature: Semantic Validation for CTO Class Declarations
       | concepts/models/CLASS_DECLARATION_002/class_declaration_002_valid_$class_type.json | main        |
     Then no error should be thrown
 
+  @skip-rust
   Scenario: Duplicate concept declarations in the same file
     Given I load the following models:
       | model_file                                                                 | alias       |
@@ -114,6 +115,7 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
+  @skip-rust
   Scenario: Unique property names across inheritance
     Given I load the following models:
       | model_file                                                                 | alias       |

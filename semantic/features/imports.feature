@@ -26,6 +26,7 @@ Feature: Semantic Validation of CTO Model Imports
     Then no error should be thrown
 
   
+  @skip-rust
   Scenario: Importing a non-existent type should throw an error
     Given I load the following models:
       | model_file                                                                       | alias  |

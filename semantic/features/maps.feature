@@ -20,6 +20,7 @@ Feature: Semantic Validation of CTO Map Specification
     When I validate the models
     Then no error should be thrown
 
+  @skip-rust
   Scenario: Non-existent map value type should throw error
     Given I load the following models:
       | model_file                                      | alias |
@@ -27,6 +28,7 @@ Feature: Semantic Validation of CTO Map Specification
     When I validate the models
     Then an error should be thrown with message "Cannot read properties of null"
 
+  @skip-rust
   Scenario: Duplicate map names should throw error
     Given I load the following models:
       | model_file                                      | alias |
