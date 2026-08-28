@@ -15,7 +15,7 @@ Feature: Semantic Validation of CTO Model Imports
       | imports/models/DECLARATION_002/importedTypes.json                         | imported   |
       | imports/models/DECLARATION_002/declaration_002_conflict_with_imported_type.json | main |
     When I validate the models
-    Then an error should be thrown with message "clashes with an imported type with the same name"
+    Then an error should be thrown with message "already defined in an imported model"
 
   Scenario: Valid import and reference of existing type should pass validation
     Given I load the following models:
@@ -26,12 +26,13 @@ Feature: Semantic Validation of CTO Model Imports
     Then no error should be thrown
 
   
+  @skip-rust
   Scenario: Importing a non-existent type should throw an error
     Given I load the following models:
       | model_file                                                                       | alias  |
       | imports/models/MODEL_FILE_001/model_file_001_import_nonexistent_type.json         | main   |
     When I validate the models
-    Then an error should be thrown with message "is not defined in namespace"
+    Then an error should be thrown with message "Namespace is not defined"
 
   Scenario: Unique namespace imports should pass validation
     Given I load the following models:

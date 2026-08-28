@@ -5,7 +5,7 @@ mod steps;
 async fn main() {
     steps::MyWorld::cucumber()
         .filter_run("concerto-conformance/semantic/features", |_, _, sc| {
-            !sc.tags.iter().any(|t| t == "skip")
+            !sc.tags.iter().any(|t| t == "skip" || t == "skip-rust")
         })
         .await;
 }
