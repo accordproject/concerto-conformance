@@ -15,7 +15,7 @@ Feature: Semantic Validation of CTO Model Imports
       | imports/models/DECLARATION_002/importedTypes.json                         | imported   |
       | imports/models/DECLARATION_002/declaration_002_conflict_with_imported_type.json | main |
     When I validate the models
-    Then an error should be thrown with message "already defined in an imported model"
+    Then an error should be thrown with message "clashes with an imported type with the same name"
 
   Scenario: Valid import and reference of existing type should pass validation
     Given I load the following models:
@@ -31,7 +31,7 @@ Feature: Semantic Validation of CTO Model Imports
       | model_file                                                                       | alias  |
       | imports/models/MODEL_FILE_001/model_file_001_import_nonexistent_type.json         | main   |
     When I validate the models
-    Then an error should be thrown with message "Namespace is not defined"
+    Then an error should be thrown with message "is not defined in namespace"
 
   Scenario: Unique namespace imports should pass validation
     Given I load the following models:

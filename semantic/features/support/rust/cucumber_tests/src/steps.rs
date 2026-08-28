@@ -1,20 +1,13 @@
 use cucumber::{gherkin::Step, given, then, when, World};
-use async_trait::async_trait;
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::fs;
-use std::convert::Infallible;
-use concerto_core::model_file::ModelFile;
-use concerto_core::validation::Validate;
-use concerto_core::model_manager::ModelManager;
+use concerto_core::ModelManager;
 use serde_json::Value;
-use concerto_core::Model;
-use regex::Regex;
 
 #[derive(Debug, Default, World)]
 pub struct MyWorld {
     model_paths: Vec<(String, String)>, // (cto_path, alias)
-    pub model_files: Vec<ModelFile>,
     validation_result: Option<Result<(), String>>,
     pub error: Option<String>,
     pub model_manager: Option<ModelManager>,
@@ -24,7 +17,14 @@ pub struct MyWorld {
 
 #[given("I load the following models:")]
 async fn load_models(world: &mut MyWorld, step: &Step) {
-    let mut manager = ModelManager::new(false);
+    let mut manager = match ModelManager::new() {
+        Ok(m) => m,
+        Err(e) => {
+            world.error = Some(e.to_string());
+            world.validation_result = Some(Err(e.to_string()));
+            return;
+        }
+    };
     if let Some(table) = step.table.as_ref() {
         let headers = &table.rows[0];
 
@@ -48,7 +48,7 @@ async fn load_models(world: &mut MyWorld, step: &Step) {
 
             let alias = row_map.get("alias").cloned().unwrap_or_else(|| path.clone());
             world.model_paths.push((path.clone(), alias.clone()));
-            
+
             let ast = match load_ast_from_cto_path(&path) {
                 Ok(ast) => ast,
                 Err(e) => {
@@ -57,22 +57,11 @@ async fn load_models(world: &mut MyWorld, step: &Step) {
                 }
             };
 
-            let model: Model = match serde_json::from_value(ast) {
-                Ok(m) => m,
-                Err(e) => {
-                    world.error = Some(format!("Failed to parse AST into Model: {}", e));
-                    world.validation_result = Some(Err("Failed to parse AST".to_string()));
-                    break;
-                }
-            };
-
-            let model_file = ModelFile::new(model, alias.clone(), "1.0.0".to_string());
-            if let Err(e) = manager.add_model_file(model_file.clone()) {
-                world.error = Some(format!("Failed to add model file: {:?}", e));
-                world.validation_result = Some(Err("".to_string()));
+            if let Err(e) = manager.add_model(&ast, Some(alias.clone())) {
+                world.error = Some(e.to_string());
+                world.validation_result = Some(Err(e.to_string()));
                 return;
             }
-            world.model_files.push(model_file);
         }
     }
     world.validation_result = Some(Ok(()));
@@ -83,8 +72,8 @@ async fn load_models(world: &mut MyWorld, step: &Step) {
 
 #[when("I validate the models")]
 async fn validate_models(world: &mut MyWorld) {
-    let result = if let Some(manager) = &mut world.model_manager {
-        manager.validate_models().map_err(|e| format!("{:?}", e))
+    let result = if let Some(manager) = &world.model_manager {
+        manager.validate_models().map_err(|e| e.to_string())
     } else {
         Err("ModelManager is not initialized before validation.".to_string())
     };
@@ -92,37 +81,38 @@ async fn validate_models(world: &mut MyWorld) {
 }
 
 #[then(regex = r#"an error should be thrown with message "(.*)""#)]
-async fn expect_error_with_message(world: &mut MyWorld, expected_pattern: String) {
-    let re = Regex::new(&expected_pattern)
-        .unwrap_or_else(|_| panic!("Invalid regex pattern: {}", expected_pattern));
+async fn expect_error_with_message(world: &mut MyWorld, expected: String) {
+    if expected.is_empty() {
+        let has_error = world.error.is_some()
+            || matches!(&world.validation_result, Some(Err(_)));
+        if !has_error {
+            panic!("Expected an error, but none was thrown.");
+        }
+        return;
+    }
 
     if let Some(err) = &world.error {
-        if re.is_match(err) {
-            return; 
-        } else {
-            println!(
-                "Warning: Error thrown, but did not match expected pattern.\nExpected: '{}'\nGot: '{}'",
-                expected_pattern, err
-            );
+        if err.contains(&expected) {
             return;
         }
     }
 
-    match &world.validation_result {
-        Some(Err(err)) => {
-            if re.is_match(err) {
-                return; 
-            } else {
-                println!(
-                    "Warning: Validation error thrown, but did not match expected pattern.\nExpected: '{}'\nGot: '{}'",
-                    expected_pattern, err
-                );
-                return;
-            }
+    if let Some(Err(err)) = &world.validation_result {
+        if err.contains(&expected) {
+            return;
         }
-        Some(Ok(_)) => panic!("Expected error, but validation succeeded."),
-        None => panic!("No validation result available. Did validation run?"),
     }
+
+    let actual = world
+        .error
+        .as_deref()
+        .or(world.validation_result.as_ref().and_then(|r| r.as_ref().err().map(|s| s.as_str())))
+        .unwrap_or("<no error>");
+
+    panic!(
+        "Error message mismatch.\nExpected: '{}'\nGot: '{}'",
+        expected, actual
+    );
 }
 
 
@@ -139,13 +129,6 @@ async fn expect_success(world: &mut MyWorld) {
         None => panic!("No validation result available."),
     }
 }
-
-fn resolve_path(base: &str, relative: &str) -> PathBuf {
-    let combined = Path::new(base).join(relative);
-    combined.canonicalize().unwrap_or(combined)
-}
-
-
 
 fn load_ast_from_cto_path(ast_path: &str) -> Result<Value, String> {
     // Construct the full path to the .cto file by joining with "semantic/specifications"

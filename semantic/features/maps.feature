@@ -25,14 +25,14 @@ Feature: Semantic Validation of CTO Map Specification
       | model_file                                      | alias |
       | maps/models/MAP_VALUE_TYPE_001/map_value_type_001_type_not_exist.json           | main  |
     When I validate the models
-    Then an error should be thrown with message "Cannot read properties of null"
+    Then an error should be thrown with message "Undeclared type"
 
   Scenario: Duplicate map names should throw error
     Given I load the following models:
       | model_file                                      | alias |
       | maps/models/DECLARATION_001/declaration_001_duplicate_map_name.json          | main  |
     When I validate the models
-    Then an error should be thrown with message "Duplicate class name"
+    Then an error should be thrown with message "duplicate declaration"
 
   Scenario: Unique map names should pass
     Given I load the following models:

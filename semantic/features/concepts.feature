@@ -29,7 +29,7 @@ Feature: Semantic Validation for CTO Class Declarations
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_003/class_declaration_003_duplicate_class_name.json | main        |
     When I validate the models
-    Then an error should be thrown with message "Duplicate class name"
+    Then an error should be thrown with message "duplicate declaration"
 
   Scenario: Uniquely named concept declarations
     Given I load the following models:
@@ -119,7 +119,7 @@ Feature: Semantic Validation for CTO Class Declarations
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_009/class_declaration_009_circular_inheritance.json | main        |
     When I validate the models
-    Then an error should be thrown with message "Maximum call stack size exceeded"
+    Then an error should be thrown with message "circular inheritance detected"
 
   Scenario: Unique property names across inheritance
     Given I load the following models:

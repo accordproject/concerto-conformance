@@ -5,7 +5,7 @@ Feature: Semantic Validation of Enum Declarations in CTO Models
       | model_file                                                   | alias      |
       | enums/models/DECLARATION_001/declaration_001_duplicate_enum_names.json | main       |
     When I validate the models
-    Then an error should be thrown with message "Duplicate"
+    Then an error should be thrown with message "duplicate declaration"
 
   Scenario: Unique enum names in the same file should pass validation
     Given I load the following models:
@@ -29,7 +29,7 @@ Feature: Semantic Validation of Enum Declarations in CTO Models
       | enums/models/DECLARATION_002/importedTypes.json                      | imported   |
       | enums/models/DECLARATION_002/declaration_002_name_conflict_with_import.json | main |
     When I validate the models
-    Then an error should be thrown with message "already defined in an imported model"
+    Then an error should be thrown with message "clashes with an imported type with the same name"
 
   Scenario: Valid enum identifier name should pass validation
     Given I load the following models:
