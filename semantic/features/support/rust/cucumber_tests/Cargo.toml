@@ -8,7 +8,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["full"] }
 
-concerto_core = { package = "concerto-core", path = "../../../../../../concerto-core" }
+concerto_core = { package = "accordproject-concerto-core", path = "../../../../../../concerto-core" }
 cucumber = "0.21"
 
 [dev-dependencies]
