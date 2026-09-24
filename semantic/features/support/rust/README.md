@@ -4,12 +4,16 @@ Runs the semantic feature files against
 [concerto-rust](https://github.com/accordproject/concerto-rust)
 (`accordproject-concerto-core`, lib `concerto_core`).
 
+Run it from the repository root:
+
 ```sh
 cargo run --manifest-path semantic/features/support/rust/cucumber_tests/Cargo.toml
 ```
 
-Paths to the feature files and fixtures are resolved from this crate's
-location, so the command works from any directory.
+The `--manifest-path` is relative to the directory you run `cargo` from; from
+anywhere else, adjust it or pass an absolute path. The feature files and
+fixtures are then found relative to the crate itself, whatever the working
+directory.
 
 ## Choosing the concerto-rust to test
 
