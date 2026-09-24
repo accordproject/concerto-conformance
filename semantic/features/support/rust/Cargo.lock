@@ -368,6 +368,7 @@ dependencies = [
  "accordproject-concerto-core",
  "cucumber",
  "futures",
+ "regex",
  "serde_json",
  "tokio",
 ]

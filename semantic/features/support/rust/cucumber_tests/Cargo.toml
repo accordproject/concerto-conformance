@@ -14,3 +14,4 @@ cucumber = "0.21"
 # see ../README.md.
 concerto_core = { package = "accordproject-concerto-core", git = "https://github.com/accordproject/concerto-rust", branch = "main" }
 futures = "0.3"
+regex = "1"
