@@ -2,14 +2,15 @@
 name = "cucumber_tests"
 version = "0.1.0"
 edition = "2021"
+publish = false
 
 [dependencies]
-serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["full"] }
-
-concerto_core = { package = "accordproject-concerto-core", path = "../../../../../../concerto-core" }
 cucumber = "0.21"
 
-[dev-dependencies]
-cucumber = "0.21"
+# The runtime under test. CI and local runs against a checkout of concerto-rust
+# override this with a `[patch]` so the checkout is tested rather than `main`;
+# see ../README.md.
+concerto_core = { package = "accordproject-concerto-core", git = "https://github.com/accordproject/concerto-rust", branch = "main" }
+futures = "0.3"

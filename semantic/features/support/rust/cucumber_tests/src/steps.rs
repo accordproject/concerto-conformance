@@ -1,150 +1,111 @@
-use cucumber::{gherkin::Step, given, then, when, World};
-use std::collections::HashMap;
-use std::path::Path;
 use std::fs;
+use std::path::{Path, PathBuf};
+
 use concerto_core::ModelManager;
+use cucumber::{gherkin::Step, given, then, when, World};
 use serde_json::Value;
+
+/// `semantic/specifications`, resolved from this crate's location so the
+/// harness does not depend on the directory it is launched from.
+pub fn specifications_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../../specifications")
+}
+
+/// `semantic/features`.
+pub fn features_dir() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..")
+}
 
 #[derive(Debug, Default, World)]
 pub struct MyWorld {
-    model_paths: Vec<(String, String)>, // (cto_path, alias)
+    /// Error raised by the runtime while loading a model.
+    load_error: Option<String>,
+    /// Outcome of `validate_models`, once run.
     validation_result: Option<Result<(), String>>,
-    pub error: Option<String>,
-    pub model_manager: Option<ModelManager>,
+    model_manager: Option<ModelManager>,
 }
 
+/// The `model_file` column of a step's table, in order.
+pub fn model_files(step: &Step) -> Vec<String> {
+    let Some(table) = step.table.as_ref() else {
+        return Vec::new();
+    };
+    let Some((headers, rows)) = table.rows.split_first() else {
+        return Vec::new();
+    };
+    let Some(col) = headers.iter().position(|h| h.trim() == "model_file") else {
+        return Vec::new();
+    };
+    rows.iter()
+        .filter_map(|row| row.get(col))
+        .map(|cell| cell.trim().to_string())
+        .collect()
+}
 
+/// Reads and parses a fixture. Any failure here is a problem with the suite,
+/// not with the runtime under test.
+pub fn load_fixture(path: &str) -> Result<Value, String> {
+    let full = specifications_dir().join(path);
+    let content =
+        fs::read_to_string(&full).map_err(|e| format!("cannot read fixture {path}: {e}"))?;
+    serde_json::from_str(&content).map_err(|e| format!("cannot parse fixture {path}: {e}"))
+}
 
 #[given("I load the following models:")]
 async fn load_models(world: &mut MyWorld, step: &Step) {
-    let mut manager = match ModelManager::new() {
-        Ok(m) => m,
-        Err(e) => {
-            world.error = Some(e.to_string());
-            world.validation_result = Some(Err(e.to_string()));
+    let files = model_files(step);
+    assert!(
+        !files.is_empty(),
+        "harness error: step has no model_file rows"
+    );
+
+    let mut manager = ModelManager::new().expect("harness error: ModelManager::new failed");
+    for path in files {
+        // A fixture that cannot be loaded must never satisfy an expectation.
+        let ast = load_fixture(&path).unwrap_or_else(|e| panic!("harness error: {e}"));
+        if let Err(e) = manager.add_model(&ast, Some(path)) {
+            world.load_error = Some(e.to_string());
             return;
         }
-    };
-    if let Some(table) = step.table.as_ref() {
-        let headers = &table.rows[0];
-
-        for row in table.rows.iter().skip(1) {
-            let mut row_map = HashMap::new();
-            for (i, cell) in row.iter().enumerate() {
-                if let Some(header) = headers.get(i) {
-                    row_map.insert(header.clone(), cell.clone());
-                }
-            }
-
-            let path = match row_map.get("model_file") {
-                Some(p) => p.clone(), // `p` is a &String, so clone it to get String
-                None => {
-                    world.error = Some("Missing 'model_file' field".to_string());
-                    world.validation_result = Some(Err("Missing model_file".to_string()));
-                    return;
-                }
-            };
-
-
-            let alias = row_map.get("alias").cloned().unwrap_or_else(|| path.clone());
-            world.model_paths.push((path.clone(), alias.clone()));
-
-            let ast = match load_ast_from_cto_path(&path) {
-                Ok(ast) => ast,
-                Err(e) => {
-                    world.error = Some(format!("Failed to load AST from {}: {}", path, e));
-                    return; // Stop further loading
-                }
-            };
-
-            if let Err(e) = manager.add_model(&ast, Some(alias.clone())) {
-                world.error = Some(e.to_string());
-                world.validation_result = Some(Err(e.to_string()));
-                return;
-            }
-        }
     }
-    world.validation_result = Some(Ok(()));
     world.model_manager = Some(manager);
 }
 
-
-
 #[when("I validate the models")]
 async fn validate_models(world: &mut MyWorld) {
-    let result = if let Some(manager) = &world.model_manager {
-        manager.validate_models().map_err(|e| e.to_string())
-    } else {
-        Err("ModelManager is not initialized before validation.".to_string())
-    };
-    world.validation_result = Some(result);
+    if let Some(manager) = &world.model_manager {
+        world.validation_result = Some(manager.validate_models().map_err(|e| e.to_string()));
+    }
 }
 
-#[then(regex = r#"an error should be thrown with message "(.*)""#)]
+impl MyWorld {
+    /// The error raised while loading or validating, if any.
+    fn error(&self) -> Option<&str> {
+        self.load_error.as_deref().or_else(|| {
+            self.validation_result
+                .as_ref()?
+                .as_ref()
+                .err()
+                .map(String::as_str)
+        })
+    }
+}
+
+#[then(regex = r#"^an error should be thrown with message "(.*)"$"#)]
 async fn expect_error_with_message(world: &mut MyWorld, expected: String) {
-    if expected.is_empty() {
-        let has_error = world.error.is_some()
-            || matches!(&world.validation_result, Some(Err(_)));
-        if !has_error {
-            panic!("Expected an error, but none was thrown.");
-        }
-        return;
+    match world.error() {
+        None => panic!("Expected an error containing '{expected}', but none was thrown."),
+        Some(actual) => assert!(
+            actual.contains(&expected),
+            "Error message mismatch.\nExpected: '{expected}'\nGot: '{actual}'"
+        ),
     }
-
-    if let Some(err) = &world.error {
-        if err.contains(&expected) {
-            return;
-        }
-    }
-
-    if let Some(Err(err)) = &world.validation_result {
-        if err.contains(&expected) {
-            return;
-        }
-    }
-
-    let actual = world
-        .error
-        .as_deref()
-        .or(world.validation_result.as_ref().and_then(|r| r.as_ref().err().map(|s| s.as_str())))
-        .unwrap_or("<no error>");
-
-    panic!(
-        "Error message mismatch.\nExpected: '{}'\nGot: '{}'",
-        expected, actual
-    );
 }
 
-
-
+// Some scenarios only load models, so success does not require validation.
 #[then("no error should be thrown")]
 async fn expect_success(world: &mut MyWorld) {
-    if let Some(err) = &world.error {
-        panic!("Expected success, but got model loading error: {}", err);
+    if let Some(err) = world.error() {
+        panic!("Expected success, but got: {err}");
     }
-
-    match &world.validation_result {
-        Some(Ok(_)) => {} // Passed
-        Some(Err(err)) => panic!("Expected success, but got validation error: {}", err),
-        None => panic!("No validation result available."),
-    }
-}
-
-fn load_ast_from_cto_path(ast_path: &str) -> Result<Value, String> {
-    // Construct the full path to the .cto file by joining with "semantic/specifications"
-    let full_ast_path = Path::new("concerto-conformance/semantic/specifications").join(ast_path);
-
-    // Check if file exists
-    if !full_ast_path.exists() {
-        return Err(format!("AST JSON not found at: {}", full_ast_path.display()));
-    }
-
-    // Read and parse the AST JSON
-    let ast_content = fs::read_to_string(&full_ast_path)
-        .map_err(|e| format!("Failed to read AST JSON: {}", e))?;
-
-    let json: Value = serde_json::from_str(&ast_content)
-        .map_err(|e| format!("Failed to parse AST JSON: {}", e))?;
-
-    Ok(json)
 }
