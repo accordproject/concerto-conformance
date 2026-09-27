@@ -1,0 +1,6 @@
+namespace org.concerto.concepts.d001.scalar.invalid@1.0.0
+
+// CON-06: declaration names are unique across all kinds, scalars included.
+scalar BooleanScalarWithDefault extends Boolean default=true
+
+scalar BooleanScalarWithDefault extends Boolean default=true

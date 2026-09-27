@@ -1,0 +1,16 @@
+namespace org.concerto.validate.maps@1.0.0
+
+// Types for IMP-01 and IMP-02 (validate/features/maps.feature), from the #194
+// supplement model.
+concept Item {
+  o String label
+}
+
+map Items {
+  o String
+  o Item
+}
+
+concept Holder {
+  o Items items
+}

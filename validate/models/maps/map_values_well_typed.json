@@ -1,0 +1,8 @@
+{
+  "$class": "org.concerto.validate.maps@1.0.0.Holder",
+  "items": {
+    "a": {
+      "label": "x"
+    }
+  }
+}

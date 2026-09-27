@@ -1,0 +1,11 @@
+namespace org.concerto.concepts.cd011.invalid@1.0.0
+
+// CON-02: the super class has an explicit identifier, so the subclass must not
+// declare its own.
+abstract asset BaseAsset identified by a1 {
+  o String a1
+}
+
+asset DerivedAsset identified by a1 extends BaseAsset {
+  o String a2
+}

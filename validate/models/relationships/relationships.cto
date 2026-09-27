@@ -1,0 +1,10 @@
+namespace org.concerto.validate.relationships@1.0.0
+
+// Types for REL-05 (validate/features/relationships.feature).
+asset RelAsset identified by assetId {
+  o String assetId
+}
+
+transaction RelTx2 {
+  --> RelAsset[] relAssets
+}

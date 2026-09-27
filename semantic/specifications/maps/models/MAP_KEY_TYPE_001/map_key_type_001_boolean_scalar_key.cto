@@ -1,0 +1,9 @@
+namespace org.concerto.maps.mkt001.boolscalar.invalid@1.0.0
+
+// MAP-01: a scalar of Boolean is not a valid map key type.
+scalar BOOL extends Boolean
+
+map Dictionary {
+  o BOOL
+  o String
+}

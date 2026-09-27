@@ -1,0 +1,25 @@
+{
+  "$class": "org.concerto.validate.convert@1.0.0.ConvertBox",
+  "boxId": "b1",
+  "dtArr": [
+    "2016-10-20T05:34:03.519Z"
+  ],
+  "iArr": [
+    1,
+    2
+  ],
+  "lArr": [
+    32768
+  ],
+  "dArr": [
+    32.768
+  ],
+  "bArr": [
+    true,
+    false
+  ],
+  "sArr": [
+    "x",
+    "y"
+  ]
+}

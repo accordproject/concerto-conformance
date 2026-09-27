@@ -1,0 +1,52 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.validate.maps@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "name": "Item",
+      "isAbstract": false,
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.StringProperty",
+          "name": "label",
+          "isArray": false,
+          "isOptional": false
+        }
+      ]
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.MapDeclaration",
+      "name": "Items",
+      "key": {
+        "$class": "concerto.metamodel@1.0.0.StringMapKeyType"
+      },
+      "value": {
+        "$class": "concerto.metamodel@1.0.0.ObjectMapValueType",
+        "type": {
+          "$class": "concerto.metamodel@1.0.0.TypeIdentifier",
+          "name": "Item"
+        }
+      }
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "name": "Holder",
+      "isAbstract": false,
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.ObjectProperty",
+          "name": "items",
+          "type": {
+            "$class": "concerto.metamodel@1.0.0.TypeIdentifier",
+            "name": "Items"
+          },
+          "isArray": false,
+          "isOptional": false
+        }
+      ]
+    }
+  ]
+}

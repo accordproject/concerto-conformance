@@ -1,0 +1,7 @@
+{
+  "$class": "org.concerto.validate.structure@1.0.0.SampleParticipant",
+  "participantId": "alphablock",
+  "firstName": "Block",
+  "lastName": "Norris",
+  "WRONG": "blah"
+}

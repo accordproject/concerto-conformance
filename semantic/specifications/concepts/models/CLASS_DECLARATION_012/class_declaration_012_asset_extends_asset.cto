@@ -1,0 +1,9 @@
+namespace org.concerto.concepts.cd012.valid@1.0.0
+
+// CON-04 positive pair: an asset extends an asset.
+asset A identified by id {
+  o String id
+}
+
+asset B extends A {
+}

@@ -51,3 +51,21 @@ Feature: Semantic Validation of CTO Model Imports
       | imports/models/MODEL_FILE_002/model_file_002_duplicate_namespace_imports.json | main |
     When I validate the models
     Then an error should be thrown with message "Import from namespace .* already exists"
+
+  # Scenarios below this line were promoted by P5-08b from the oracle corpus and
+  # the fuzz records (concerto migration/CONFORMANCE-PROMOTION-PLAN.md). Each one
+  # asserts an error class and a @rule tag, never TS message text. They are
+  # tagged @skip-rust until the Rust runner gains the class step (and, where
+  # used, the options and validated-load steps); see the plan, section 5.1.
+
+  # NSI-05. Source: F:unit/ModelManager.addCTOModel/562a1f000f083a9b744e2130. The existing MODEL_FILE_001
+  # negative imports from an unregistered namespace; here the namespace is registered.
+  @rule:MODEL_FILE_001 @skip-rust
+  Scenario: Importing a type that a registered namespace does not declare
+    Given I load the following models:
+      | model_file                                                                               | alias |
+      | imports/models/MODEL_FILE_001/model_file_001_registered_namespace.json                   | dep1  |
+      | imports/models/MODEL_FILE_001/model_file_001_import_undeclared_type_from_registered.json | main  |
+    When I validate the models
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "MissingCategory"

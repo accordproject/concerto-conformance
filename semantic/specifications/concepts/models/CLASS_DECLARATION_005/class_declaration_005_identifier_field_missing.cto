@@ -1,0 +1,6 @@
+namespace org.concerto.concepts.cd005.missing.invalid@1.0.0
+
+// CON-03: `identified by` names a field the class does not have.
+asset Test identified by missingField {
+  o String name
+}

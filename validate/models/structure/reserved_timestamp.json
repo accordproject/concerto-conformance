@@ -1,0 +1,6 @@
+{
+  "$class": "org.concerto.validate.structure@1.0.0.Address",
+  "city": "Winchester",
+  "country": "UK",
+  "$timestamp": "now"
+}

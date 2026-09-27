@@ -1,0 +1,10 @@
+namespace org.concerto.concepts.cd011.valid@1.0.0
+
+// CON-02 positive pair: the subclass inherits the explicit identifier.
+abstract asset BaseAsset identified by a1 {
+  o String a1
+}
+
+asset DerivedAsset extends BaseAsset {
+  o String a2
+}

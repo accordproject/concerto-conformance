@@ -1,0 +1,10 @@
+namespace org.concerto.concepts.cd012.derived.valid@1.0.0
+
+// CON-09: a declaration that extends another and adds fields loads and validates.
+asset Base identified by baseId {
+  o String baseId
+}
+
+asset Derived extends Base {
+  o String extra optional
+}

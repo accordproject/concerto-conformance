@@ -1,0 +1,6 @@
+namespace org.concerto.concepts.cd001.identifier.invalid@1.0.0
+
+// CON-05: `$identifier` is a reserved system field name.
+asset Order {
+  o String $identifier
+}

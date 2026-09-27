@@ -1,0 +1,16 @@
+namespace org.concerto.decorators.dec001.declared.valid@1.0.0
+
+import concerto.decorator@1.0.0.Decorator
+
+// DEC-03: decorators that match their declared type.
+concept Hide extends Decorator {
+    o Boolean hidden optional
+}
+
+concept Person {
+   o String name
+   @Hide
+   o String ssn
+   @Hide(false)
+   o Integer age
+}
