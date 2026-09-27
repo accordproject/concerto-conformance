@@ -289,7 +289,7 @@ Feature: Semantic Validation for CTO Class Declarations
     Then an error of class "IllegalModelException" should be thrown
 
   # CON-02 positive pair. Source: F:data/ModelManager.addCTOModel/04e93b56c320a77d8460c8d1, without the redeclaration.
-  @rule:CLASS_DECLARATION_011 @skip-rust
+  @rule:CLASS_DECLARATION_011
   Scenario: A subclass inherits the explicit identifier of its super class
     Given I load the following models:
       | model_file                                                                            | alias |
@@ -319,7 +319,7 @@ Feature: Semantic Validation for CTO Class Declarations
     Then an error of class "IllegalModelException" should be thrown
 
   # CON-04 positive pair. Source: F:data/ModelManager.addCTOModel/322940c4c551adcf3c670b4f, with `asset B` for `participant B`.
-  @rule:CLASS_DECLARATION_012 @skip-rust
+  @rule:CLASS_DECLARATION_012
   Scenario: An asset extends an asset
     Given I load the following models:
       | model_file                                                                           | alias |
@@ -350,6 +350,8 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-07. Source: F:supplement/ModelManager.fromAst/7b02e626a0a226bde3b810e6 (#193).
   # JSON AST only: CTO always produces a properties list.
+  # The non-list variant (F:supplement/ModelManager.fromAst/000dab841e9b0cef97e8826f, "properties": "none")
+  # waits on Q-10 (strict AST); no scenario for it here.
   @rule:CLASS_DECLARATION_013 @skip-rust
   Scenario: A class declaration has no properties list
     Given I load the following models:
@@ -369,7 +371,7 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-09. Source: F:supplement/Resource.validate/1704f2f065f42e186ec9096b (#190 "validate a derived asset"),
   # the Base and Derived declarations of its model. As recorded, Base is not abstract.
-  @rule:CLASS_DECLARATION_012 @skip-rust
+  @rule:CLASS_DECLARATION_012
   Scenario: A derived asset that adds fields loads and validates
     Given I load the following models:
       | model_file                                                                                 | alias |

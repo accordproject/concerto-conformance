@@ -8,6 +8,7 @@ Feature: Instance Validation: Identifiers and Relationships
   # Q-13 (its instance-JSON form raises a plain Error), so they are not here.
 
   # REL-05. Source: F:lifted/Serializer.fromJSON/777d0f1bdb8fc226c82bc415 (JP-VS-003).
+  # Recorded with {validate: false}; the shape check is the populator's, so it applies either way.
   @rule:INSTANCE_011
   Scenario: A non-array value for an array relationship field
     When I validate "validate/models/relationships/array_relationship_not_array.json" with models "validate/models/relationships/relationships.cto"

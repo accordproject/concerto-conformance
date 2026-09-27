@@ -18,6 +18,19 @@ Feature: Metamodel Validation of JSON ASTs
       | metamodel/models/METAMODEL_001/metamodel_001_undeclared_ast_property.json | main  |
     Then an error of class "MetamodelException" should be thrown
 
+  # AST-01 positive pair. Source: F:data/ModelManager.addCTOModel/cd37a48bcd6b5409b23f40a2
+  # (test/1.0.0/models/date1.cto, recorded `ok` with metamodelValidation: true); the model is its
+  # recorded AST: a DateTimeProperty with no undeclared property.
+  @rule:METAMODEL_001 @skip-rust
+  Scenario: An AST that uses only metamodel-declared properties loads with metamodel validation
+    Given the model manager options:
+      | option | value |
+      | metamodelValidation | true |
+    And I load the following models with validation:
+      | model_file                                                             | alias |
+      | metamodel/models/METAMODEL_001/metamodel_001_declared_ast_properties.json | main  |
+    Then no error should be thrown
+
   # AST-02. Source: F:unit/ModelManager.addModel/75ea10eea76396079fe879ff.
   @rule:METAMODEL_002 @skip-rust
   Scenario: An AST's metamodel version does not match the implementation's

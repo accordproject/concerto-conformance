@@ -46,7 +46,7 @@ Feature: Semantic Validation of Decorators
     Then no error should be thrown
 
   # DEC-03. Source: F:unit/ModelManager.validateModelFiles/01e8a463b8c3fd7b246de3c5 (`ok`).
-  @rule:DECORATOR_001 @skip-rust
+  @rule:DECORATOR_001
   Scenario: An undeclared decorator with decorator validation off (the default)
     Given I load the following models:
       | model_file                                                                          | alias |

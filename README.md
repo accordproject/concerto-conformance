@@ -39,6 +39,8 @@ message text:
 |---|---|
 | `Then an error of class "<Class>" should be thrown` | the error's class name, e.g. `IllegalModelException`, `ValidationException`, `MetamodelException` |
 | `And the error should mention "<name>"` | the message contains a name from the model or instance (a type, property or namespace) |
+| `Then an error should be thrown` | rejection of any class, for rules where the implementations do not share a class yet |
+| `And the error type should be "<code>"` | the error's `errorType`, e.g. `DefaultValidatorException` (validator errors are asserted this way until they leave `BaseException`) |
 | `Given the model manager options:` | builds the model manager with options (`option` and `value` columns; a dotted option name sets a nested field) |
 | `Given I load the following models with validation:` | adds each model with load-time validation, which is where metamodel validation runs |
 
@@ -48,10 +50,12 @@ source (an oracle fixture or a fuzz cluster, see concerto's
 the step instead of counting as the expected error.
 
 The Rust and C# runners do not have these steps yet, so the semantic scenarios
-that use them are tagged `@skip-rust`. The Rust runner needs the class step (a
+that use them are tagged `@skip-rust` (positive scenarios that need only the
+existing steps run on the Rust runner). The Rust runner needs the class step (a
 mapping from the crate's error to its class name), the mention step, the options
 step and the validated-load step, plus instance steps to run the instance
 features; the models added by P5-08b have `.ast.json` siblings for that, and the
 older `validate/models` still need them. The C# runner needs
-the same steps, and `@skip-rust` does not apply to it.
+the same steps. `@skip-rust` does not apply to it, so once it runs these
+feature files it will hit the undefined steps and fail those scenarios.
 

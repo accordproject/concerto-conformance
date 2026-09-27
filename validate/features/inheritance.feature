@@ -14,6 +14,14 @@ Feature: Instance Validation: Inheritance
     When I validate "validate/models/inheritance/contained_value_not_subtype.json" with models "validate/models/inheritance/inheritance.cto"
     Then an error of class "ValidationException" should be thrown
 
+  # Re-expressed (plan 4.1): the cited fixture was recorded by calling
+  # Resource.validate on a resource built in memory; this is the instance-JSON form.
+  # INH-01 (array field). Source: F:gaps/Resource.validate/e2649af2c774da7d2f7a8484 (a Bike in `o Car[] cars`).
+  @rule:INSTANCE_030
+  Scenario: A contained array element whose $class is not the declared type or a subtype of it
+    When I validate "validate/models/inheritance/array_element_not_subtype.json" with models "validate/models/inheritance/inheritance.cto"
+    Then an error of class "ValidationException" should be thrown
+
   # INH-02. Source: F:supplement/Serializer.fromJSON/93cc979c91cd056d2add5107 (#190 "validate a derived asset").
   @rule:INSTANCE_030
   Scenario: A subtype instance with inherited fields is accepted
@@ -31,7 +39,8 @@ Feature: Instance Validation: Inheritance
 
   # Re-expressed (plan 4.1): the cited fixture was recorded by calling
   # Resource.validate on a resource built in memory; this is the instance-JSON form.
-  # INH-04. Source: F:unit/Resource.validate/e112db6f710c1ba9da2175b7 (6); nested form of INS-02.
+  # INH-04. Source: F:gaps/Resource.validate/812169e226bb563c3062faf2 (nested `Part.extra`); nested form
+  # of INS-02. F:unit/Resource.validate/e112db6f710c1ba9da2175b7 (1) is the top-level form.
   @rule:INSTANCE_002
   Scenario: A contained value with a property its type does not declare
     When I validate "validate/models/inheritance/nested_undeclared_property.json" with models "validate/models/inheritance/inheritance.cto"

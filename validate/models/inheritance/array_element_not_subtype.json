@@ -1,0 +1,10 @@
+{
+  "$class": "org.concerto.validate.inheritance@1.0.0.Garage",
+  "gid": "g5",
+  "cars": [
+    {
+      "$class": "org.concerto.validate.inheritance@1.0.0.Bike",
+      "bid": "b1"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { When, Then } from '@cucumber/cucumber';
+import { Before, When, Then } from '@cucumber/cucumber';
 import fs from 'fs';
 import path from 'path';
 import assert from 'assert';
@@ -8,6 +8,16 @@ let output = '';
 let error = '';
 let lastError = null;
 let exitCode = null;
+
+// The results live at module level, so reset them before every scenario:
+// otherwise a scenario whose When step never ran would see the previous
+// scenario's result.
+Before(function () {
+  output = '';
+  error = '';
+  lastError = null;
+  exitCode = null;
+});
 
 /**
  * Raised when a fixture (instance or model file) is missing or unreadable.
@@ -122,4 +132,24 @@ Then('an error of class {string} should be thrown', function (expected) {
 Then('the error should mention {string}', function (name) {
   assert.notStrictEqual(exitCode, 0, `Expected an error mentioning "${name}", but validation succeeded`);
   assert(error.includes(name), `Expected the error to mention "${name}", but got "${error}"`);
+});
+
+// Rejection at the 'rejected' level: validation failed with an error of any
+// class. For rules where the implementations do not (yet) share an error
+// class; pair it with an `@rule` tag, a mention where a model or instance
+// name exists, and the error type where one is standardised.
+Then('an error should be thrown', function () {
+  assert.strictEqual(exitCode, 1, 'Expected an error to be thrown, but validation succeeded or did not run');
+  assert(lastError, 'Expected an error to be thrown, but none was recorded');
+});
+
+// The error's `errorType` code (e.g. `DefaultValidatorException`), compared exactly.
+Then('the error type should be {string}', function (expected) {
+  assert.strictEqual(exitCode, 1, `Expected an error of type ${expected}, but validation succeeded or did not run`);
+  assert(lastError, `Expected an error of type ${expected}, but none was recorded`);
+  assert.strictEqual(
+    lastError.errorType,
+    expected,
+    `Expected an error of type ${expected}, but got ${lastError.errorType}: "${error}"`
+  );
 });
