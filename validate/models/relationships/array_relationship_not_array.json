@@ -1,0 +1,4 @@
+{
+  "$class": "org.concerto.validate.relationships@1.0.0.RelTx2",
+  "relAssets": "asset1"
+}

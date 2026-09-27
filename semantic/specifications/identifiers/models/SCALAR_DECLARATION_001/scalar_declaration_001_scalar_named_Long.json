@@ -1,0 +1,12 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.identifiers.sd001.long.invalid@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.StringScalar",
+      "name": "Long"
+    }
+  ]
+}

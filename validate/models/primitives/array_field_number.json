@@ -1,0 +1,5 @@
+{
+  "$class": "org.concerto.validate.convert@1.0.0.ArrContainer",
+  "containerId": "c1",
+  "values": 42
+}

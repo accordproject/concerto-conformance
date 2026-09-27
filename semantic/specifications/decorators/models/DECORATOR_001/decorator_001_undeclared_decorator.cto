@@ -1,0 +1,7 @@
+namespace org.concerto.decorators.dec001.invalid@1.0.0
+
+// DEC-01: `Hide` is not a declared decorator type.
+concept Person {
+   @Hide
+   o String ssn
+}

@@ -1,0 +1,26 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.maps.mkt001.boolscalar.invalid@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.BooleanScalar",
+      "name": "BOOL"
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.MapDeclaration",
+      "name": "Dictionary",
+      "key": {
+        "$class": "concerto.metamodel@1.0.0.ObjectMapKeyType",
+        "type": {
+          "$class": "concerto.metamodel@1.0.0.TypeIdentifier",
+          "name": "BOOL"
+        }
+      },
+      "value": {
+        "$class": "concerto.metamodel@1.0.0.StringMapValueType"
+      }
+    }
+  ]
+}

@@ -9,10 +9,10 @@ export class CustomWorld {
     this.error = null;
   }
 
-  async initialize() {
+  async initialize(options?: Record<string, unknown>) {
     const deps = await loadDependencies();
     const ModelManager = deps.ModelManager;
-    this.modelManager = new ModelManager();
+    this.modelManager = options ? new ModelManager(options) : new ModelManager();
   }
 }
 

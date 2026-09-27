@@ -1,0 +1,9 @@
+namespace org.concerto.concepts.cd012.invalid@1.0.0
+
+// CON-04: a participant cannot extend an asset.
+asset A identified by id {
+  o String id
+}
+
+participant B extends A {
+}

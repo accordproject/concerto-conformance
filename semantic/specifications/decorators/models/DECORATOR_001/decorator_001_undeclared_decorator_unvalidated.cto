@@ -1,0 +1,10 @@
+namespace org.concerto.decorators.dec001.unvalidated.valid@1.0.0
+
+// DEC-03: with decorator validation off (the default), an undeclared
+// decorator loads.
+concept Person {
+   o String name
+   @Hide
+   o String ssn
+   o Integer age
+}

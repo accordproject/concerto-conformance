@@ -1,0 +1,18 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.concepts.d001.scalar.invalid@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.BooleanScalar",
+      "defaultValue": true,
+      "name": "BooleanScalarWithDefault"
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.BooleanScalar",
+      "defaultValue": true,
+      "name": "BooleanScalarWithDefault"
+    }
+  ]
+}

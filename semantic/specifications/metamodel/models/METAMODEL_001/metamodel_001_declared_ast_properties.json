@@ -1,0 +1,21 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.test@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "isAbstract": false,
+      "name": "C",
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.DateTimeProperty",
+          "isArray": false,
+          "isOptional": false,
+          "name": "t"
+        }
+      ]
+    }
+  ]
+}

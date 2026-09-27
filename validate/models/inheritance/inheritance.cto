@@ -1,0 +1,35 @@
+namespace org.concerto.validate.inheritance@1.0.0
+
+// Types for INH-01 to INH-04 (validate/features/inheritance.feature), from the
+// gaps "jgen" model and the #190 supplement model.
+asset Car identified by vin {
+  o String vin
+}
+
+asset Bike identified by bid {
+  o String bid
+}
+
+concept Part {
+  o String name
+}
+
+asset Garage identified by gid {
+  o String gid
+  o Car car optional
+  o Car[] cars optional
+  o Part part optional
+}
+
+asset Base identified by baseId {
+  o String baseId
+}
+
+asset Derived extends Base {
+  o String extra optional
+}
+
+concept WithDefault {
+  o String s default="q"
+  o Integer n optional
+}

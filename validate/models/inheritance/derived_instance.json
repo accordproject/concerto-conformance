@@ -1,0 +1,4 @@
+{
+  "$class": "org.concerto.validate.inheritance@1.0.0.Derived",
+  "baseId": "d2"
+}

@@ -1,0 +1,22 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.metamodel.mm001.invalid@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "name": "Event1",
+      "isAbstract": false,
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.DateTimeProperty",
+          "name": "at",
+          "isArray": false,
+          "isOptional": false,
+          "defaultValue": "2020-01-01T00:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}

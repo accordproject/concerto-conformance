@@ -1,0 +1,10 @@
+{
+  "$class": "org.concerto.validate.convert@1.0.0.ConvertBox",
+  "boxId": "b1",
+  "dt": "2016-10-20T05:34:03.519Z",
+  "i": 1,
+  "l": 32768,
+  "d": 32.768,
+  "b": true,
+  "s": "x"
+}

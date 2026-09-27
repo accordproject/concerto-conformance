@@ -1,0 +1,25 @@
+namespace org.concerto.validate.convert@1.0.0
+
+// The ConvertBox type of the lifted JSONPopulator fixtures (JP-CV-*), and the
+// ArrContainer type of JP-VS-*; for PRM-01 to PRM-08
+// (validate/features/primitives.feature).
+concept ConvertBox identified by boxId {
+  o String boxId
+  o DateTime dt optional
+  o Integer i optional
+  o Long l optional
+  o Double d optional
+  o Boolean b optional
+  o String s optional
+  o DateTime[] dtArr optional
+  o Integer[] iArr optional
+  o Long[] lArr optional
+  o Double[] dArr optional
+  o Boolean[] bArr optional
+  o String[] sArr optional
+}
+
+concept ArrContainer identified by containerId {
+  o String containerId
+  o String[] values optional
+}

@@ -82,3 +82,12 @@ Those repaired scenarios assert an error class and a rule (`@rule:<ID>`), or,
 for validator errors, rejection plus the error type, never message text
 (maintainer decisions D1 and Q-15 on accordproject/concerto-rust#249). This
 harness does not define those steps yet, so they are tagged `@skip-rust`.
+
+The scenarios promoted by P5-08b (accordproject/concerto-rust#249) use steps this
+harness does not define yet (`an error of class ... should be thrown`, `the error
+should mention ...`, `the model manager options:`, `I load the following models
+with validation:`), so they are tagged `@skip-rust`. The 9 positive runs that
+need only this harness's steps (the CON-02, CON-04 and CON-09 positives, DEC-03
+and the 5 IDN-02 rows) are not tagged and run here. Adding the other steps is a
+follow-up; see the main README.
+

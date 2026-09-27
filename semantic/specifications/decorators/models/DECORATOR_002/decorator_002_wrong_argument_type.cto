@@ -1,0 +1,13 @@
+namespace org.concerto.decorators.dec002.invalid@1.0.0
+
+import concerto.decorator@1.0.0.Decorator
+
+// DEC-02: `Hide` takes a Concept argument; a string is the wrong type.
+concept Hide extends Decorator {
+    o Concept concept
+}
+
+concept Person {
+   @Hide("foo")
+   o String ssn
+}

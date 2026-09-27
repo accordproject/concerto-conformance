@@ -1,0 +1,9 @@
+namespace org.concerto.imports.mf001.registered.invalid@1.0.0
+
+// NSI-05: imports a type that the registered namespace does not declare.
+import org.concerto.imports.mf001.categories@1.0.0.{MissingCategory}
+
+@category(MissingCategory)
+asset Car identified by id {
+  o String id
+}

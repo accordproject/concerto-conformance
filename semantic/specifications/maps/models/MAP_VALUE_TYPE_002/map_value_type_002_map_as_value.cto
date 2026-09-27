@@ -1,0 +1,12 @@
+namespace org.concerto.maps.mvt002.invalid@1.0.0
+
+// MAP-02: a map declaration cannot be a map's value type.
+map Inner {
+  o String
+  o String
+}
+
+map Outer {
+  o String
+  o Inner
+}
