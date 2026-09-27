@@ -1,0 +1,26 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.maps.valid.key001@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.DoubleScalar",
+      "name": "InvalidMapKeyScalar"
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.MapDeclaration",
+      "name": "InvalidMap",
+      "key": {
+        "$class": "concerto.metamodel@1.0.0.ObjectMapKeyType",
+        "type": {
+          "$class": "concerto.metamodel@1.0.0.TypeIdentifier",
+          "name": "InvalidMapKeyScalar"
+        }
+      },
+      "value": {
+        "$class": "concerto.metamodel@1.0.0.StringMapValueType"
+      }
+    }
+  ]
+}

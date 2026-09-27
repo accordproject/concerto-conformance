@@ -1,3 +1,14 @@
+// This file intentionally does not parse: the grammar's Integer range
+// validator only accepts signed-integer literals (range=[lower,upper]), so
+// a decimal lower bound such as 0.5 is a ParseException, never a semantic
+// one. Reaching the intended rule -- a float bound on an Integer property
+// -- needs a hand-authored JSON AST, since no valid CTO text attaches a
+// non-integer lower/upper bound to an IntegerDomainValidator. See
+// number_validator_003_invalid_range_type.json. NOTE: as authored, current
+// concerto-core (v5.x) does not actually reject this: NumberValidator
+// stores lower/upper as plain numbers with no check that they are integers
+// for an Integer-typed field, so no error is thrown for it (see the
+// scenario in scalars.feature, and the P5-08a report).
 namespace org.concerto.scalars.valid.num003@1.0.0
 
 concept InvalidInteger {

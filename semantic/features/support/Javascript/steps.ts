@@ -15,15 +15,26 @@ Before(async function () {
   ModelFile = deps.ModelFile;
 });
 
+/**
+ * Raised when a fixture cannot be loaded or parsed. This is a problem with
+ * the suite, not with the runtime under test, so it must never be mistaken
+ * for the domain error a scenario is asserting on.
+ */
+class FixtureError extends Error {}
+
 function loadAST(astPath: string): any {
   const basePath = path.resolve('semantic/specifications/');
   let currPath=astPath;
   astPath = path.join(basePath, currPath);
   if (!fs.existsSync(astPath) || !fs.statSync(astPath).isFile()) {
-    throw new Error(`AST JSON not found at: ${astPath}`);
+    throw new FixtureError(`cannot read fixture ${currPath}: not found at ${astPath}`);
   }
   const astContent = fs.readFileSync(astPath, 'utf8');
-  return JSON.parse(astContent);
+  try {
+    return JSON.parse(astContent);
+  } catch (err) {
+    throw new FixtureError(`cannot parse fixture ${currPath}: ${(err as Error).message}`);
+  }
 }
 
 Given('I load the following models:', function (dataTable) {
@@ -34,6 +45,12 @@ Given('I load the following models:', function (dataTable) {
       const modelFile = new ModelFile(this.modelManager, ast, modelContent, row.model_file);
       this.modelManager.addModelFile(modelFile, null, modelFile.getName(), true);
     } catch (err) {
+      if (err instanceof FixtureError) {
+        // A fixture that cannot be loaded must never satisfy an
+        // expectation: fail the step itself rather than recording a
+        // (fake) domain error.
+        throw err;
+      }
       this.error = err as Error;
       break;
     }

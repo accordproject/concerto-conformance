@@ -11,7 +11,8 @@ Feature: Semantic Validation of CTO Map Specification
     Given I load the following models:
       | model_file                                      | alias |
       | maps/models/MAP_KEY_TYPE_001/map_key_type_001_invalid_key_type.json           | main  |
-    Then an error should be thrown with message ""
+    When I validate the models
+    Then an error should be thrown with message "Scalar must be one of StringScalar, DateTimeScalar"
 
   Scenario: Valid map value type should pass
     Given I load the following models:

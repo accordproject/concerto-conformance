@@ -1,10 +1,10 @@
 namespace org.concerto.concepts.cd007.invalid@1.0.0
 
-concept BaseConcept {
+concept BaseConcept identified by id {
   o String id
 }
 
-concept SubConcept extends BaseConcept identified by subId {
-  o String subId 
+concept SubConcept identified by subId extends BaseConcept {
+  o String subId
 }
 

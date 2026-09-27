@@ -67,9 +67,8 @@ ignored.
 
 ## Known issues in the suite
 
-- `scalars.feature`: the titles of "should throw for invalid regex" (line 76)
-  and "should pass for valid regex pattern" (line 82) are swapped. Line 76
-  loads the valid-regex fixture and expects no error. Line 82 loads the
-  invalid-regex fixture, which does not exist, and expects an error. The
-  expectations match the fixtures; only the titles are wrong. This needs fixing
-  upstream, not in this harness.
+Fixed by P5-08a (accordproject/concerto-rust#248): the swapped
+`scalars.feature` regex titles, the 9 scenarios that asserted `message ""`
+against a missing fixture, and the 10 `.cto` files with no JSON AST. See
+`migration/CONFORMANCE-PROMOTION-PLAN.md` (concerto) section 1.P for the
+background.

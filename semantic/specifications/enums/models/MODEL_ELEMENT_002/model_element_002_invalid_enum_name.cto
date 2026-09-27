@@ -1,3 +1,10 @@
+// This file intentionally does not parse: the CTO identifier grammar never
+// allows a leading digit (an identifier must start with a letter, $ or
+// _), so the parser rejects "123InvalidName" with a ParseException before
+// the MODEL_ELEMENT_002 semantic rule is ever reached. Reaching that rule
+// needs a hand-authored JSON AST, since no valid CTO text produces a
+// declaration name the metamodel itself deems invalid. See
+// model_element_002_invalid_enum_name.json.
 namespace org.example.enums.modelelement002.invalid@1.0.0
 
 enum 123InvalidName {

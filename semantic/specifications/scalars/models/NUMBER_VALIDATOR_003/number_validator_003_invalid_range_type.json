@@ -1,0 +1,26 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.scalars.valid.num003@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "name": "InvalidInteger",
+      "isAbstract": false,
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.IntegerProperty",
+          "name": "value",
+          "isArray": false,
+          "isOptional": false,
+          "validator": {
+            "$class": "concerto.metamodel@1.0.0.IntegerDomainValidator",
+            "lower": 0.5,
+            "upper": 100
+          }
+        }
+      ]
+    }
+  ]
+}

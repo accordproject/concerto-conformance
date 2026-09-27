@@ -1,5 +1,12 @@
+// This file intentionally does not parse: "x" is not a valid property
+// prefix ("o", "-->", "@decorator"), so the CTO grammar itself rejects it
+// (a ParseException, not the PROPERTY_003 semantic error below). The rule
+// this fixture is meant to exercise -- a property whose $class is not a
+// recognised metamodel property type -- can only be reached with a
+// hand-authored JSON AST, since no valid CTO text produces an unrecognised
+// property $class. See property_003_meta_type_invalid.json.
 namespace org.example.property003.invalid@1.0.0
 
 concept Device identified by serial {
-  x String serial 
+  x String serial
 }

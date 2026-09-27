@@ -1,5 +1,5 @@
 namespace org.concerto.scalars.invalid.num001@1.0.0
 
 concept NoBounds {
-  o Double value range=[]
+  o Double value range=[,]
 }
