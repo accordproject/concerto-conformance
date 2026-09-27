@@ -20,7 +20,7 @@ This test suite enables straightforward integration with CI/CD pipelines, so Con
 ## Getting started
 1. Install dependencies:
     `npm install`
-2. Run the Javascript test suite:
+2. Run the Javascript test suite (semantic and instance features):
     `npm test`
 3. Run tests for C#:
     `npm run test:csharp`
@@ -30,3 +30,28 @@ This test suite enables straightforward integration with CI/CD pipelines, so Con
 You can also use the built-in CLI for a guided setup:
     `npm start`   
 The CLI allows you to provide custom ModelManager, Parser, or ModelFile sources for testing.
+
+## Assertions and tags
+Promoted scenarios assert an error **class** and a rule, never an implementation's
+message text:
+
+| Step | Meaning |
+|---|---|
+| `Then an error of class "<Class>" should be thrown` | the error's class name, e.g. `IllegalModelException`, `ValidationException`, `MetamodelException` |
+| `And the error should mention "<name>"` | the message contains a name from the model or instance (a type, property or namespace) |
+| `Given the model manager options:` | builds the model manager with options (`option` and `value` columns; a dotted option name sets a nested field) |
+| `Given I load the following models with validation:` | adds each model with load-time validation, which is where metamodel validation runs |
+
+Each promoted scenario carries an `@rule:<ID>` tag and a comment citing its
+source (an oracle fixture or a fuzz cluster, see concerto's
+`migration/CONFORMANCE-PROMOTION-PLAN.md`). A missing or unreadable fixture fails
+the step instead of counting as the expected error.
+
+The Rust and C# runners do not have these steps yet, so the semantic scenarios
+that use them are tagged `@skip-rust`. The Rust runner needs the class step (a
+mapping from the crate's error to its class name), the mention step, the options
+step and the validated-load step, plus instance steps to run the instance
+features; the models added by P5-08b have `.ast.json` siblings for that, and the
+older `validate/models` still need them. The C# runner needs
+the same steps, and `@skip-rust` does not apply to it.
+

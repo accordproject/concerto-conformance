@@ -78,3 +78,10 @@ Fixed by P5-08a (accordproject/concerto-rust#248): the swapped
 against a missing fixture, and the 10 `.cto` files with no JSON AST. See
 `migration/CONFORMANCE-PROMOTION-PLAN.md` (concerto) section 1.P for the
 background.
+
+The scenarios promoted by P5-08b (accordproject/concerto-rust#249) use steps this
+harness does not define yet (`an error of class ... should be thrown`, `the error
+should mention ...`, `the model manager options:`, `I load the following models
+with validation:`), so they are tagged `@skip-rust`. Adding those steps is a
+follow-up; see the main README.
+
