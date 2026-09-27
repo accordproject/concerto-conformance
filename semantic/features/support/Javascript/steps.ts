@@ -172,3 +172,22 @@ Then('the error should mention {string}', function (name: string) {
     `Expected the error to mention "${name}", but got: "${this.error.message}"`
   );
 });
+
+// Rejection at the 'rejected' level: some error was thrown, of any class.
+// For rules where the implementations do not (yet) share an error class;
+// pair it with an `@rule` tag, a mention where a model or instance name
+// exists, and the error type where one is standardised.
+Then('an error should be thrown', function () {
+  assert(this.error, 'Expected an error to be thrown, but none was');
+});
+
+// The error's `errorType` code (e.g. `DefaultValidatorException`,
+// `RegexValidatorException`), compared exactly.
+Then('the error type should be {string}', function (expected: string) {
+  assert(this.error, `Expected an error of type ${expected}, but none was thrown`);
+  assert.strictEqual(
+    this.error.errorType,
+    expected,
+    `Expected an error of type ${expected}, but got ${this.error.errorType}: "${this.error.message}"`
+  );
+});

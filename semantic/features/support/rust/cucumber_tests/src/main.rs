@@ -62,8 +62,6 @@ enum Skip {
     Upstream,
     /// Tagged `@skip-rust` and not opted in.
     RustOnly,
-    /// A fixture is missing, unreadable or not valid JSON.
-    Fixture(String),
 }
 
 #[derive(Debug)]
@@ -71,6 +69,9 @@ enum Outcome {
     Pass,
     Fail(String),
     Skip(Skip),
+    /// A fixture is missing, unreadable or not valid JSON: a harness error,
+    /// never a skip.
+    Error(String),
     ExpectedFail(&'static str),
     UnexpectedPass(&'static str),
 }
@@ -81,6 +82,7 @@ impl Outcome {
             Outcome::Pass => "PASS",
             Outcome::Fail(_) => "FAIL",
             Outcome::Skip(_) => "SKIP",
+            Outcome::Error(_) => "ERROR",
             Outcome::ExpectedFail(_) => "XFAIL",
             Outcome::UnexpectedPass(_) => "XPASS",
         }
@@ -89,7 +91,7 @@ impl Outcome {
     fn detail(&self) -> &str {
         match self {
             Outcome::Pass => "",
-            Outcome::Fail(s) | Outcome::Skip(Skip::Fixture(s)) => s,
+            Outcome::Fail(s) | Outcome::Error(s) => s,
             Outcome::Skip(Skip::Upstream) => "upstream @skip tag",
             Outcome::Skip(Skip::RustOnly) => "tagged @skip-rust",
             Outcome::ExpectedFail(s) | Outcome::UnexpectedPass(s) => s,
@@ -125,8 +127,9 @@ fn record(feature: &gherkin::Feature, scenario: &gherkin::Scenario, outcome: Out
     RESULTS.lock().unwrap().insert(key(feature, scenario), row);
 }
 
-/// Decides whether a scenario runs. Anything left out is recorded as an
-/// explicit skip with its reason, so a missing fixture never counts as a pass.
+/// Decides whether a scenario runs. Anything left out is recorded with its
+/// reason: a tag as an explicit skip, and a missing fixture as an error, so it
+/// never counts as a pass.
 fn should_run(feature: &gherkin::Feature, scenario: &gherkin::Scenario) -> bool {
     let has_tag = |t: &str| scenario.tags.iter().chain(&feature.tags).any(|x| x == t);
     if has_tag("skip") {
@@ -144,11 +147,7 @@ fn should_run(feature: &gherkin::Feature, scenario: &gherkin::Scenario) -> bool 
         .filter_map(|path| steps::load_fixture(&path).err())
         .collect();
     if !unusable.is_empty() {
-        record(
-            feature,
-            scenario,
-            Outcome::Skip(Skip::Fixture(unusable.join("; "))),
-        );
+        record(feature, scenario, Outcome::Error(unusable.join("; ")));
         return false;
     }
     true
@@ -212,23 +211,23 @@ fn report() -> bool {
     let ran = count("PASS") + count("FAIL") + count("XFAIL") + count("XPASS");
     println!(
         "\n{} scenarios: {} run, {} passed, {} expected failures, {} failed, {} unexpected passes, \
-         {} skipped ({} upstream @skip, {} @skip-rust, {} unusable fixture)",
+         {} errors (unusable fixture), {} skipped ({} upstream @skip, {} @skip-rust)",
         results.len(),
         ran,
         count("PASS"),
         count("XFAIL"),
         count("FAIL"),
         count("XPASS"),
+        count("ERROR"),
         count("SKIP"),
         skips(|s| matches!(s, Skip::Upstream)),
         skips(|s| matches!(s, Skip::RustOnly)),
-        skips(|s| matches!(s, Skip::Fixture(_))),
     );
     // A missing or unreadable fixture is a harness error (plan section 5.1),
     // not a benign skip like an upstream `@skip`/`@skip-rust` tag: it must
     // fail the run, the same way the JS load step now fails loudly instead
     // of recording it as a vacuous pass.
-    count("FAIL") == 0 && count("XPASS") == 0 && skips(|s| matches!(s, Skip::Fixture(_))) == 0
+    count("FAIL") == 0 && count("XPASS") == 0 && count("ERROR") == 0
 }
 
 #[tokio::main]
