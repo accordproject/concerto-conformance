@@ -48,12 +48,11 @@ After the run, the harness prints one row per scenario:
 | XFAIL  | Failed as recorded in `EXPECTED_FAILURES` in `src/main.rs`. |
 | XPASS  | Passed although listed in `EXPECTED_FAILURES`; remove the entry. |
 
-The process exits non-zero on any FAIL or XPASS, on any SKIP caused by a
-missing, unreadable or invalid-JSON fixture, or if a feature file fails to
-parse (its scenarios would otherwise just be missing from the table). A
-missing fixture is a harness error (plan section 5.1), not a benign skip like
-an upstream `@skip`/`@skip-rust` tag, so it still shows as SKIP in the table
-but fails the run.
+The process exits non-zero on any FAIL or XPASS, on any ERROR (a missing,
+unreadable or invalid-JSON fixture), or if a feature file fails to parse (its
+scenarios would otherwise just be missing from the table). A missing fixture
+is a harness error (plan section 5.1), not a benign skip like an upstream
+`@skip`/`@skip-rust` tag, so it shows as ERROR in the table and fails the run.
 
 Set `CONFORMANCE_INCLUDE_SKIP_RUST=1` to also run scenarios tagged `@skip-rust`.
 
@@ -78,3 +77,8 @@ Fixed by P5-08a (accordproject/concerto-rust#248): the swapped
 against a missing fixture, and the 10 `.cto` files with no JSON AST. See
 `migration/CONFORMANCE-PROMOTION-PLAN.md` (concerto) section 1.P for the
 background.
+
+Those repaired scenarios assert an error class and a rule (`@rule:<ID>`), or,
+for validator errors, rejection plus the error type, never message text
+(maintainer decisions D1 and Q-15 on accordproject/concerto-rust#249). This
+harness does not define those steps yet, so they are tagged `@skip-rust`.

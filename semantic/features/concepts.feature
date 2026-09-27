@@ -88,12 +88,14 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
+  @rule:CLASS_DECLARATION_007 @skip-rust
   Scenario: Supertype is not system-identified
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_007/class_declaration_007_supertype_not_system_identified.json | main        |
     When I validate the models
-    Then an error should be thrown with message "has an explicit identifier id that cannot be redeclared"
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "BaseConcept"
 
   Scenario: Supertype is system-identified
     Given I load the following models:
@@ -159,11 +161,13 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
+  @rule:MODEL_ELEMENT_002 @skip-rust
   Scenario: Invalid identifier should throw
     Given I load the following models:
       | model_file                                                                                          | alias |
       | concepts/models/MODEL_ELEMENT_002/model_element_002_invalid_identifier_name.json | main |
-    Then an error should be thrown with message "Invalid class name"
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "Invalid-Name"
 
   Scenario: Valid identifier should pass
     Given I load the following models:
@@ -228,11 +232,13 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
+  @rule:PROPERTY_003 @skip-rust
   Scenario: Invalid property meta type should throw
     Given I load the following models:
       | model_file                                                                                          | alias |
       | concepts/models/PROPERTY_003/property_003_meta_type_invalid.json            | main  |
-    Then an error should be thrown with message "Unrecognised model element"
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "BogusPropertyType"
 
   Scenario: Valid property meta type should pass
     Given I load the following models:
