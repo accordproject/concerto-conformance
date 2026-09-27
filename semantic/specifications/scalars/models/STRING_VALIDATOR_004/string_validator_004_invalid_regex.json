@@ -1,0 +1,26 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.scalars.invalid.str004@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "name": "BadRegex",
+      "isAbstract": false,
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.StringProperty",
+          "name": "value",
+          "isArray": false,
+          "isOptional": false,
+          "validator": {
+            "$class": "concerto.metamodel@1.0.0.StringRegexValidator",
+            "pattern": "(",
+            "flags": ""
+          }
+        }
+      ]
+    }
+  ]
+}

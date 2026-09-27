@@ -1,6 +1,8 @@
 namespace org.concerto.maps.valid.key001@1.0.0
 
+scalar InvalidMapKeyScalar extends Double
+
 map InvalidMap {
-  o Double
+  o InvalidMapKeyScalar
   o String
 }

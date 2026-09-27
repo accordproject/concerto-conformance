@@ -15,15 +15,26 @@ Before(async function () {
   ModelFile = deps.ModelFile;
 });
 
+/**
+ * Raised when a fixture cannot be loaded or parsed. This is a problem with
+ * the suite, not with the runtime under test, so it must never be mistaken
+ * for the domain error a scenario is asserting on.
+ */
+class FixtureError extends Error {}
+
 function loadAST(astPath: string): any {
   const basePath = path.resolve('semantic/specifications/');
   let currPath=astPath;
   astPath = path.join(basePath, currPath);
   if (!fs.existsSync(astPath) || !fs.statSync(astPath).isFile()) {
-    throw new Error(`AST JSON not found at: ${astPath}`);
+    throw new FixtureError(`cannot read fixture ${currPath}: not found at ${astPath}`);
   }
   const astContent = fs.readFileSync(astPath, 'utf8');
-  return JSON.parse(astContent);
+  try {
+    return JSON.parse(astContent);
+  } catch (err) {
+    throw new FixtureError(`cannot parse fixture ${currPath}: ${(err as Error).message}`);
+  }
 }
 
 Given('I load the following models:', function (dataTable) {
@@ -34,6 +45,12 @@ Given('I load the following models:', function (dataTable) {
       const modelFile = new ModelFile(this.modelManager, ast, modelContent, row.model_file);
       this.modelManager.addModelFile(modelFile, null, modelFile.getName(), true);
     } catch (err) {
+      if (err instanceof FixtureError) {
+        // A fixture that cannot be loaded must never satisfy an
+        // expectation: fail the step itself rather than recording a
+        // (fake) domain error.
+        throw err;
+      }
       this.error = err as Error;
       break;
     }
@@ -73,4 +90,53 @@ Then('an error should be thrown with message {string}', function (expected: stri
 
 Then('no error should be thrown', function () {
   assert.strictEqual(this.error, null, `Expected no error, but got: ${this.error?.message}`);
+});
+
+/**
+ * The class name of an error: the cross-implementation exception name
+ * (`IllegalModelException`, `ValidationException`, `TypeNotFoundException`,
+ * `MetamodelException`, ...). Concerto's exceptions set `name` to their
+ * constructor's name.
+ */
+function errorClass(err: any): string {
+  return err?.name || err?.constructor?.name || typeof err;
+}
+
+Then('an error of class {string} should be thrown', function (expected: string) {
+  assert(this.error, `Expected an error of class ${expected}, but none was thrown`);
+  const actual = errorClass(this.error);
+  assert.strictEqual(
+    actual,
+    expected,
+    `Expected an error of class ${expected}, but got ${actual}: "${this.error.message}"`
+  );
+});
+
+// Only for names that come from the model or the instance (a type, property
+// or namespace), never for message prose.
+Then('the error should mention {string}', function (name: string) {
+  assert(this.error, `Expected an error mentioning "${name}", but none was thrown`);
+  assert(
+    String(this.error.message).includes(name),
+    `Expected the error to mention "${name}", but got: "${this.error.message}"`
+  );
+});
+
+// Rejection at the 'rejected' level: some error was thrown, of any class.
+// For rules where the implementations do not (yet) share an error class;
+// pair it with an `@rule` tag, a mention where a model or instance name
+// exists, and the error type where one is standardised.
+Then('an error should be thrown', function () {
+  assert(this.error, 'Expected an error to be thrown, but none was');
+});
+
+// The error's `errorType` code (e.g. `DefaultValidatorException`,
+// `RegexValidatorException`), compared exactly.
+Then('the error type should be {string}', function (expected: string) {
+  assert(this.error, `Expected an error of type ${expected}, but none was thrown`);
+  assert.strictEqual(
+    this.error.errorType,
+    expected,
+    `Expected an error of type ${expected}, but got ${this.error.errorType}: "${this.error.message}"`
+  );
 });

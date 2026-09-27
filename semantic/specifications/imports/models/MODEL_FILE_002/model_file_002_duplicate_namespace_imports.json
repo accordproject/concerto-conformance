@@ -1,0 +1,29 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.concerto.imports.modelfile002.invalid@1.0.0",
+  "imports": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ImportType",
+      "name": "Type",
+      "namespace": "org.concerto.imports.external.types@1.0.0"
+    },
+    {
+      "$class": "concerto.metamodel@1.0.0.ImportType",
+      "name": "AnotherType",
+      "namespace": "org.concerto.imports.external.types@1.0.0"
+    }
+  ],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.EnumDeclaration",
+      "name": "Thing",
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.EnumProperty",
+          "name": "ISSUE"
+        }
+      ]
+    }
+  ]
+}

@@ -39,8 +39,10 @@ Feature: Semantic Validation of Enum Declarations in CTO Models
     When I validate the models
     Then no error should be thrown
 
+  @rule:MODEL_ELEMENT_002 @skip-rust
   Scenario: Invalid enum identifier name should throw an error
     Given I load the following models:
       | model_file                                                   | alias      |
       | enums/models/MODEL_ELEMENT_002/model_element_002_invalid_enum_name.json | main     |
-    Then an error should be thrown with message ""
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "123InvalidName"

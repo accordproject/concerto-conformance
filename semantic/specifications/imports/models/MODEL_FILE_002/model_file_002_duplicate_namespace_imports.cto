@@ -1,4 +1,4 @@
-org.concerto.imports.modelfile002.invalid@1.0.0
+namespace org.concerto.imports.modelfile002.invalid@1.0.0
 
 import org.concerto.imports.external.types@1.0.0.Type
 import org.concerto.imports.external.types@1.0.0.AnotherType

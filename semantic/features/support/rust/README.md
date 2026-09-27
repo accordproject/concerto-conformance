@@ -48,10 +48,11 @@ After the run, the harness prints one row per scenario:
 | XFAIL  | Failed as recorded in `EXPECTED_FAILURES` in `src/main.rs`. |
 | XPASS  | Passed although listed in `EXPECTED_FAILURES`; remove the entry. |
 
-The process exits non-zero on any FAIL or XPASS, or if a feature file fails to
-parse (its scenarios would otherwise just be missing from the table). A missing
-fixture never counts as a pass. The filter reports it as a SKIP, and if a
-fixture fails to load during a run, the scenario fails.
+The process exits non-zero on any FAIL or XPASS, on any ERROR (a missing,
+unreadable or invalid-JSON fixture), or if a feature file fails to parse (its
+scenarios would otherwise just be missing from the table). A missing fixture
+is a harness error (plan section 5.1), not a benign skip like an upstream
+`@skip`/`@skip-rust` tag, so it shows as ERROR in the table and fails the run.
 
 Set `CONFORMANCE_INCLUDE_SKIP_RUST=1` to also run scenarios tagged `@skip-rust`.
 
@@ -71,9 +72,13 @@ ignored.
 
 ## Known issues in the suite
 
-- `scalars.feature`: the titles of "should throw for invalid regex" (line 76)
-  and "should pass for valid regex pattern" (line 82) are swapped. Line 76
-  loads the valid-regex fixture and expects no error. Line 82 loads the
-  invalid-regex fixture, which does not exist, and expects an error. The
-  expectations match the fixtures; only the titles are wrong. This needs fixing
-  upstream, not in this harness.
+Fixed by P5-08a (accordproject/concerto-rust#248): the swapped
+`scalars.feature` regex titles, the 9 scenarios that asserted `message ""`
+against a missing fixture, and the 10 `.cto` files with no JSON AST. See
+`migration/CONFORMANCE-PROMOTION-PLAN.md` (concerto) section 1.P for the
+background.
+
+Those repaired scenarios assert an error class and a rule (`@rule:<ID>`), or,
+for validator errors, rejection plus the error type, never message text
+(maintainer decisions D1 and Q-15 on accordproject/concerto-rust#249). This
+harness does not define those steps yet, so they are tagged `@skip-rust`.
