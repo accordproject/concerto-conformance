@@ -224,7 +224,11 @@ fn report() -> bool {
         skips(|s| matches!(s, Skip::RustOnly)),
         skips(|s| matches!(s, Skip::Fixture(_))),
     );
-    count("FAIL") == 0 && count("XPASS") == 0
+    // A missing or unreadable fixture is a harness error (plan section 5.1),
+    // not a benign skip like an upstream `@skip`/`@skip-rust` tag: it must
+    // fail the run, the same way the JS load step now fails loudly instead
+    // of recording it as a vacuous pass.
+    count("FAIL") == 0 && count("XPASS") == 0 && skips(|s| matches!(s, Skip::Fixture(_))) == 0
 }
 
 #[tokio::main]
