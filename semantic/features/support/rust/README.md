@@ -78,9 +78,9 @@ against a missing fixture, and the 10 `.cto` files with no JSON AST. See
 `migration/CONFORMANCE-PROMOTION-PLAN.md` (concerto) section 1.P for the
 background.
 
-Those repaired scenarios assert an error class and a rule (`@rule:<ID>`), or,
-for validator errors, rejection plus the error type, never message text
-(maintainer decisions D1 and Q-15 on accordproject/concerto-rust#249). This
+Those repaired scenarios assert an error class and a rule (`@rule:<ID>`),
+plus the error type for validator errors, never message text (maintainer
+decisions D1 and Q-15 on accordproject/concerto-rust#249; BC-39). This
 harness does not define those steps yet, so they are tagged `@skip-rust`.
 
 The scenarios promoted by P5-08b (accordproject/concerto-rust#249) use steps this

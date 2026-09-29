@@ -49,6 +49,8 @@ Feature: Instance Validation against Concerto Models
     Then the validation should fail
 
   # --- Collection Size Validation ---
+  # An instance value that fails a validator is a ValidationException that
+  # keeps its error type (maintainer decision Q-15; BC-39).
 
   Scenario: Array within size bounds should pass
     When I validate "validate/models/collection_size/valid_within_bounds.json" with models "validate/models/collection_size/collection_size.cto"
@@ -64,8 +66,10 @@ Feature: Instance Validation against Concerto Models
 
   Scenario: Array with too few elements should fail
     When I validate "validate/models/collection_size/too_few_elements.json" with models "validate/models/collection_size/collection_size.cto"
-    Then the validation should fail
+    Then an error of class "ValidationException" should be thrown
+    And the error type should be "DefaultValidatorException"
 
   Scenario: Array with too many elements should fail
     When I validate "validate/models/collection_size/too_many_elements.json" with models "validate/models/collection_size/collection_size.cto"
-    Then the validation should fail
+    Then an error of class "ValidationException" should be thrown
+    And the error type should be "DefaultValidatorException"

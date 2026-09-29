@@ -40,7 +40,7 @@ message text:
 | `Then an error of class "<Class>" should be thrown` | the error's class name, e.g. `IllegalModelException`, `ValidationException`, `MetamodelException` |
 | `And the error should mention "<name>"` | the message contains a name from the model or instance (a type, property or namespace) |
 | `Then an error should be thrown` | rejection of any class, for rules where the implementations do not share a class yet |
-| `And the error type should be "<code>"` | the error's `errorType`, e.g. `DefaultValidatorException` (validator errors are asserted this way until they leave `BaseException`) |
+| `And the error type should be "<code>"` | the error's `errorType`, e.g. `DefaultValidatorException`; a validator error asserts its class (`IllegalModelException` at load, `ValidationException` for an instance) and its error type |
 | `Given the model manager options:` | builds the model manager with options (`option` and `value` columns; a dotted option name sets a nested field) |
 | `Given I load the following models with validation:` | adds each model with load-time validation, which is where metamodel validation runs |
 
