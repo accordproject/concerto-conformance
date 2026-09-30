@@ -118,13 +118,16 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
-  @skip-rust
+  # CON-10 / BC-11: a longer inheritance cycle (A extends C, B extends A,
+  # C extends B) is an IllegalModelException, not a JavaScript engine
+  # RangeError (concerto-core R1, accordproject/concerto-rust#400).
+  @rule:CLASS_DECLARATION_009 @skip-rust
   Scenario: Unique property names across inheritance
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_009/class_declaration_009_circular_inheritance.json | main        |
     When I validate the models
-    Then an error should be thrown with message "Maximum call stack size exceeded"
+    Then an error of class "IllegalModelException" should be thrown
 
   Scenario: Unique property names across inheritance
     Given I load the following models:

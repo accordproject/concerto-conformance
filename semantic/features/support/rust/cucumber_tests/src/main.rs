@@ -22,16 +22,6 @@ struct ExpectedFailure {
 /// removed.
 const EXPECTED_FAILURES: &[ExpectedFailure] = &[
     ExpectedFailure {
-        fixture: "concepts/models/CLASS_DECLARATION_009/class_declaration_009_circular_inheritance.json",
-        message: "Maximum call stack size exceeded",
-        reason: "expects a JavaScript engine message; the runtime reports circular inheritance; parity decided in accordproject/concerto-rust#42",
-    },
-    ExpectedFailure {
-        fixture: "maps/models/MAP_VALUE_TYPE_001/map_value_type_001_type_not_exist.json",
-        message: "Cannot read properties of null",
-        reason: "expects a JavaScript engine message; the runtime reports the undeclared type; parity decided in accordproject/concerto-rust#42",
-    },
-    ExpectedFailure {
         fixture: "concepts/models/CLASS_DECLARATION_003/class_declaration_003_duplicate_class_name.json",
         message: "Duplicate class name",
         reason: "message mismatch: runtime says \"duplicate declaration\"; fixed by accordproject/concerto-rust#42",
