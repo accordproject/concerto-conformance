@@ -7,7 +7,7 @@ Feature: Semantic Validation of CTO Map Specification
     When I validate the models
     Then no error should be thrown
 
-  @rule:MAP_KEY_TYPE_001 @skip-rust
+  @rule:MAP_KEY_TYPE_001
   Scenario: Invalid map key type should throw error
     Given I load the following models:
       | model_file                                      | alias |
@@ -26,7 +26,7 @@ Feature: Semantic Validation of CTO Map Specification
   # MAP-04 / BC-12: an undeclared map value type is an IllegalModelException
   # naming it, not a JavaScript engine TypeError (concerto-core R1,
   # accordproject/concerto-rust#400).
-  @rule:MAP_VALUE_TYPE_001 @skip-rust
+  @rule:MAP_VALUE_TYPE_001
   Scenario: Non-existent map value type should throw error
     Given I load the following models:
       | model_file                                      | alias |
@@ -35,7 +35,6 @@ Feature: Semantic Validation of CTO Map Specification
     Then an error of class "IllegalModelException" should be thrown
     And the error should mention "UnknownType"
 
-  @skip-rust
   Scenario: Duplicate map names should throw error
     Given I load the following models:
       | model_file                                      | alias |
@@ -52,13 +51,11 @@ Feature: Semantic Validation of CTO Map Specification
 
   # Scenarios below this line were promoted by P5-08b from the oracle corpus and
   # the fuzz records (concerto migration/CONFORMANCE-PROMOTION-PLAN.md). Each one
-  # asserts an error class and a @rule tag, never TS message text. They are
-  # tagged @skip-rust until the Rust runner gains the class step (and, where
-  # used, the options and validated-load steps); see the plan, section 5.1.
+  # asserts an error class and a @rule tag, never TS message text.
 
   # MAP-01. Source: F:data/ModelManager.addCTOModel/0346e9576d6ac88a3b8bd013 (40);
   # F:unit/MapDeclaration.validate/0052fa8c025147afa24d60dc (7).
-  @rule:MAP_KEY_TYPE_001 @skip-rust
+  @rule:MAP_KEY_TYPE_001
   Scenario: A scalar of Boolean is not a valid map key type
     Given I load the following models:
       | model_file                                                            | alias |
@@ -67,7 +64,7 @@ Feature: Semantic Validation of CTO Map Specification
     Then an error of class "IllegalModelException" should be thrown
 
   # MAP-02. Source: F:unit/MapDeclaration.validate/c6c3d676d2dcc40a2afb100e.
-  @rule:MAP_VALUE_TYPE_002 @skip-rust
+  @rule:MAP_VALUE_TYPE_002
   Scenario: A map declaration is a map's value type
     Given I load the following models:
       | model_file                                                          | alias |
@@ -77,7 +74,7 @@ Feature: Semantic Validation of CTO Map Specification
 
   # MAP-03. Source: F:gaps/ModelManager.fromAst/52f8a94d983f4877bf41fa81 (2); Z:#22 (302 cases).
   # JSON AST only. Class only: the wording differs between engines (#219 cluster 22).
-  @rule:MAP_DECLARATION_002 @skip-rust
+  @rule:MAP_DECLARATION_002
   Scenario: A map declaration has no key
     Given I load the following models:
       | model_file                                                           | alias |
