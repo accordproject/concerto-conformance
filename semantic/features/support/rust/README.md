@@ -96,8 +96,8 @@ background.
 
 Those repaired scenarios, and the ones promoted by P5-08b
 (accordproject/concerto-rust#249), assert an error class and a rule
-(`@rule:<ID>`), or, for validator errors, rejection plus the error type, never
-message text (maintainer decisions D1 and Q-15 on accordproject/concerto-rust#249).
-P5-62 (accordproject/concerto-rust#397) added the steps they use to this
-harness and dropped their `@skip-rust` tags, with the six stale
-`EXPECTED_FAILURES` entries.
+(`@rule:<ID>`), or, for validator errors, the error class plus the error type
+(BC-39), never message text (maintainer decisions D1 and Q-15 on
+accordproject/concerto-rust#249). P5-62 (accordproject/concerto-rust#397) added
+the steps they use to this harness and dropped their `@skip-rust` tags, with
+the six stale `EXPECTED_FAILURES` entries.
