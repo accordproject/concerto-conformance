@@ -1,0 +1,17 @@
+namespace org.example.relationships@1.0.0
+
+participant Person identified by id {
+  o String id
+  --> Person manager optional
+  --> Person[] reports optional
+}
+
+asset Device identified by serial {
+  o String serial
+  --> Person owner
+}
+
+concept Assignment {
+  --> Device device
+  --> Person[] users
+}

@@ -1,0 +1,92 @@
+{
+  "declarations": {
+    "org.example.relationships@1.0.0.Person": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Participant",
+          "isSystem": true
+        },
+        "id": {
+          "name": "id",
+          "type": "String",
+          "isIdentifier": true
+        },
+        "manager": {
+          "name": "manager",
+          "type": "org.example.relationships@1.0.0.Person",
+          "isOptional": true,
+          "isRelationship": true
+        },
+        "reports": {
+          "name": "reports",
+          "type": "org.example.relationships@1.0.0.Person",
+          "isArray": true,
+          "isOptional": true,
+          "isRelationship": true
+        }
+      },
+      "prototype": "ParticipantDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Participant",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.relationships@1.0.0.Device": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Asset",
+          "isSystem": true
+        },
+        "serial": {
+          "name": "serial",
+          "type": "String",
+          "isIdentifier": true
+        },
+        "owner": {
+          "name": "owner",
+          "type": "org.example.relationships@1.0.0.Person",
+          "isRelationship": true
+        }
+      },
+      "prototype": "AssetDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Asset",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.relationships@1.0.0.Assignment": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "device": {
+          "name": "device",
+          "type": "org.example.relationships@1.0.0.Device",
+          "isRelationship": true
+        },
+        "users": {
+          "name": "users",
+          "type": "org.example.relationships@1.0.0.Person",
+          "isArray": true,
+          "isRelationship": true
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.relationships@1.0.0": {
+        "imports": [],
+        "decorators": []
+      }
+    }
+  }
+}

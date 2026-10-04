@@ -1,0 +1,133 @@
+{
+  "declarations": {
+    "org.example.collections@1.0.0.Status": {
+      "type": "EnumDeclaration",
+      "values": {
+        "ACTIVE": {},
+        "SUSPENDED": {},
+        "CLOSED": {}
+      }
+    },
+    "org.example.collections@1.0.0.Isbn": {
+      "type": "StringScalar",
+      "regex": "/^[0-9-]+$/"
+    },
+    "org.example.collections@1.0.0.Author": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "name": {
+          "name": "name",
+          "type": "String",
+          "isIdentifier": true
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.collections@1.0.0.Counts": {
+      "type": "MapDeclaration",
+      "key": {
+        "type": "String"
+      },
+      "value": {
+        "type": "Integer"
+      }
+    },
+    "org.example.collections@1.0.0.Schedule": {
+      "type": "MapDeclaration",
+      "key": {
+        "type": "DateTime"
+      },
+      "value": {
+        "type": "String"
+      }
+    },
+    "org.example.collections@1.0.0.Catalogue": {
+      "type": "MapDeclaration",
+      "key": {
+        "type": "org.example.collections@1.0.0.Isbn"
+      },
+      "value": {
+        "type": "org.example.collections@1.0.0.Status"
+      }
+    },
+    "org.example.collections@1.0.0.Authors": {
+      "type": "MapDeclaration",
+      "key": {
+        "type": "String"
+      },
+      "value": {
+        "type": "org.example.collections@1.0.0.Author"
+      }
+    },
+    "org.example.collections@1.0.0.AuthorRefs": {
+      "type": "MapDeclaration",
+      "key": {
+        "type": "String"
+      },
+      "value": {
+        "type": "org.example.collections@1.0.0.Author",
+        "isRelationship": true
+      }
+    },
+    "org.example.collections@1.0.0.Library": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "status": {
+          "name": "status",
+          "type": "org.example.collections@1.0.0.Status",
+          "isEnum": true
+        },
+        "history": {
+          "name": "history",
+          "type": "org.example.collections@1.0.0.Status",
+          "isArray": true,
+          "isOptional": true,
+          "isEnum": true
+        },
+        "counts": {
+          "name": "counts",
+          "type": "org.example.collections@1.0.0.Counts",
+          "isMap": true
+        },
+        "schedule": {
+          "name": "schedule",
+          "type": "org.example.collections@1.0.0.Schedule",
+          "isOptional": true,
+          "isMap": true
+        },
+        "catalogue": {
+          "name": "catalogue",
+          "type": "org.example.collections@1.0.0.Catalogue",
+          "isOptional": true,
+          "isMap": true
+        },
+        "authors": {
+          "name": "authors",
+          "type": "org.example.collections@1.0.0.Authors",
+          "isOptional": true,
+          "isMap": true
+        },
+        "authorRefs": {
+          "name": "authorRefs",
+          "type": "org.example.collections@1.0.0.AuthorRefs",
+          "isOptional": true,
+          "isMap": true
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.collections@1.0.0": {
+        "imports": [],
+        "decorators": []
+      }
+    }
+  }
+}

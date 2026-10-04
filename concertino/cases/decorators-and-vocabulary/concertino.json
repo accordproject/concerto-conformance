@@ -1,0 +1,180 @@
+{
+  "declarations": {
+    "org.example.decorators@1.0.0.Unit": {
+      "type": "ConceptDeclaration",
+      "properties": {},
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.decorators@1.0.0.Person": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "firstName": {
+          "name": "firstName",
+          "type": "String",
+          "vocabulary": {
+            "label": "Given name",
+            "additionalTerms": {
+              "description": "The first name"
+            }
+          }
+        },
+        "email": {
+          "name": "email",
+          "type": "String",
+          "vocabulary": {
+            "label": "Email address"
+          },
+          "metadata": {
+            "Sensitive": null
+          },
+          "decoratorOrder": [
+            "Sensitive",
+            "Term"
+          ],
+          "isOptional": true
+        },
+        "birthday": {
+          "name": "birthday",
+          "type": "DateTime",
+          "metadata": {
+            "Format": [
+              "dd-MM-yyyy",
+              true,
+              3,
+              -1.5
+            ]
+          },
+          "isOptional": true
+        },
+        "age": {
+          "name": "age",
+          "type": "Integer",
+          "metadata": {
+            "Display": [
+              {
+                "type": "org.example.decorators@1.0.0.Unit"
+              }
+            ],
+            "Columns": [
+              {
+                "type": "org.example.decorators@1.0.0.Unit",
+                "isArray": true
+              }
+            ]
+          },
+          "isOptional": true
+        }
+      },
+      "vocabulary": {
+        "label": "A person",
+        "additionalTerms": {
+          "plural": "People"
+        }
+      },
+      "metadata": {
+        "Searchable": null
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.decorators@1.0.0.Colour": {
+      "type": "EnumDeclaration",
+      "values": {
+        "RED": {
+          "vocabulary": {
+            "label": "Red"
+          }
+        },
+        "GREEN": {
+          "vocabulary": {
+            "label": "Green",
+            "additionalTerms": {
+              "code": "G"
+            }
+          },
+          "metadata": {
+            "Deprecated": null
+          },
+          "decoratorOrder": [
+            "Deprecated",
+            "Term",
+            "Term_code"
+          ]
+        }
+      },
+      "vocabulary": {
+        "label": "A colour"
+      },
+      "metadata": {
+        "Hidden": null
+      },
+      "decoratorOrder": [
+        "Hidden",
+        "Term"
+      ]
+    },
+    "org.example.decorators@1.0.0.Lookup": {
+      "type": "MapDeclaration",
+      "key": {
+        "type": "String",
+        "vocabulary": {
+          "label": "The key"
+        }
+      },
+      "value": {
+        "type": "String",
+        "vocabulary": {
+          "label": "The value"
+        },
+        "metadata": {
+          "Indexed": null
+        },
+        "decoratorOrder": [
+          "Indexed",
+          "Term"
+        ]
+      },
+      "vocabulary": {
+        "label": "A lookup"
+      }
+    },
+    "org.example.decorators@1.0.0.Short": {
+      "type": "StringScalar",
+      "vocabulary": {
+        "label": "A short text"
+      },
+      "metadata": {
+        "MaxDisplay": [
+          40
+        ]
+      },
+      "length": [
+        null,
+        40
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.decorators@1.0.0": {
+        "imports": [],
+        "decorators": [
+          {
+            "$class": "concerto.metamodel@1.0.0.Decorator",
+            "name": "Owner",
+            "arguments": [
+              {
+                "$class": "concerto.metamodel@1.0.0.DecoratorString",
+                "value": "modelling team"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

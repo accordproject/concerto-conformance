@@ -1,0 +1,211 @@
+{
+  "declarations": {
+    "org.example.scalars@1.0.0.Code": {
+      "type": "StringScalar",
+      "regex": "/^[A-Z]{3}$/",
+      "length": [
+        3,
+        3
+      ]
+    },
+    "org.example.scalars@1.0.0.Name": {
+      "type": "StringScalar",
+      "length": [
+        1,
+        null
+      ]
+    },
+    "org.example.scalars@1.0.0.Note": {
+      "type": "StringScalar",
+      "default": ""
+    },
+    "org.example.scalars@1.0.0.Percent": {
+      "type": "IntegerScalar",
+      "range": [
+        0,
+        100
+      ],
+      "default": 0
+    },
+    "org.example.scalars@1.0.0.Big": {
+      "type": "LongScalar",
+      "range": [
+        null,
+        1000000
+      ]
+    },
+    "org.example.scalars@1.0.0.Ratio": {
+      "type": "DoubleScalar",
+      "range": [
+        0,
+        null
+      ],
+      "default": 0
+    },
+    "org.example.scalars@1.0.0.Flag": {
+      "type": "BooleanScalar",
+      "default": false
+    },
+    "org.example.scalars@1.0.0.Moment": {
+      "type": "DateTimeScalar"
+    },
+    "org.example.scalars@1.0.0.Sample": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "code": {
+          "name": "code",
+          "type": "String",
+          "scalarType": "org.example.scalars@1.0.0.Code",
+          "regex": "/^[A-Z]{3}$/",
+          "length": [
+            3,
+            3
+          ]
+        },
+        "name": {
+          "name": "name",
+          "type": "String",
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Name",
+          "length": [
+            1,
+            null
+          ]
+        },
+        "note": {
+          "name": "note",
+          "type": "String",
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Note",
+          "default": ""
+        },
+        "percent": {
+          "name": "percent",
+          "type": "Integer",
+          "scalarType": "org.example.scalars@1.0.0.Percent",
+          "range": [
+            0,
+            100
+          ],
+          "default": 0
+        },
+        "big": {
+          "name": "big",
+          "type": "Long",
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Big",
+          "range": [
+            null,
+            1000000
+          ]
+        },
+        "ratio": {
+          "name": "ratio",
+          "type": "Double",
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Ratio",
+          "range": [
+            0,
+            null
+          ],
+          "default": 0
+        },
+        "flag": {
+          "name": "flag",
+          "type": "Boolean",
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Flag",
+          "default": false
+        },
+        "moment": {
+          "name": "moment",
+          "type": "DateTime",
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Moment"
+        },
+        "codes": {
+          "name": "codes",
+          "type": "String",
+          "isArray": true,
+          "isOptional": true,
+          "scalarType": "org.example.scalars@1.0.0.Code",
+          "regex": "/^[A-Z]{3}$/",
+          "length": [
+            3,
+            3
+          ]
+        },
+        "word": {
+          "name": "word",
+          "type": "String",
+          "regex": "/^[a-z]+$/i",
+          "length": [
+            null,
+            20
+          ]
+        },
+        "count": {
+          "name": "count",
+          "type": "Integer",
+          "range": [
+            1,
+            null
+          ],
+          "default": 1
+        },
+        "total": {
+          "name": "total",
+          "type": "Long",
+          "range": [
+            null,
+            10
+          ]
+        },
+        "score": {
+          "name": "score",
+          "type": "Double",
+          "range": [
+            0.5,
+            9.5
+          ]
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "Boolean",
+          "default": true
+        },
+        "labels": {
+          "name": "labels",
+          "type": "String",
+          "isArray": true,
+          "size": [
+            1,
+            5
+          ]
+        },
+        "numbers": {
+          "name": "numbers",
+          "type": "Integer",
+          "isArray": true,
+          "isOptional": true,
+          "size": [
+            null,
+            3
+          ]
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.scalars@1.0.0": {
+        "imports": [],
+        "decorators": []
+      }
+    }
+  }
+}

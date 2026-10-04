@@ -1,0 +1,29 @@
+namespace org.example.scalars@1.0.0
+
+scalar Code extends String regex=/^[A-Z]{3}$/ length=[3,3]
+scalar Name extends String length=[1,]
+scalar Note extends String default=""
+scalar Percent extends Integer default=0 range=[0,100]
+scalar Big extends Long range=[,1000000]
+scalar Ratio extends Double default=0.0 range=[0.0,]
+scalar Flag extends Boolean default=false
+scalar Moment extends DateTime
+
+concept Sample {
+  o Code code
+  o Name name optional
+  o Note note optional
+  o Percent percent
+  o Big big optional
+  o Ratio ratio optional
+  o Flag flag optional
+  o Moment moment optional
+  o Code[] codes optional
+  o String word regex=/^[a-z]+$/i length=[,20]
+  o Integer count default=1 range=[1,]
+  o Long total range=[,10]
+  o Double score range=[0.5,9.5]
+  o Boolean enabled default=true
+  o String[] labels size=[1,5]
+  o Integer[] numbers size=[,3] optional
+}

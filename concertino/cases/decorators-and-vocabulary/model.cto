@@ -1,0 +1,49 @@
+@Owner("modelling team")
+namespace org.example.decorators@1.0.0
+
+concept Unit {}
+
+@Term("A person")
+@Term_plural("People")
+@Searchable
+concept Person {
+  @Term("Given name")
+  @Term_description("The first name")
+  o String firstName
+
+  @Sensitive
+  @Term("Email address")
+  o String email optional
+
+  @Format("dd-MM-yyyy", true, 3, -1.5)
+  o DateTime birthday optional
+
+  @Display(Unit)
+  @Columns(Unit[])
+  o Integer age optional
+}
+
+@Hidden
+@Term("A colour")
+enum Colour {
+  @Term("Red")
+  o RED
+
+  @Deprecated
+  @Term("Green")
+  @Term_code("G")
+  o GREEN
+}
+
+@Term("A lookup")
+map Lookup {
+  @Term("The key")
+  o String
+  @Indexed
+  @Term("The value")
+  o String
+}
+
+@Term("A short text")
+@MaxDisplay(40)
+scalar Short extends String length=[,40]

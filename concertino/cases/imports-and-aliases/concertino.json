@@ -1,0 +1,145 @@
+{
+  "declarations": {
+    "org.example.base@1.0.0.Address": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "street": {
+          "name": "street",
+          "type": "String"
+        },
+        "city": {
+          "name": "city",
+          "type": "String"
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.base@1.0.0.Country": {
+      "type": "EnumDeclaration",
+      "values": {
+        "GB": {},
+        "FR": {}
+      }
+    },
+    "org.example.base@1.0.0.PostCode": {
+      "type": "StringScalar",
+      "regex": "/^[A-Z0-9 ]+$/"
+    },
+    "org.example.base@1.0.0.Account": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Participant",
+          "isSystem": true
+        },
+        "id": {
+          "name": "id",
+          "type": "String",
+          "isIdentifier": true
+        }
+      },
+      "prototype": "ParticipantDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Participant",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.app@1.0.0.Shipping": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "street": {
+          "name": "street",
+          "type": "String",
+          "inheritedFrom": "org.example.base@1.0.0.Address"
+        },
+        "city": {
+          "name": "city",
+          "type": "String",
+          "inheritedFrom": "org.example.base@1.0.0.Address"
+        },
+        "country": {
+          "name": "country",
+          "type": "org.example.base@1.0.0.Country",
+          "isEnum": true
+        },
+        "postCode": {
+          "name": "postCode",
+          "type": "String",
+          "scalarType": "org.example.base@1.0.0.PostCode",
+          "regex": "/^[A-Z0-9 ]+$/"
+        }
+      },
+      "extends": [
+        "org.example.base@1.0.0.Address"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.app@1.0.0.Parcel": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Asset",
+          "isSystem": true
+        },
+        "ref": {
+          "name": "ref",
+          "type": "String",
+          "isIdentifier": true
+        },
+        "from": {
+          "name": "from",
+          "type": "org.example.base@1.0.0.Address"
+        },
+        "sender": {
+          "name": "sender",
+          "type": "org.example.base@1.0.0.Account",
+          "isRelationship": true
+        }
+      },
+      "prototype": "AssetDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Asset",
+        "concerto@1.0.0.Concept"
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.base@1.0.0": {
+        "imports": [],
+        "decorators": []
+      },
+      "org.example.app@1.0.0": {
+        "imports": [
+          {
+            "$class": "concerto.metamodel@1.0.0.ImportTypes",
+            "namespace": "org.example.base@1.0.0",
+            "types": [
+              "Address",
+              "Country",
+              "PostCode",
+              "Account"
+            ],
+            "aliasedTypes": [
+              {
+                "$class": "concerto.metamodel@1.0.0.AliasedType",
+                "name": "Address",
+                "aliasedName": "Location"
+              }
+            ]
+          }
+        ],
+        "decorators": []
+      }
+    }
+  }
+}

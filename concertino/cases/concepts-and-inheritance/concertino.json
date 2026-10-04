@@ -1,0 +1,205 @@
+{
+  "declarations": {
+    "org.example.concepts@1.0.0.Base": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "name": {
+          "name": "name",
+          "type": "String"
+        },
+        "tags": {
+          "name": "tags",
+          "type": "String",
+          "isArray": true,
+          "isOptional": true
+        }
+      },
+      "isAbstract": true,
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.Middle": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "name": {
+          "name": "name",
+          "type": "String",
+          "inheritedFrom": "org.example.concepts@1.0.0.Base"
+        },
+        "tags": {
+          "name": "tags",
+          "type": "String",
+          "isArray": true,
+          "isOptional": true,
+          "inheritedFrom": "org.example.concepts@1.0.0.Base"
+        },
+        "level": {
+          "name": "level",
+          "type": "Integer",
+          "default": 1
+        }
+      },
+      "extends": [
+        "org.example.concepts@1.0.0.Base"
+      ],
+      "isAbstract": true,
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.Leaf": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "name": {
+          "name": "name",
+          "type": "String",
+          "inheritedFrom": "org.example.concepts@1.0.0.Base"
+        },
+        "tags": {
+          "name": "tags",
+          "type": "String",
+          "isArray": true,
+          "isOptional": true,
+          "inheritedFrom": "org.example.concepts@1.0.0.Base"
+        },
+        "level": {
+          "name": "level",
+          "type": "Integer",
+          "default": 1,
+          "inheritedFrom": "org.example.concepts@1.0.0.Middle"
+        },
+        "active": {
+          "name": "active",
+          "type": "Boolean"
+        }
+      },
+      "extends": [
+        "org.example.concepts@1.0.0.Middle",
+        "org.example.concepts@1.0.0.Base"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.Keyed": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "key": {
+          "name": "key",
+          "type": "String",
+          "isIdentifier": true
+        },
+        "label": {
+          "name": "label",
+          "type": "String",
+          "isOptional": true
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.KeyedChild": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "key": {
+          "name": "key",
+          "type": "String",
+          "isIdentifier": true,
+          "inheritedFrom": "org.example.concepts@1.0.0.Keyed"
+        },
+        "label": {
+          "name": "label",
+          "type": "String",
+          "isOptional": true,
+          "inheritedFrom": "org.example.concepts@1.0.0.Keyed"
+        },
+        "since": {
+          "name": "since",
+          "type": "DateTime",
+          "isOptional": true
+        }
+      },
+      "extends": [
+        "org.example.concepts@1.0.0.Keyed"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.SystemKeyed": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "weight": {
+          "name": "weight",
+          "type": "Double"
+        },
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "isIdentifier": true,
+          "isSystem": true
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.SystemKeyedChild": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "weight": {
+          "name": "weight",
+          "type": "Double",
+          "inheritedFrom": "org.example.concepts@1.0.0.SystemKeyed"
+        },
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "isIdentifier": true,
+          "isSystem": true,
+          "inheritedFrom": "org.example.concepts@1.0.0.SystemKeyed"
+        }
+      },
+      "extends": [
+        "org.example.concepts@1.0.0.SystemKeyed"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.concepts@1.0.0.Holder": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "leaf": {
+          "name": "leaf",
+          "type": "org.example.concepts@1.0.0.Leaf"
+        },
+        "leaves": {
+          "name": "leaves",
+          "type": "org.example.concepts@1.0.0.Leaf",
+          "isArray": true,
+          "isOptional": true
+        },
+        "anyBase": {
+          "name": "anyBase",
+          "type": "org.example.concepts@1.0.0.Base",
+          "isOptional": true
+        }
+      },
+      "systemSuperTypes": [
+        "concerto@1.0.0.Concept"
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.concepts@1.0.0": {
+        "imports": [],
+        "decorators": []
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+namespace org.example.concepts@1.0.0
+
+abstract concept Base {
+  o String name
+  o String[] tags optional
+}
+
+abstract concept Middle extends Base {
+  o Integer level default=1
+}
+
+concept Leaf extends Middle {
+  o Boolean active
+}
+
+concept Keyed identified by key {
+  o String key
+  o String label optional
+}
+
+concept KeyedChild extends Keyed {
+  o DateTime since optional
+}
+
+concept SystemKeyed identified {
+  o Double weight
+}
+
+concept SystemKeyedChild extends SystemKeyed {}
+
+concept Holder {
+  o Leaf leaf
+  o Leaf[] leaves optional
+  o Base anyBase optional
+}

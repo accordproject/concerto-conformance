@@ -1,0 +1,14 @@
+namespace org.example.app@1.0.0
+
+import org.example.base@1.0.0.{Address as Location, Country, PostCode, Account}
+
+concept Shipping extends Location {
+  o Country country
+  o PostCode postCode
+}
+
+asset Parcel identified by ref {
+  o String ref
+  o Location from
+  --> Account sender
+}

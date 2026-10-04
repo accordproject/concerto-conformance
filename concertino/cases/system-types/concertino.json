@@ -1,0 +1,278 @@
+{
+  "declarations": {
+    "org.example.system@1.0.0.Customer": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Participant",
+          "isSystem": true
+        },
+        "email": {
+          "name": "email",
+          "type": "String",
+          "isIdentifier": true
+        }
+      },
+      "prototype": "ParticipantDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Participant",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Guest": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Participant",
+          "isSystem": true,
+          "isIdentifier": true
+        },
+        "nickname": {
+          "name": "nickname",
+          "type": "String",
+          "isOptional": true
+        }
+      },
+      "prototype": "ParticipantDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Participant",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.RegisteredGuest": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Participant",
+          "isSystem": true,
+          "isIdentifier": true
+        },
+        "nickname": {
+          "name": "nickname",
+          "type": "String",
+          "isOptional": true,
+          "inheritedFrom": "org.example.system@1.0.0.Guest"
+        },
+        "email": {
+          "name": "email",
+          "type": "String"
+        }
+      },
+      "prototype": "ParticipantDeclaration",
+      "extends": [
+        "org.example.system@1.0.0.Guest"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Participant",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Item": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Asset",
+          "isSystem": true
+        },
+        "sku": {
+          "name": "sku",
+          "type": "String",
+          "isIdentifier": true
+        }
+      },
+      "prototype": "AssetDeclaration",
+      "isAbstract": true,
+      "systemSuperTypes": [
+        "concerto@1.0.0.Asset",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Book": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Asset",
+          "isSystem": true
+        },
+        "sku": {
+          "name": "sku",
+          "type": "String",
+          "isIdentifier": true,
+          "inheritedFrom": "org.example.system@1.0.0.Item"
+        },
+        "title": {
+          "name": "title",
+          "type": "String"
+        }
+      },
+      "prototype": "AssetDeclaration",
+      "extends": [
+        "org.example.system@1.0.0.Item"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Asset",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Ticket": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$identifier": {
+          "name": "$identifier",
+          "type": "String",
+          "inheritedFrom": "concerto@1.0.0.Asset",
+          "isSystem": true,
+          "isIdentifier": true
+        }
+      },
+      "prototype": "AssetDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Asset",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Order": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "inheritedFrom": "concerto@1.0.0.Transaction",
+          "isSystem": true
+        },
+        "customer": {
+          "name": "customer",
+          "type": "org.example.system@1.0.0.Customer",
+          "isRelationship": true
+        },
+        "items": {
+          "name": "items",
+          "type": "org.example.system@1.0.0.Item",
+          "isArray": true,
+          "isRelationship": true
+        }
+      },
+      "prototype": "TransactionDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Transaction",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.RushOrder": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "inheritedFrom": "concerto@1.0.0.Transaction",
+          "isSystem": true
+        },
+        "customer": {
+          "name": "customer",
+          "type": "org.example.system@1.0.0.Customer",
+          "isRelationship": true,
+          "inheritedFrom": "org.example.system@1.0.0.Order"
+        },
+        "items": {
+          "name": "items",
+          "type": "org.example.system@1.0.0.Item",
+          "isArray": true,
+          "isRelationship": true,
+          "inheritedFrom": "org.example.system@1.0.0.Order"
+        },
+        "hours": {
+          "name": "hours",
+          "type": "Integer"
+        }
+      },
+      "prototype": "TransactionDeclaration",
+      "extends": [
+        "org.example.system@1.0.0.Order"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Transaction",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Shipped": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "inheritedFrom": "concerto@1.0.0.Event",
+          "isSystem": true
+        },
+        "item": {
+          "name": "item",
+          "type": "org.example.system@1.0.0.Item",
+          "isRelationship": true
+        }
+      },
+      "prototype": "EventDeclaration",
+      "systemSuperTypes": [
+        "concerto@1.0.0.Event",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Notice": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "inheritedFrom": "concerto@1.0.0.Event",
+          "isSystem": true
+        }
+      },
+      "prototype": "EventDeclaration",
+      "isAbstract": true,
+      "systemSuperTypes": [
+        "concerto@1.0.0.Event",
+        "concerto@1.0.0.Concept"
+      ]
+    },
+    "org.example.system@1.0.0.Delayed": {
+      "type": "ConceptDeclaration",
+      "properties": {
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "inheritedFrom": "concerto@1.0.0.Event",
+          "isSystem": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "String"
+        }
+      },
+      "prototype": "EventDeclaration",
+      "extends": [
+        "org.example.system@1.0.0.Notice"
+      ],
+      "systemSuperTypes": [
+        "concerto@1.0.0.Event",
+        "concerto@1.0.0.Concept"
+      ]
+    }
+  },
+  "metadata": {
+    "concertinoVersion": "5.1.0",
+    "models": {
+      "org.example.system@1.0.0": {
+        "imports": [],
+        "decorators": []
+      }
+    }
+  }
+}

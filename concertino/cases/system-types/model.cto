@@ -1,0 +1,42 @@
+namespace org.example.system@1.0.0
+
+participant Customer identified by email {
+  o String email
+}
+
+participant Guest {
+  o String nickname optional
+}
+
+participant RegisteredGuest extends Guest {
+  o String email
+}
+
+abstract asset Item identified by sku {
+  o String sku
+}
+
+asset Book extends Item {
+  o String title
+}
+
+asset Ticket {}
+
+transaction Order {
+  --> Customer customer
+  --> Item[] items
+}
+
+transaction RushOrder extends Order {
+  o Integer hours
+}
+
+event Shipped {
+  --> Item item
+}
+
+abstract event Notice {}
+
+event Delayed extends Notice {
+  o String reason
+}

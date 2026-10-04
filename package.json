@@ -10,7 +10,8 @@
     "test:instances": "cucumber-js validate/features --import validate/validateSteps.js",
     "test:csharp": "dotnet test semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj",
     "start": "node cli.js",
-    "convert-ast": "node convertToASTpath.js"
+    "convert-ast": "node convertToASTpath.js",
+    "test:concertino": "node concertino/check.js"
   },
   "keywords": [],
   "author": "",
