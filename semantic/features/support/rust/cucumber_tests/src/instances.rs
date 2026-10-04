@@ -12,10 +12,10 @@
 use std::path::{Path, PathBuf};
 
 use concerto_core::instance::ValidationOptions;
+use concerto_core::json::Value;
 use concerto_core::{Error, ModelManager};
 use cucumber::{gherkin::Step, then, when, World};
 use regex::Regex;
-use serde_json::Value;
 
 use crate::steps::{error_class, error_type, read_json};
 

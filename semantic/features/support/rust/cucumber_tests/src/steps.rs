@@ -4,10 +4,10 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use concerto_core::json::Value;
 use concerto_core::{DecoratorValidationOptions, Error, ModelFile, ModelManager};
 use cucumber::{gherkin::Step, given, then, when, World};
 use regex::Regex;
-use serde_json::Value;
 
 /// `semantic/specifications`, resolved from this crate's location so the
 /// harness does not depend on the directory it is launched from.
@@ -57,11 +57,12 @@ pub fn load_fixture(path: &str) -> Result<Value, String> {
     read_json(&specifications_dir().join(path), path)
 }
 
-/// Reads and parses the JSON file at `full`, named `path` in messages.
+/// Reads and parses the JSON file at `full`, named `path` in messages, as
+/// the `concerto_core::json::Value` the stable concerto-core API takes.
 pub fn read_json(full: &Path, path: &str) -> Result<Value, String> {
     let content =
         fs::read_to_string(full).map_err(|e| format!("cannot read fixture {path}: {e}"))?;
-    serde_json::from_str(&content).map_err(|e| format!("cannot parse fixture {path}: {e}"))
+    serde_json::from_str::<Value>(&content).map_err(|e| format!("cannot parse fixture {path}: {e}"))
 }
 
 /// A `the model manager options:` value: `true`/`false` as booleans,
