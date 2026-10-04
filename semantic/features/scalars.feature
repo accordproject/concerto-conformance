@@ -8,7 +8,7 @@ Feature: Semantic Validation of CTO Scalars specification
 
   # A validator error found while a model loads is an IllegalModelException
   # that keeps its error type (maintainer decision Q-15; BC-39).
-  @rule:NUMBER_VALIDATOR_001 @skip-rust
+  @rule:NUMBER_VALIDATOR_001
   Scenario: should throw for no number bounds
     Given I load the following models:
       |  model_file                     |alias|
@@ -43,7 +43,7 @@ Feature: Semantic Validation of CTO Scalars specification
   # A length validator with neither bound (length=[,]) is rejected, as
   # NumberValidator rejects range=[,] (maintainer decision D2; BC-40), with
   # an IllegalModelException that keeps its error type (Q-15; BC-39).
-  @rule:STRING_VALIDATOR_001 @skip-rust
+  @rule:STRING_VALIDATOR_001
   Scenario: should throw for empty string length bounds
     Given I load the following models:
       |  model_file                     |alias|
@@ -83,7 +83,7 @@ Feature: Semantic Validation of CTO Scalars specification
 
   # A validator error found while a model loads is an IllegalModelException
   # that keeps its error type (maintainer decision Q-15; BC-39).
-  @rule:STRING_VALIDATOR_004 @skip-rust
+  @rule:STRING_VALIDATOR_004
   Scenario: should throw for invalid regex
     Given I load the following models:
       |  model_file                     |alias|

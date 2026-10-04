@@ -49,13 +49,11 @@ source (an oracle fixture or a fuzz cluster, see concerto's
 `migration/CONFORMANCE-PROMOTION-PLAN.md`). A missing or unreadable fixture fails
 the step instead of counting as the expected error.
 
-The Rust and C# runners do not have these steps yet, so the semantic scenarios
-that use them are tagged `@skip-rust` (positive scenarios that need only the
-existing steps run on the Rust runner). The Rust runner needs the class step (a
-mapping from the crate's error to its class name), the mention step, the options
-step and the validated-load step, plus instance steps to run the instance
-features; the models added by P5-08b have `.ast.json` siblings for that, and the
-older `validate/models` still need them. The C# runner needs
-the same steps. `@skip-rust` does not apply to it, so once it runs these
-feature files it will hit the undefined steps and fail those scenarios.
+The Rust runner (`semantic/features/support/rust`) defines every step above
+and runs both the semantic and the instance features. It has no CTO parser, so
+it reads each model from its JSON AST: the semantic fixtures are ASTs, and each
+`validate/models` model used by a feature has a `<model>.ast.json` sibling
+generated from the `.cto` with concerto-cto. The C# runner does not have these
+steps yet. `@skip-rust` does not apply to it, so once it runs these feature
+files it will hit the undefined steps and fail those scenarios.
 
