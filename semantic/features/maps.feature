@@ -23,12 +23,17 @@ Feature: Semantic Validation of CTO Map Specification
     When I validate the models
     Then no error should be thrown
 
+  # MAP-04 / BC-12: an undeclared map value type is an IllegalModelException
+  # naming it, not a JavaScript engine TypeError (concerto-core R1,
+  # accordproject/concerto-rust#400).
+  @rule:MAP_VALUE_TYPE_001
   Scenario: Non-existent map value type should throw error
     Given I load the following models:
       | model_file                                      | alias |
       | maps/models/MAP_VALUE_TYPE_001/map_value_type_001_type_not_exist.json           | main  |
     When I validate the models
-    Then an error should be thrown with message "Cannot read properties of null"
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "UnknownType"
 
   Scenario: Duplicate map names should throw error
     Given I load the following models:
