@@ -10,8 +10,12 @@ tokio = { version = "1", features = ["full"] }
 cucumber = "0.21"
 
 # The runtime under test. CI and local runs against a checkout of concerto-rust
-# override this with a `[patch]` so the checkout is tested rather than `main`;
-# see ../README.md.
-concerto_core = { package = "accordproject-concerto-core", git = "https://github.com/accordproject/concerto-rust", branch = "main" }
+# override this with a `[patch]` so the checkout is tested rather than the
+# branch; see ../README.md. The branch is the migration integration branch
+# until it reaches `main`: the steps need the instance API and the
+# `js-compat` feature, which `main` does not have yet. `js-compat` gives the
+# TS exception class of an error (`ErrorKind::ts_class`) and a validator
+# error's `errorType`, which the class and error-type steps compare.
+concerto_core = { package = "accordproject-concerto-core", git = "https://github.com/accordproject/concerto-rust", branch = "claude/tender-pascal-ocwf9q", features = ["js-compat"] }
 futures = "0.3"
 regex = "1"
