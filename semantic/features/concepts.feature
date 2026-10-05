@@ -24,7 +24,6 @@ Feature: Semantic Validation for CTO Class Declarations
       | concepts/models/CLASS_DECLARATION_002/class_declaration_002_valid_$class_type.json | main        |
     Then no error should be thrown
 
-  @skip-rust
   Scenario: Duplicate concept declarations in the same file
     Given I load the following models:
       | model_file                                                                 | alias       |
@@ -88,7 +87,7 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
-  @rule:CLASS_DECLARATION_007 @skip-rust
+  @rule:CLASS_DECLARATION_007
   Scenario: Supertype is not system-identified
     Given I load the following models:
       | model_file                                                                 | alias       |
@@ -118,13 +117,16 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
-  @skip-rust
+  # CON-10 / BC-11: a longer inheritance cycle (A extends C, B extends A,
+  # C extends B) is an IllegalModelException, not a JavaScript engine
+  # RangeError (concerto-core R1, accordproject/concerto-rust#400).
+  @rule:CLASS_DECLARATION_009
   Scenario: Unique property names across inheritance
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_009/class_declaration_009_circular_inheritance.json | main        |
     When I validate the models
-    Then an error should be thrown with message "Maximum call stack size exceeded"
+    Then an error of class "IllegalModelException" should be thrown
 
   Scenario: Unique property names across inheritance
     Given I load the following models:
@@ -161,7 +163,7 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
-  @rule:MODEL_ELEMENT_002 @skip-rust
+  @rule:MODEL_ELEMENT_002
   Scenario: Invalid identifier should throw
     Given I load the following models:
       | model_file                                                                                          | alias |
@@ -232,7 +234,7 @@ Feature: Semantic Validation for CTO Class Declarations
     When I validate the models
     Then no error should be thrown
 
-  @rule:PROPERTY_003 @skip-rust
+  @rule:PROPERTY_003
   Scenario: Invalid property meta type should throw
     Given I load the following models:
       | model_file                                                                                          | alias |
@@ -263,13 +265,11 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # Scenarios below this line were promoted by P5-08b from the oracle corpus and
   # the fuzz records (concerto migration/CONFORMANCE-PROMOTION-PLAN.md). Each one
-  # asserts an error class and a @rule tag, never TS message text. They are
-  # tagged @skip-rust until the Rust runner gains the class step (and, where
-  # used, the options and validated-load steps); see the plan, section 5.1.
+  # asserts an error class and a @rule tag, never TS message text.
 
   # CON-01. Source: F:supplement/ModelManager.fromAst/9224ce1df87976aca5fb67d0 (#190).
   # JSON AST only: the CTO parser already rejects `concept A extends A`.
-  @rule:CLASS_DECLARATION_009 @skip-rust
+  @rule:CLASS_DECLARATION_009
   Scenario: A class declaration that extends itself
     Given I load the following models:
       | model_file                                                                      | alias |
@@ -280,7 +280,7 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-02. Source: F:data/ModelManager.addCTOModel/04e93b56c320a77d8460c8d1 (8 data fixtures);
   # F:unit/ModelManager.addCTOModel/34a90351b1d3f5cac1399cec.
-  @rule:CLASS_DECLARATION_011 @skip-rust
+  @rule:CLASS_DECLARATION_011
   Scenario: A subclass redeclares the explicit identifier of its super class
     Given I load the following models:
       | model_file                                                                             | alias |
@@ -299,7 +299,7 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-03. Source: F:data/ModelManager.addCTOModel/6c5d39ee273d4809465f968e (4);
   # F:unit/ModelManager.addModelFile/dc07549b7de716a452f0348a.
-  @rule:CLASS_DECLARATION_005 @skip-rust
+  @rule:CLASS_DECLARATION_005
   Scenario: The identifying field does not exist
     Given I load the following models:
       | model_file                                                                                | alias |
@@ -310,7 +310,7 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-04. Source: F:data/ModelManager.addCTOModel/322940c4c551adcf3c670b4f (4);
   # F:unit/ModelManager.addModelFiles/79db563bb1bff7b2050fa72b.
-  @rule:CLASS_DECLARATION_012 @skip-rust
+  @rule:CLASS_DECLARATION_012
   Scenario: A participant extends an asset
     Given I load the following models:
       | model_file                                                                                 | alias |
@@ -329,7 +329,7 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-05. Source: F:unit/ModelManager.addCTOModel/78dbcdf668d182b06ed8dda8;
   # F:gaps/ModelManager.fromAst/19622251d12f84f178484b75, ab6fa284e3042cf23740ea97.
-  @rule:CLASS_DECLARATION_001 @skip-rust
+  @rule:CLASS_DECLARATION_001
   Scenario: A property uses the system-reserved name $identifier
     Given I load the following models:
       | model_file                                                                                       | alias |
@@ -340,7 +340,7 @@ Feature: Semantic Validation for CTO Class Declarations
 
   # CON-06. Source: F:data/ModelManager.addCTOModel/019573ce4a7402a1b62036a0 (4);
   # F:supplement/ScalarDeclaration.validate/91f0bfe1c8da7d4a86575afe (#197).
-  @rule:DECLARATION_001 @skip-rust
+  @rule:DECLARATION_001
   Scenario: Two scalar declarations share a name
     Given I load the following models:
       | model_file                                                                  | alias |
@@ -352,7 +352,7 @@ Feature: Semantic Validation for CTO Class Declarations
   # JSON AST only: CTO always produces a properties list.
   # The non-list variant (F:supplement/ModelManager.fromAst/000dab841e9b0cef97e8826f, "properties": "none")
   # waits on Q-10 (strict AST); no scenario for it here.
-  @rule:CLASS_DECLARATION_013 @skip-rust
+  @rule:CLASS_DECLARATION_013
   Scenario: A class declaration has no properties list
     Given I load the following models:
       | model_file                                                                         | alias |
@@ -361,7 +361,7 @@ Feature: Semantic Validation for CTO Class Declarations
     Then an error of class "IllegalModelException" should be thrown
 
   # CON-08. Source: F:unit/ModelFile.new/ba4f62fc881f4ee9b9a96fb4 (2). JSON AST only.
-  @rule:MODEL_ELEMENT_003 @skip-rust
+  @rule:MODEL_ELEMENT_003
   Scenario: A model element is not a metamodel declaration type
     Given I load the following models:
       | model_file                                                                    | alias |
@@ -382,7 +382,7 @@ Feature: Semantic Validation for CTO Class Declarations
   # CON-12. Source: Z:#443 (#218 cluster #6, `superType.name = ""`, 3 cases; seed
   # data/ModelManager.fromAst/6287c8da05a81a766dd6845b.json). JSON AST only. The non-string
   # variants of the same field are excluded (plan X-02).
-  @rule:CLASS_DECLARATION_004 @skip-rust
+  @rule:CLASS_DECLARATION_004
   Scenario: A super type reference with an empty name
     Given I load the following models:
       | model_file                                                                            | alias |

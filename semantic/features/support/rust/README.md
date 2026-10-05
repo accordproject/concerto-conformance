@@ -1,8 +1,17 @@
 # Rust conformance harness
 
-Runs the semantic feature files against
+Runs the semantic feature files (`semantic/features`) and the instance feature
+files (`validate/features`) against
 [concerto-rust](https://github.com/accordproject/concerto-rust)
-(`accordproject-concerto-core`, lib `concerto_core`).
+(`accordproject-concerto-core`, lib `concerto_core`, with its `js-compat`
+feature for the TS exception class and a validator error's `errorType`).
+
+The steps match the JavaScript harness's (`semantic/features/support/Javascript/steps.ts`
+and `validate/validateSteps.js`). The instance steps read each `.cto` model
+from its `<model>.ast.json` sibling, load it into a `ModelManager` and validate
+the models (as `ModelLoader.loadModelManager` does offline), then check the
+instance with `ModelManager::validate_instance`, which is `Serializer.fromJSON`
+with validation on and default options.
 
 Run it from the repository root:
 
@@ -17,9 +26,12 @@ directory.
 
 ## Choosing the concerto-rust to test
 
-By default the harness depends on the `main` branch of concerto-rust, pinned
-by `Cargo.lock`. Run `cargo update -p accordproject-concerto-core` to move the
-pin to the latest `main`.
+By default the harness depends on the migration integration branch of
+concerto-rust (`claude/tender-pascal-ocwf9q`), pinned by `Cargo.lock`, because
+`main` does not have the instance API or the `js-compat` feature yet; switch
+the branch back to `main` in `cucumber_tests/Cargo.toml` once it has them. Run
+`cargo update -p accordproject-concerto-core` to move the pin to the latest
+commit of the branch.
 
 To test a local checkout instead, patch the git dependency on the command line.
 The path is relative to the directory you run `cargo` from:
@@ -38,13 +50,15 @@ produced while the patch is active.
 
 ## Results
 
-After the run, the harness prints one row per scenario:
+After the run, the harness prints one row per scenario, with the feature
+file named by its suite directory (`semantic/` or `validate/`):
 
 | Result | Meaning |
 |--------|---------|
 | PASS   | The scenario passed. |
 | FAIL   | The scenario failed, or the harness hit an error. |
-| SKIP   | Not run: tagged `@skip` upstream, tagged `@skip-rust`, or a fixture is missing, unreadable or not valid JSON. The reason is shown. |
+| SKIP   | Not run: tagged `@skip` upstream, or tagged `@skip-rust`. The reason is shown. |
+| ERROR  | Not run: a fixture is missing, unreadable or not valid JSON. The reason is shown. |
 | XFAIL  | Failed as recorded in `EXPECTED_FAILURES` in `src/main.rs`. |
 | XPASS  | Passed although listed in `EXPECTED_FAILURES`; remove the entry. |
 
@@ -55,6 +69,8 @@ is a harness error (plan section 5.1), not a benign skip like an upstream
 `@skip`/`@skip-rust` tag, so it shows as ERROR in the table and fails the run.
 
 Set `CONFORMANCE_INCLUDE_SKIP_RUST=1` to also run scenarios tagged `@skip-rust`.
+No scenario is tagged `@skip-rust` at the moment; a new tag needs a one-line
+comment giving its reason.
 
 ### Expected failures
 
@@ -78,16 +94,10 @@ against a missing fixture, and the 10 `.cto` files with no JSON AST. See
 `migration/CONFORMANCE-PROMOTION-PLAN.md` (concerto) section 1.P for the
 background.
 
-Those repaired scenarios assert an error class and a rule (`@rule:<ID>`), or,
-for validator errors, rejection plus the error type, never message text
-(maintainer decisions D1 and Q-15 on accordproject/concerto-rust#249). This
-harness does not define those steps yet, so they are tagged `@skip-rust`.
-
-The scenarios promoted by P5-08b (accordproject/concerto-rust#249) use steps this
-harness does not define yet (`an error of class ... should be thrown`, `the error
-should mention ...`, `the model manager options:`, `I load the following models
-with validation:`), so they are tagged `@skip-rust`. The 9 positive runs that
-need only this harness's steps (the CON-02, CON-04 and CON-09 positives, DEC-03
-and the 5 IDN-02 rows) are not tagged and run here. Adding the other steps is a
-follow-up; see the main README.
-
+Those repaired scenarios, and the ones promoted by P5-08b
+(accordproject/concerto-rust#249), assert an error class and a rule
+(`@rule:<ID>`), or, for validator errors, the error class plus the error type
+(BC-39), never message text (maintainer decisions D1 and Q-15 on
+accordproject/concerto-rust#249). P5-62 (accordproject/concerto-rust#397) added
+the steps they use to this harness and dropped their `@skip-rust` tags, with
+the six stale `EXPECTED_FAILURES` entries.
