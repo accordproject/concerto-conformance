@@ -3,12 +3,6 @@
     "org.example.relationships@1.0.0.Person": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Participant",
-          "isSystem": true
-        },
         "id": {
           "name": "id",
           "type": "String",
@@ -37,12 +31,6 @@
     "org.example.relationships@1.0.0.Device": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Asset",
-          "isSystem": true
-        },
         "serial": {
           "name": "serial",
           "type": "String",

@@ -3,12 +3,6 @@
     "org.example.system@1.0.0.Customer": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Participant",
-          "isSystem": true
-        },
         "email": {
           "name": "email",
           "type": "String",
@@ -24,13 +18,6 @@
     "org.example.system@1.0.0.Guest": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Participant",
-          "isSystem": true,
-          "isIdentifier": true
-        },
         "nickname": {
           "name": "nickname",
           "type": "String",
@@ -46,13 +33,6 @@
     "org.example.system@1.0.0.RegisteredGuest": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Participant",
-          "isSystem": true,
-          "isIdentifier": true
-        },
         "nickname": {
           "name": "nickname",
           "type": "String",
@@ -76,12 +56,6 @@
     "org.example.system@1.0.0.Item": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Asset",
-          "isSystem": true
-        },
         "sku": {
           "name": "sku",
           "type": "String",
@@ -98,12 +72,6 @@
     "org.example.system@1.0.0.Book": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Asset",
-          "isSystem": true
-        },
         "sku": {
           "name": "sku",
           "type": "String",
@@ -126,15 +94,7 @@
     },
     "org.example.system@1.0.0.Ticket": {
       "type": "ConceptDeclaration",
-      "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Asset",
-          "isSystem": true,
-          "isIdentifier": true
-        }
-      },
+      "properties": {},
       "prototype": "AssetDeclaration",
       "systemSuperTypes": [
         "concerto@1.0.0.Asset",
@@ -144,12 +104,6 @@
     "org.example.system@1.0.0.Order": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$timestamp": {
-          "name": "$timestamp",
-          "type": "DateTime",
-          "inheritedFrom": "concerto@1.0.0.Transaction",
-          "isSystem": true
-        },
         "customer": {
           "name": "customer",
           "type": "org.example.system@1.0.0.Customer",
@@ -160,6 +114,12 @@
           "type": "org.example.system@1.0.0.Item",
           "isArray": true,
           "isRelationship": true
+        },
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "isSystem": true,
+          "systemInheritedFrom": "concerto@1.0.0.Transaction"
         }
       },
       "prototype": "TransactionDeclaration",
@@ -171,12 +131,6 @@
     "org.example.system@1.0.0.RushOrder": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$timestamp": {
-          "name": "$timestamp",
-          "type": "DateTime",
-          "inheritedFrom": "concerto@1.0.0.Transaction",
-          "isSystem": true
-        },
         "customer": {
           "name": "customer",
           "type": "org.example.system@1.0.0.Customer",
@@ -189,6 +143,12 @@
           "isArray": true,
           "isRelationship": true,
           "inheritedFrom": "org.example.system@1.0.0.Order"
+        },
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "isSystem": true,
+          "systemInheritedFrom": "concerto@1.0.0.Transaction"
         },
         "hours": {
           "name": "hours",
@@ -207,16 +167,16 @@
     "org.example.system@1.0.0.Shipped": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$timestamp": {
-          "name": "$timestamp",
-          "type": "DateTime",
-          "inheritedFrom": "concerto@1.0.0.Event",
-          "isSystem": true
-        },
         "item": {
           "name": "item",
           "type": "org.example.system@1.0.0.Item",
           "isRelationship": true
+        },
+        "$timestamp": {
+          "name": "$timestamp",
+          "type": "DateTime",
+          "isSystem": true,
+          "systemInheritedFrom": "concerto@1.0.0.Event"
         }
       },
       "prototype": "EventDeclaration",
@@ -231,8 +191,8 @@
         "$timestamp": {
           "name": "$timestamp",
           "type": "DateTime",
-          "inheritedFrom": "concerto@1.0.0.Event",
-          "isSystem": true
+          "isSystem": true,
+          "systemInheritedFrom": "concerto@1.0.0.Event"
         }
       },
       "prototype": "EventDeclaration",
@@ -248,8 +208,8 @@
         "$timestamp": {
           "name": "$timestamp",
           "type": "DateTime",
-          "inheritedFrom": "concerto@1.0.0.Event",
-          "isSystem": true
+          "isSystem": true,
+          "systemInheritedFrom": "concerto@1.0.0.Event"
         },
         "reason": {
           "name": "reason",
