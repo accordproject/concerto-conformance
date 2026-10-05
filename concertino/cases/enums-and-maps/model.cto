@@ -1,0 +1,48 @@
+namespace org.example.collections@1.0.0
+
+enum Status {
+  o ACTIVE
+  o SUSPENDED
+  o CLOSED
+}
+
+scalar Isbn extends String regex=/^[0-9-]+$/
+
+concept Author identified by name {
+  o String name
+}
+
+map Counts {
+  o String
+  o Integer
+}
+
+map Schedule {
+  o DateTime
+  o String
+}
+
+map Catalogue {
+  o Isbn
+  o Status
+}
+
+map Authors {
+  o String
+  o Author
+}
+
+map AuthorRefs {
+  o String
+  --> Author
+}
+
+concept Library {
+  o Status status
+  o Status[] history optional
+  o Counts counts
+  o Schedule schedule optional
+  o Catalogue catalogue optional
+  o Authors authors optional
+  o AuthorRefs authorRefs optional
+}

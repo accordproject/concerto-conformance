@@ -1,0 +1,17 @@
+namespace org.example.base@1.0.0
+
+concept Address {
+  o String street
+  o String city
+}
+
+enum Country {
+  o GB
+  o FR
+}
+
+scalar PostCode extends String regex=/^[A-Z0-9 ]+$/
+
+participant Account identified by id {
+  o String id
+}
