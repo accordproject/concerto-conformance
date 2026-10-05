@@ -30,12 +30,6 @@
     "org.example.base@1.0.0.Account": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Participant",
-          "isSystem": true
-        },
         "id": {
           "name": "id",
           "type": "String",
@@ -83,12 +77,6 @@
     "org.example.app@1.0.0.Parcel": {
       "type": "ConceptDeclaration",
       "properties": {
-        "$identifier": {
-          "name": "$identifier",
-          "type": "String",
-          "inheritedFrom": "concerto@1.0.0.Asset",
-          "isSystem": true
-        },
         "ref": {
           "name": "ref",
           "type": "String",

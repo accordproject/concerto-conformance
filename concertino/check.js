@@ -48,7 +48,9 @@ const strip = (x) => JSON.parse(JSON.stringify(x, (k, v) => (k === 'location' ? 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 
 let failures = 0;
-const cases = fs.readdirSync(CASES, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort();
+const cases = fs.existsSync(CASES)
+    ? fs.readdirSync(CASES, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()
+    : [];
 for (const name of cases) {
     const dir = path.join(CASES, name);
     const problems = [];
@@ -89,4 +91,8 @@ for (const name of cases) {
     }
 }
 console.log(`${cases.length - failures} of ${cases.length} Concertino golden documents pass`);
-process.exitCode = failures ? 1 : 0;
+if (cases.length === 0) {
+    // Nothing checked is not a pass: a missing or emptied cases/ directory.
+    console.log(`not ok - no Concertino golden document cases under ${CASES}`);
+}
+process.exitCode = failures || cases.length === 0 ? 1 : 0;

@@ -23,11 +23,14 @@
         "email": {
           "name": "email",
           "type": "String",
-          "vocabulary": {
-            "label": "Email address"
-          },
           "metadata": {
-            "Sensitive": null
+            "Sensitive": null,
+            "Term": [
+              "Email address"
+            ]
+          },
+          "fullVocabulary": {
+            "label": "Email address"
           },
           "decoratorOrder": [
             "Sensitive",
@@ -89,14 +92,20 @@
           }
         },
         "GREEN": {
-          "vocabulary": {
+          "metadata": {
+            "Deprecated": null,
+            "Term": [
+              "Green"
+            ],
+            "Term_code": [
+              "G"
+            ]
+          },
+          "fullVocabulary": {
             "label": "Green",
             "additionalTerms": {
               "code": "G"
             }
-          },
-          "metadata": {
-            "Deprecated": null
           },
           "decoratorOrder": [
             "Deprecated",
@@ -105,11 +114,14 @@
           ]
         }
       },
-      "vocabulary": {
-        "label": "A colour"
-      },
       "metadata": {
-        "Hidden": null
+        "Hidden": null,
+        "Term": [
+          "A colour"
+        ]
+      },
+      "fullVocabulary": {
+        "label": "A colour"
       },
       "decoratorOrder": [
         "Hidden",
@@ -126,11 +138,14 @@
       },
       "value": {
         "type": "String",
-        "vocabulary": {
-          "label": "The value"
-        },
         "metadata": {
-          "Indexed": null
+          "Indexed": null,
+          "Term": [
+            "The value"
+          ]
+        },
+        "fullVocabulary": {
+          "label": "The value"
         },
         "decoratorOrder": [
           "Indexed",
