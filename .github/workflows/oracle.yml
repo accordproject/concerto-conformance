@@ -1,0 +1,52 @@
+name: Oracle and fuzz tools
+
+on:
+  push:
+    paths:
+      - 'oracle/**'
+      - 'fuzz/**'
+      - '.github/workflows/oracle.yml'
+  pull_request:
+    paths:
+      - 'oracle/**'
+      - 'fuzz/**'
+      - '.github/workflows/oracle.yml'
+
+jobs:
+  oracle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Unit tests
+        run: |
+          node --test oracle/test/*.test.js
+          node --test fuzz/test/*.test.js
+
+      - name: Install the 5.0.0 reference
+        run: npm ci --prefix oracle/reference
+
+      # The corpus is a release asset. Until that release is published the
+      # download fails, and the replay steps below are skipped.
+      - name: Fetch and verify the corpus
+        id: corpus
+        run: |
+          if node oracle/bin/fetch-corpus.js; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::the corpus release asset is not available yet; replay skipped"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Replay the corpus against the 5.0.0 reference
+        if: steps.corpus.outputs.available == 'true'
+        run: node oracle/bin/replay.js
+
+      - name: Fuzz smoke test (reference against itself)
+        if: steps.corpus.outputs.available == 'true'
+        run: node fuzz/bin/fuzz.js --candidate reference --count 2000 --out-dir "$RUNNER_TEMP/fuzz"
