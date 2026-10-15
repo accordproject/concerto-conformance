@@ -93,6 +93,13 @@ The build follows these rules:
 - **Source checks.** It checks each archive against its recorded content
   hash. It refuses a supplement that would change a pinned file.
 - **Junk files.** It drops macOS `._*` files.
+- **Paths.** The pinned corpus recorded some `fileName` arguments as
+  absolute paths on the recording machine. The build rewrites them the way
+  the recorder now does: `<conformance>/...` for a file in this repository,
+  `<repo>/...` for one in accordproject/concerto. It fails if any other
+  home-directory path is left. The 32 fixtures and 1 blob this changes get
+  new ids (fixture ids and blob hashes are content hashes), and
+  `CORPUS.json` lists every old and new path under `renamed`.
 - **Determinism.** The tarball always has the same bytes for the same input:
   entries sorted by path, mode 0644, uid and gid 0, mtime 0, and a gzip
   header with no name and mtime 0.

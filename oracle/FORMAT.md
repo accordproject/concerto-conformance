@@ -35,6 +35,11 @@ code disagree, the code is right.
 | `env.random` | true when the op drew from `Math.random` (sample instance generation; see "Randomness") |
 | `occurrences` | how many recorded calls had this exact content |
 
+A `fileName` argument is never an absolute path. A file of this
+repository's suite is named `<conformance>/<path>`, and one of
+accordproject/concerto `<repo>/<path>`. The op never reads the file; the
+name is only recorded, and returned by `ModelFile.getName()`.
+
 `error.class` is the exception's constructor name (`IllegalModelException`,
 `ValidationException`, `TypeError`, ...). `error.location` is its
 `fileLocation` (or `null`), and `error.component` its `component` (or `null`).

@@ -27,6 +27,8 @@
  * sha256 of the "<sha256>  <path>\n" lines of its files, sorted by path),
  * the supplement must not change any file of the pinned corpus, and the two
  * are merged into `oracle-corpus/` (fixtures/, cto-cache/, CORPUS.json).
+ * Absolute paths of the recording machine are then rewritten (see
+ * scrubPaths), which re-identifies the fixtures and blobs they occur in.
  * The tarball is deterministic: entries sorted by path, mode 0644, uid/gid 0,
  * mtime 0, and a gzip header with no name and mtime 0. The uncompressed tar's
  * sha256 (`tar_sha256`) depends only on the files; the .tgz's sha256 also
@@ -40,6 +42,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { readTar, writeTar, gzipDeterministic } = require('../lib/tar');
+const { sortedStringify } = require('../lib/canon');
 
 const VERSION = '5.0.0';
 const TOP = 'oracle-corpus';
@@ -91,6 +94,95 @@ function contentHash(files) {
         h.update(`${sha256(f.data)}  ${f.path}\n`);
     }
     return h.digest('hex');
+}
+
+// Absolute fileName arguments that the recorder of the pinned corpus did not
+// yet make portable. They are rewritten the way the recorder now does it: a
+// path under the concerto-conformance checkout becomes `<conformance>/...`,
+// one under the concerto checkout `<repo>/...`. Any other absolute home-
+// directory path left afterwards fails the build.
+const PATH_RULES = [
+    { re: /\/(?:Users|home)\/[^"\\]*?\/concerto-conformance\//g, to: '<conformance>/' },
+    { re: /\/(?:Users|home)\/[^"\\]*?\/concerto\//g, to: '<repo>/' },
+];
+const LEFTOVER = /\/(?:Users|home)\/[A-Za-z0-9._-]+\//;
+const BLOB_REF = /"@@oracle":"blob","sha256":"([0-9a-f]{64})"/g;
+
+/**
+ * Rewrite recording-machine paths in the corpus. A blob whose text changes
+ * gets a new sha256, and every reference to it is updated, recursively; a
+ * fixture whose text changes gets a new id (the first 24 hex digits of the
+ * sha256 of its {op, inputs, outcome, env} with sorted keys, as recorded)
+ * and file name.
+ * @param {Map<string, Buffer>} files rel path (under fixtures/ or cto-cache/) -> data
+ * @returns {{files: Map<string, Buffer>, renamed: object}} the rewritten files, and old -> new
+ *   paths of every fixture and blob that changed
+ */
+function scrubPaths(files) {
+    const text = new Map();
+    for (const [rel, data] of files) {
+        text.set(rel, data.toString('utf8'));
+    }
+    const rewrite = (t) => PATH_RULES.reduce((acc, r) => acc.replace(r.re, r.to), t);
+    const isBlob = (rel) => rel.startsWith('fixtures/blobs/');
+    const isFixture = (rel) => rel.startsWith('fixtures/') && !isBlob(rel) && !rel.endsWith('/manifest.json');
+    const blobMap = new Map();
+    const renamed = { fixtures: {}, blobs: {} };
+
+    // Blobs first, until no blob changes any more (a blob can refer to another).
+    for (let changed = true; changed;) {
+        changed = false;
+        for (const [rel, t] of [...text]) {
+            if (!isBlob(rel)) {
+                continue;
+            }
+            const next = rewrite(t).replace(BLOB_REF, (m, h) => (blobMap.has(h) ? m.replace(h, blobMap.get(h)) : m));
+            if (next !== t) {
+                const oldHash = path.basename(rel, '.json');
+                const newHash = sha256(next);
+                const newRel = `fixtures/blobs/${newHash.slice(0, 2)}/${newHash}.json`;
+                blobMap.set(oldHash, newHash);
+                text.delete(rel);
+                text.set(newRel, next);
+                renamed.blobs[rel] = newRel;
+                changed = true;
+            }
+        }
+    }
+    for (const [rel, t] of [...text]) {
+        if (isBlob(rel)) {
+            continue;
+        }
+        const next = rewrite(t).replace(BLOB_REF, (m, h) => (blobMap.has(h) ? m.replace(h, blobMap.get(h)) : m));
+        if (next === t) {
+            continue;
+        }
+        if (!isFixture(rel)) {
+            text.set(rel, next);
+            continue;
+        }
+        const fx = JSON.parse(next);
+        const id = sha256(sortedStringify({ op: fx.op, inputs: fx.inputs, outcome: fx.outcome, env: fx.env })).slice(0, 24);
+        const newRel = `${path.posix.dirname(rel)}/${id}.json`;
+        if (newRel !== rel && text.has(newRel)) {
+            throw new Error(`rewriting paths makes ${rel} identical to ${newRel}`);
+        }
+        fx.id = id;
+        text.delete(rel);
+        text.set(newRel, JSON.stringify(fx) + '\n');
+        renamed.fixtures[rel] = newRel;
+    }
+    for (const [rel, t] of text) {
+        const m = LEFTOVER.exec(t);
+        if (m) {
+            throw new Error(`${rel} still contains an absolute path (${m[0]}...)`);
+        }
+    }
+    const out = new Map();
+    for (const [rel, t] of text) {
+        out.set(rel, Buffer.from(t, 'utf8'));
+    }
+    return { files: out, renamed };
 }
 
 /**
@@ -155,14 +247,20 @@ function main() {
         merged.set(f.path, f.data);
     }
 
-    const entries = [];
-    const counts = { fixtures: 0, blobs: 0, cto_cache: 0, by_source: {} };
+    const corpus = new Map();
     for (const [p, data] of merged) {
         const rel = p.slice(SOURCE_PREFIX.length);
-        const parts = rel.split('/');
-        if (parts[0] !== 'fixtures' && parts[0] !== 'cto-cache') {
-            continue;
+        const top = rel.split('/')[0];
+        if (top === 'fixtures' || top === 'cto-cache') {
+            corpus.set(rel, data);
         }
+    }
+    const scrubbed = scrubPaths(corpus);
+
+    const entries = [];
+    const counts = { fixtures: 0, blobs: 0, cto_cache: 0, by_source: {} };
+    for (const [rel, data] of scrubbed.files) {
+        const parts = rel.split('/');
         if (parts[0] === 'cto-cache') {
             counts.cto_cache++;
         } else if (parts[1] === 'blobs') {
@@ -183,6 +281,9 @@ function main() {
             { asset: SOURCES.supplement.asset, sha256: sup.sha256, content_hash: SOURCES.supplement.contentHash, recorded_from: SOURCES.supplement.recordedFrom },
         ],
         counts,
+        // Fixtures and blobs re-identified by rewriting recording-machine
+        // paths: old path -> new path, relative to this directory.
+        renamed: scrubbed.renamed,
         content_hash: contentHash(entries),
     };
     entries.push({ path: `${TOP}/CORPUS.json`, data: Buffer.from(JSON.stringify(provenance, null, 2) + '\n') });
@@ -205,6 +306,7 @@ function main() {
         files: entries.length,
         content_hash: provenance.content_hash,
         counts,
+        renamed: scrubbed.renamed,
     };
     if (opts.writeConfig) {
         const cfgFile = path.join(__dirname, '..', 'corpus.json');
