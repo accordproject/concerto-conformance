@@ -1,0 +1,15 @@
+{
+  "name": "concerto-oracle",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Replay the concerto-core 5.0.0 behavioural oracle corpus against any engine through an adapter.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "fetch": "node bin/fetch-corpus.js",
+    "replay": "node bin/replay.js",
+    "test": "node --test test/*.test.js"
+  }
+}

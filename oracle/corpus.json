@@ -1,0 +1,22 @@
+{
+  "repository": "accordproject/concerto-conformance",
+  "release": "oracle-corpus-5.0.0-3f6b3a8bb249",
+  "asset": "oracle-corpus-5.0.0-3f6b3a8bb249.tgz",
+  "url": "https://github.com/accordproject/concerto-conformance/releases/download/oracle-corpus-5.0.0-3f6b3a8bb249/oracle-corpus-5.0.0-3f6b3a8bb249.tgz",
+  "sha256": "e4060e1f82ccd2417675ec6979ac23217c36bed1973cbc51f8ff7c1b757bf292",
+  "tar_sha256": "3f6b3a8bb2490e99d071bb6092f5c8ce048651027cea76cc609779c85b2ff338",
+  "content_hash": "74cc34bdce28dcb6c965614a191acace99f5baa02b359c50b47e05be605cfe19",
+  "counts": {
+    "fixtures": 16242,
+    "blobs": 618,
+    "cto_cache": 633,
+    "by_source": {
+      "conformance": 815,
+      "data": 10231,
+      "gaps": 658,
+      "lifted": 299,
+      "supplement": 157,
+      "unit": 4082
+    }
+  }
+}
