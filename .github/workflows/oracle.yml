@@ -12,6 +12,9 @@ on:
       - 'fuzz/**'
       - '.github/workflows/oracle.yml'
 
+permissions:
+  contents: read
+
 jobs:
   oracle:
     runs-on: ubuntu-latest
@@ -32,15 +35,22 @@ jobs:
         run: npm ci --prefix oracle/reference
 
       # The corpus is a release asset. Until that release is published the
-      # download fails, and the replay steps below are skipped.
+      # download is a 404 (exit 3) and the replay steps below are skipped;
+      # any other failure, a hash mismatch included, fails the job.
       - name: Fetch and verify the corpus
         id: corpus
         run: |
-          if node oracle/bin/fetch-corpus.js; then
+          set +e
+          node oracle/bin/fetch-corpus.js
+          code=$?
+          set -e
+          if [ "$code" = 0 ]; then
             echo "available=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "::notice::the corpus release asset is not available yet; replay skipped"
+          elif [ "$code" = 3 ]; then
+            echo "::notice::the corpus release asset is not published yet; replay skipped"
             echo "available=false" >> "$GITHUB_OUTPUT"
+          else
+            exit "$code"
           fi
 
       - name: Replay the corpus against the 5.0.0 reference

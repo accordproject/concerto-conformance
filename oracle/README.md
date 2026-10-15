@@ -135,7 +135,7 @@ status is 0 only when no fixture fails and none has a harness error.
 Replaying the whole corpus against the reference:
 
 ```
-engine=reference@5.0.0 total=16242 pass=16242 fail=0 harness_error=0 message_only=0 agreement=100%
+engine=reference@5.0.0 total=16242 pass=16242 fail=0 harness_error=0 unsupported=0 message_only=0 agreement=100%
 ```
 
 ## Differences in concerto-core 6.0.0
@@ -152,12 +152,14 @@ node oracle/bin/replay.js --engine <6.0.x engine> --expected oracle/expected-6.0
 
 With `--expected`, a listed fixture that fails is counted as `expected_fail`,
 not `fail`. A listed fixture that passes is reported as `unexpected_pass`, so
-the list can be kept accurate. Against the 6.0.0 release candidate
+the list can be kept accurate. (A build is labelled by its `package.json`
+name and version, so a 6.0.0 candidate whose version is not bumped yet shows
+as `@5.0.0`.) Against the 6.0.0 release candidate
 (accordproject/concerto#1327 at `cf32ef406`, concerto-core built with
 `npm run build`):
 
 ```
-total=16242 pass=15971 fail=0 harness_error=0 expected_fail=271 unexpected_pass=0 message_only=58
+total=16242 pass=15971 fail=0 harness_error=0 expected_fail=271 unexpected_pass=0 unsupported=0 message_only=58
 ```
 
 | Change | Fixtures | Link |

@@ -153,9 +153,17 @@ function keyOf(rel) {
         summary.expected_failures = [];
         summary.unexpected_pass = passed.filter((rel) => expected.has(keyOf(rel)));
         allFailures = allFailures.filter((f) => {
-            if (f.status === 'fail' && expected.has(keyOf(f.file))) {
+            const unsupported = typeof f.detail === 'string' && f.detail.startsWith('unsupported op');
+            if (f.status === 'fail' && !unsupported && expected.has(keyOf(f.file))) {
                 summary.expected_fail++;
                 summary.expected_failures.push(Object.assign({ reason: expected.get(keyOf(f.file)) }, f));
+                const src = f.file.split(/[\\/]/)[0];
+                for (const b of [summary.by_source[src], summary.by_op[f.op]]) {
+                    if (b) {
+                        b.fail--;
+                        b.expected_fail = (b.expected_fail || 0) + 1;
+                    }
+                }
                 return false;
             }
             return true;

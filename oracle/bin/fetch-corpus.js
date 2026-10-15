@@ -19,7 +19,7 @@
  * Download the corpus release asset named in oracle/corpus.json, verify it,
  * and unpack it.
  *
- *   node oracle/bin/fetch-corpus.js [--file <local .tgz>] [--dest <dir>] [--force]
+ *   node oracle/bin/fetch-corpus.js [--file <local .tgz>] [--url <url>] [--dest <dir>] [--force]
  *
  * The download (or --file) must match corpus.json's `sha256`, and the
  * uncompressed tar its `tar_sha256`; otherwise nothing is unpacked. The
@@ -27,6 +27,10 @@
  * oracle/corpus), giving <dest>/fixtures, <dest>/cto-cache and
  * <dest>/CORPUS.json. An existing <dest> is left alone unless it was
  * unpacked from the same asset, or --force is given.
+ *
+ * Exit status: 0 on success, 3 when the asset is not found (HTTP 404: the
+ * release is not published yet), 1 on any other failure, including a hash
+ * mismatch.
  *
  * GITHUB_TOKEN, when set, is sent with the download (needed while the
  * release is a draft, through the API asset URL given with --url).
@@ -87,7 +91,9 @@ function download(url, hops = 5) {
             }
             if (res.statusCode !== 200) {
                 res.resume();
-                reject(new Error(`GET ${url}: HTTP ${res.statusCode}`));
+                const err = new Error(`GET ${url}: HTTP ${res.statusCode}`);
+                err.notFound = res.statusCode === 404;
+                reject(err);
                 return;
             }
             const chunks = [];
@@ -132,6 +138,9 @@ async function main() {
         console.log(`downloading ${url}`);
         buf = await download(url);
     }
+    if (buf.length < 2 || buf[0] !== 0x1f || buf[1] !== 0x8b) {
+        throw new Error('not a gzip file; expected the .tgz release asset');
+    }
     const got = sha256(buf);
     if (got !== cfg.sha256) {
         // Another gzip build gives other .tgz bytes for the same files; the
@@ -163,10 +172,10 @@ async function main() {
     fs.writeFileSync(path.join(tmp, STAMP), cfg.sha256 + '\n');
     fs.rmSync(opts.dest, { recursive: true, force: true });
     fs.renameSync(tmp, opts.dest);
-    console.log(`corpus ${cfg.asset} verified (sha256 ${cfg.sha256}) and unpacked to ${opts.dest}: ${files.length} files`);
+    console.log(`corpus ${cfg.asset} verified (tar sha256 ${cfg.tar_sha256}) and unpacked to ${opts.dest}: ${files.length} files`);
 }
 
 main().catch((e) => {
     console.error('ERROR fetch-corpus: ' + (e && e.message || e));
-    process.exitCode = 1;
+    process.exitCode = e && e.notFound ? 3 : 1;
 });

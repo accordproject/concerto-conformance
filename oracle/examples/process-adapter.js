@@ -29,7 +29,8 @@
  *   {"id": "<n>", "divergence": "<why>"}       rebuilding the inputs diverged, e.g. a recipe step
  *                                              had another outcome than the recorded one (a fail)
  *   {"id": "<n>", "harnessError": "<why>"}     the fixture itself cannot be set up
- * Replies may come in any order. The process is closed (stdin ends) after
+ * Replies may come in any order. A request with no reply within
+ * ORACLE_ENGINE_TIMEOUT_MS (default 60000) is a harness error. The process is closed (stdin ends) after
  * the last fixture. examples/reference-over-stdio.js is a complete engine
  * side, backed by the 5.0.0 reference.
  */
@@ -78,6 +79,20 @@ function createAdapter() {
         }
         p.reject(err);
     });
+    const fail = (why) => {
+        for (const p of pending.values()) {
+            p.reject(new HarnessError(why));
+        }
+        pending.clear();
+    };
+    child.stdin.on('error', (e) => {
+        exited = exited === null ? 'stdin: ' + e.code : exited;
+        fail(`engine process input closed (${e.code})`);
+    });
+    child.on('error', (e) => {
+        exited = exited === null ? e.code : exited;
+        fail(`engine process failed to start (${e.code})`);
+    });
     child.on('exit', (code) => {
         exited = code;
         for (const p of pending.values()) {
@@ -92,8 +107,17 @@ function createAdapter() {
                 throw new HarnessError(`engine process exited (${exited})`);
             }
             const id = String(nextId++);
+            const ms = Number(process.env.ORACLE_ENGINE_TIMEOUT_MS || 60000);
             return new Promise((resolve, reject) => {
-                pending.set(id, { resolve, reject });
+                const timer = setTimeout(() => {
+                    pending.delete(id);
+                    reject(new HarnessError(`no reply from the engine within ${ms} ms`));
+                }, ms);
+                const done = (f) => (v) => {
+                    clearTimeout(timer);
+                    f(v);
+                };
+                pending.set(id, { resolve: done(resolve), reject: done(reject) });
                 child.stdin.write(JSON.stringify({ id, op, inputs }) + '\n');
             });
         },
