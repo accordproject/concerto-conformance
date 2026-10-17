@@ -1,0 +1,363 @@
+{
+  "description": "Minimised inputs on which an engine under test once diverged from concerto-core 5.0.0, found by differential fuzzing. Replay with fuzz/bin/regress.js.",
+  "seeds": [
+    {
+      "id": "R01",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/1fdeeb379822d62d5821fe34.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "name"
+          ],
+          "value": [
+            "Employee"
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(TypeError) (engine: \"this.name.toString is not a function\")"
+    },
+    {
+      "id": "R02",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/16267c5478a5f2840469e147.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            0,
+            "name"
+          ],
+          "value": true
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(IllegalModelException) (engine: \"Invalid property name '…' \")"
+    },
+    {
+      "id": "R03",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/351e0846b6d348c39f164cc6.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            1,
+            "name"
+          ],
+          "value": -0.1
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(IllegalModelException); an engine under test gave error(IllegalModelException) (5.0.0: \"Invalid property name '…' File '…': line <n> column <n>, to line <n> column <n>. \"; engine: \"Invalid property name '…' \")"
+    },
+    {
+      "id": "R04",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/6381d58827634d96a6ed53d7.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            1,
+            "identified"
+          ],
+          "value": true
+        },
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            1,
+            "properties",
+            1
+          ],
+          "value": -0.1
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(IllegalModelException); an engine under test gave error(TypeError) (5.0.0: \"Unrecognised model element \"…\". File '…': line <n> column <n>, to line <n> column <n>. \"; engine: \"Cannot read properties of undefined (reading '…')\")"
+    },
+    {
+      "id": "R05",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/2721ed851a7cc35b84558ba9.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            0,
+            "lengthValidator",
+            "$class"
+          ],
+          "value": [
+            "concerto.metamodel@1.0.0.StringLengthValidator"
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(Error) (engine: \"invalid type: sequence, expected a string\")"
+    },
+    {
+      "id": "R06",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/005d5a23d5c0d57ce9dfb0a4.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            1,
+            "type"
+          ],
+          "value": null
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(TypeError); an engine under test gave ok (5.0.0: \"Cannot read properties of null (reading '…')\")"
+    },
+    {
+      "id": "R07",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/4d507713c337919b27aeb1d0.json",
+      "edits": [
+        {
+          "kind": "delete",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            1,
+            "location",
+            "end"
+          ]
+        },
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            1,
+            "name"
+          ],
+          "value": -9007199254740991
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(TypeError); an engine under test gave error(IllegalModelException) (5.0.0: \"Cannot read properties of undefined (reading '…')\"; engine: \"Invalid property name '…' \")"
+    },
+    {
+      "id": "R08",
+      "op": "ModelManager.addModelFile",
+      "seedFile": "conformance/ModelManager.addModelFile/153328fa8ee46aa934647439.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "declarations",
+            0,
+            "properties",
+            0,
+            "name"
+          ],
+          "value": false
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(Error); an engine under test gave error(IllegalModelException) (5.0.0: \"No name for type {\"…\":\"…\",\"…\":false,\"…\":{\"…\":\"…\",\"…\":{\"…\":<n>,\"…\":<n>,\"…\":<n>,\"…\":\"…\"},\"…\":{\"…\":<n>,\"…\":<n>,\"…\":<n>,\"…\":\"…\"}}}\"; engine: \"Invalid property name '…' \")"
+    },
+    {
+      "id": "R09",
+      "op": "ModelManager.fromAst",
+      "seedFile": "gaps/ModelManager.fromAst/09f8ed77efb739ed3faffef1.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "models",
+            0,
+            "declarations",
+            0,
+            "properties",
+            0,
+            "name"
+          ],
+          "value": -0.1
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(IllegalModelException); an engine under test gave error(IllegalModelException) (5.0.0: \"Invalid property name '…' \"; engine: \"Invalid property name '…' \")"
+    },
+    {
+      "id": "R10",
+      "op": "ModelManager.fromAst",
+      "seedFile": "data/ModelManager.fromAst/6287c8da05a81a766dd6845b.json",
+      "edits": [
+        {
+          "kind": "delete",
+          "path": [
+            "models",
+            1,
+            "declarations",
+            0,
+            "superType",
+            "name"
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(IllegalModelException); an engine under test gave error(TypeError) (5.0.0: \"Could not find super type undefined \"; engine: \"Cannot read properties of undefined (reading '…')\")"
+    },
+    {
+      "id": "R11",
+      "op": "ModelManager.fromAst",
+      "seedFile": "data/ModelManager.fromAst/6287c8da05a81a766dd6845b.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "models",
+            0,
+            "declarations",
+            1,
+            "properties",
+            0,
+            "name"
+          ],
+          "value": [
+            "name"
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(IllegalModelException) (engine: \"Invalid property name '…' \")"
+    },
+    {
+      "id": "R12",
+      "op": "ModelManager.fromAst",
+      "seedFile": "data/ModelManager.fromAst/8335247dee104b114d18afa8.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "models",
+            0,
+            "declarations",
+            1,
+            "name"
+          ],
+          "value": [
+            "Vehicle"
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(TypeError) (engine: \"this.name.toString is not a function\")"
+    },
+    {
+      "id": "R13",
+      "op": "ModelManager.fromAst",
+      "seedFile": "data/ModelManager.fromAst/8335247dee104b114d18afa8.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "models",
+            1,
+            "declarations",
+            0,
+            "superType",
+            "name"
+          ],
+          "value": true
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(TypeError); an engine under test gave error(TypeError) (5.0.0: \"type.startsWith is not a function\"; engine: \"this.ast.superType.name.toString is not a function\")"
+    },
+    {
+      "id": "R14",
+      "op": "ModelManager.fromAst",
+      "seedFile": "gaps/ModelManager.fromAst/274f8cebaf47c4089b212e87.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "models",
+            0,
+            "declarations",
+            0,
+            "properties",
+            0,
+            "lengthValidator",
+            "minLength"
+          ],
+          "value": true
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(Error) (engine: \"invalid type: boolean `true`, expected f64\")"
+    },
+    {
+      "id": "R15",
+      "op": "ModelManager.fromAst",
+      "seedFile": "gaps/ModelManager.fromAst/07a3c74cf230338389412f0b.json",
+      "edits": [
+        {
+          "kind": "delete",
+          "path": [
+            "models",
+            0,
+            "declarations",
+            0,
+            "name"
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(BaseException); an engine under test gave error(TypeError) (5.0.0: \"Validator error for field `null`. gaps.nv1@<n>.<n>.<n>.undefined.x: Invalid range, lower and-or upper bound must be specified.\"; engine: \"Cannot read properties of undefined (reading '…')\")"
+    },
+    {
+      "id": "R16",
+      "op": "ModelManager.fromAst",
+      "seedFile": "gaps/ModelManager.fromAst/968849bcd5b6b86038d6f832.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "models",
+            0,
+            "declarations",
+            0,
+            "properties",
+            0,
+            "sizeValidator"
+          ],
+          "value": [
+            {
+              "$class": "concerto.metamodel@1.0.0.CollectionDomainValidator"
+            }
+          ]
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave error(BaseException); an engine under test gave error(Error) (5.0.0: \"Validator error for field `items`. gaps.csv1@<n>.<n>.<n>.C.items: Invalid collection size, minSize and/or maxSize must be specified.\"; engine: \"invalid type: map, expected a string\")"
+    },
+    {
+      "id": "R17",
+      "op": "Serializer.fromJSON",
+      "seedFile": "data/Serializer.fromJSON/024a285d00093fff73ca0e8d.json",
+      "edits": [
+        {
+          "kind": "set",
+          "path": [
+            "t"
+          ],
+          "value": "1970-01-01T00:00:00.000+00:00\u0000"
+        }
+      ],
+      "found": "concerto-core 5.0.0 gave ok; an engine under test gave error(ValidationException) (engine: \"Expected value at path `$.t` to be of type `DateTime`\")"
+    }
+  ]
+}
