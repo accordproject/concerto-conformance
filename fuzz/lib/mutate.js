@@ -14,6 +14,8 @@
 
 'use strict';
 
+const { isDeepStrictEqual } = require('util');
+
 /**
  * Deterministic, seeded mutation of a plain JSON value (a Concerto AST or an
  * instance's JSON), for differential fuzzing.
@@ -184,6 +186,7 @@ function mutateTraced(value, seed) {
         const isArr = Array.isArray(parent);
         const beforeLen = isArr ? parent.length : undefined;
         const beforeKeys = isArr ? undefined : Object.keys(parent);
+        const before = isArr ? undefined : deepClone(parent);
         try {
             edit(parent, key, rnd);
         } catch (e) {
@@ -201,15 +204,21 @@ function mutateTraced(value, seed) {
                 edits.push({ kind: 'set', path, value: deepClone(parent[key]) });
             }
         } else {
+            // Record every key of the parent the edit changed, not only the
+            // slot it picked: duplicating `k` onto an existing `k_dup`
+            // overwrites that sibling.
             const afterKeys = Object.keys(parent);
-            const removed = beforeKeys.filter((k) => !afterKeys.includes(k));
-            const added = afterKeys.filter((k) => !beforeKeys.includes(k));
-            if (removed.length) {
-                edits.push({ kind: 'delete', path: parentPath.concat(removed[0]) });
-            } else if (added.length) {
-                edits.push({ kind: 'add', path: parentPath.concat(added[0]), value: deepClone(parent[added[0]]) });
-            } else if (Object.prototype.hasOwnProperty.call(parent, key)) {
-                edits.push({ kind: 'set', path, value: deepClone(parent[key]) });
+            for (const k of beforeKeys) {
+                if (!afterKeys.includes(k)) {
+                    edits.push({ kind: 'delete', path: parentPath.concat(k) });
+                } else if (!isDeepStrictEqual(before[k], parent[k])) {
+                    edits.push({ kind: 'set', path: parentPath.concat(k), value: deepClone(parent[k]) });
+                }
+            }
+            for (const k of afterKeys) {
+                if (!beforeKeys.includes(k)) {
+                    edits.push({ kind: 'add', path: parentPath.concat(k), value: deepClone(parent[k]) });
+                }
             }
         }
     }
