@@ -12,6 +12,74 @@ Any engine the oracle can replay can be fuzzed: concerto-core 5.0.0 (the
 default reference), another JS build of concerto-core, or your own adapter
 (`../oracle/ADAPTERS.md`). The harness has no dependencies beyond Node.js.
 
+## Method
+
+This is **mutation-based differential fuzzing**. It has three parts:
+
+1. **Mutation-based.** New inputs are made by changing real ones, not by
+   generating them from a grammar. Each case starts from a document that
+   concerto-core 5.0.0 was actually given in a recorded test. That document
+   is a model AST, or an instance and its model. The fuzzer applies one to
+   four random edits to its JSON tree. Starting from real documents keeps
+   most cases close to valid, so they get past the first checks and reach
+   deeper code. A purely random document is usually rejected at once.
+2. **Differential.** There is no hand-written expected result for a mutated
+   input. Instead, two engines run the same case and their outcomes are
+   compared. A disagreement is a *divergence*: one of the two engines is
+   wrong, or the difference is intended. The reference is assumed correct
+   by default. Known, intended differences are listed separately (see
+   "Expected differences").
+3. **Seeded and reproducible.** All randomness comes from one small PRNG
+   (mulberry32) seeded by an integer. One seed picks the cases of a whole
+   run. A second seed per case picks the edits. Rerunning with the same
+   seeds and corpus gives exactly the same cases.
+
+The edits are generic JSON edits. They know nothing of Concerto's grammar.
+Each edit picks one node of the document (an object key or an array
+element) at random and does one of eight things to it:
+
+| Edit | Example |
+|---|---|
+| delete it | drop `"isOptional"`, or one element of `"properties"` |
+| replace it with an unrelated value | a string, number, boolean, `null`, `[]` or `{}` |
+| flip a boolean | `"isAbstract": false` becomes `true` |
+| duplicate it | `name` gains a sibling `name_dup`; an array element appears twice |
+| change a string | truncate it, double it, upper-case it, or append junk (`"__proto__"`, `"\u0000"`, 5,000 characters, emoji) |
+| push a number to an edge | add or substitute `NaN`, `±Infinity`, `-0`, `2^53`, `1e308` |
+| wrap or unwrap | `x` becomes `[x]`, and `[x]` becomes `x` |
+| shuffle an array | reorder `declarations` or `properties` |
+
+Nodes marked `@@oracle` are never edited. They describe how to rebuild the
+test's set-up, such as a model manager or a serializer, not the document
+under test (see `../oracle/FORMAT.md`).
+
+When a run finds divergences, two steps make them manageable:
+- **Clustering** groups divergences that look the same, by op, by each
+  engine's outcome, and by message with names and numbers blanked out.
+- **Reduction** shrinks one sample per cluster. It removes edits one at a
+  time and keeps each removal while the divergence still looks the same.
+  This is a greedy form of delta debugging. What remains is usually a
+  single edit that triggers the difference.
+
+## Terms
+
+| Term | Meaning |
+|---|---|
+| engine | an implementation of Concerto under test, reached through an adapter (`../oracle/ADAPTERS.md`) |
+| reference, candidate | the two engines compared. The reference is concerto-core 5.0.0 by default; the candidate is the engine you are testing |
+| op | a public API call of concerto-core, named `<Class>.<method>`, for example `Serializer.fromJSON`. The fuzzer targets four ops (see "What is mutated") |
+| seed fixture | a recorded oracle fixture used as the starting point for mutation |
+| mutation seed | the integer that fixes which edits are applied to a seed fixture |
+| run seed | the integer that fixes which seed fixtures and mutation seeds a whole run uses (`--run-seed`) |
+| case | one mutated input: a seed fixture plus a mutation seed |
+| outcome | what an engine did with a case: returned a value, or threw an exception of some class. Outcomes are compared in canonical form, ignoring message text |
+| agreement | both engines gave the same outcome |
+| divergence | the engines gave different outcomes |
+| expected difference | a divergence that a list of intended changes accepts (`--expected`) |
+| harness error | a case one engine could not run at all, because the set-up failed for reasons unrelated to the engine's behaviour. Never counted as an agreement |
+| repro | the minimum needed to replay one case: `{op, seedFile, mutationSeed}`, or after reduction `{op, seedFile, edits}` |
+| cluster | a group of divergences with the same signature (`lib/signature.js`) |
+
 ## Running a campaign
 
 ```sh
@@ -63,11 +131,7 @@ model manager recipe, the serializer options and the factory. Seeds come
 from the corpus sources `data`, `conformance`, `unit`, `gaps` and `lifted`,
 up to `--seeds-per-op` per op.
 
-`lib/mutate.js` edits JSON shape generically: it drops, adds and renames
-keys, flips booleans, retypes scalars, reslices arrays and duplicates nodes.
-It uses junk values such as `NaN`, `-0`, `2^53`, `"__proto__"`, very long
-strings and emoji. It knows nothing of Concerto's grammar, and never edits a
-node that carries an `@@oracle` marker.
+`lib/mutate.js` applies the edits described under "Method".
 
 ## The seed and repro model
 
