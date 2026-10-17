@@ -144,7 +144,7 @@ const EDITS = [
 ];
 
 function deepClone(v) {
-    return v === undefined ? undefined : JSON.parse(JSON.stringify(v));
+    return structuredClone(v);
 }
 
 /**
