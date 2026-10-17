@@ -1,13 +1,64 @@
 # Behavioural oracle corpus for concerto-core 5.0.0
 
 The corpus records what `@accordproject/concerto-core` **5.0.0** does at its
-public API. Each fixture is one public call: an op, its inputs, and its
-outcome, which is either a result or an exception class. You replay the
-fixtures against another engine through an adapter, and a judge compares the
-outcomes. Any implementation of Concerto can use it to check that it
-behaves like the 5.0.0 reference. That includes a new build of concerto-core,
-a port to another language, or a client that loads models and validates
-instances.
+public API, as 16,242 fixtures. This directory has the tools to replay the
+corpus against another engine and to judge each result.
+
+## Why
+
+The scenarios elsewhere in this repository state Concerto's rules one at a
+time, by hand. They are readable, but they cover only the rules someone
+thought to write down. concerto-core's actual behaviour is much larger.
+Hundreds of public methods each have edge cases: which inputs are rejected,
+with which exception, what a valid instance serialises to, how decorators
+apply. Most of it is defined only by the 5.0.0 code.
+
+Anyone who reimplements or changes that behaviour needs to know whether the
+new version behaves like 5.0.0, case by case. This could be a port to
+another language, a new major version, or a client that loads models and
+validates instances itself. Reading the 5.0.0 code doesn't scale to that,
+and its unit tests check the code's own internals, not a public contract.
+
+The oracle answers it differently. It records 5.0.0's own answers to a large
+number of real calls, and lets any engine be checked against them
+automatically. That turns 5.0.0's observable behaviour into an executable
+specification. A difference is then either a bug in the new engine or a
+deliberate change, and deliberate changes are listed with a reason
+(`expected-6.0.0.tsv`).
+
+## How it works
+
+1. **Recording.** concerto-core 5.0.0's own test suite and test data, this
+   repository's scenarios, and some targeted inputs were run with the public
+   API instrumented. Every outermost public call was saved as a *fixture*.
+   A fixture holds the *op* (the call, as `<Class>.<method>`), its inputs and
+   its outcome: the value it returned, or the class of exception it threw.
+   Calls made by other calls were not recorded separately. Calls whose
+   inputs can't be described as plain data, such as test stubs or functions,
+   were skipped and counted. The recorder lives with concerto-core's source
+   (accordproject/concerto#1327); this directory has the replay side.
+2. **Encoding.** Inputs are stored as plain JSON. A concerto object, such as
+   a model manager, is stored as a *recipe*: the public calls that rebuild
+   it. For example: "create a `ModelManager` with these options, then call
+   `addCTOModel` with this text". Large values are stored once, by hash.
+   Identical calls are stored once. ([FORMAT.md](FORMAT.md))
+3. **Replay.** For each fixture, an *adapter* for the engine under test
+   rebuilds the inputs from their recipes, makes the same call, and reports
+   what happened. ([ADAPTERS.md](ADAPTERS.md))
+4. **Judging.** The judge puts both outcomes in canonical form: sorted keys,
+   and generated ids and timestamps replaced by placeholders. It then
+   compares them. A fixture *passes* when both engines threw or neither
+   did, and the exception class, component, location and values match. Message text is
+   not compared, so an engine may word its errors differently.
+
+The tools work for any engine:
+- A JS build of concerto-core needs no code at all: pass its package
+  directory.
+- An engine in another language can answer over stdin and stdout.
+- The fuzz harness in `../fuzz` reuses the same adapters to compare engines
+  on mutated inputs that were never recorded.
+
+## The corpus at a glance
 
 | | |
 |---|---|
@@ -16,12 +67,11 @@ instances.
 | Agreement of the reference with itself | 16,242 of 16,242 pass (about 50 s) |
 | Size | 3.1 MB download, 51 MB unpacked |
 
-The fixtures were recorded from concerto-core 5.0.0's own test suite
-(`unit`), its test data (`data`), this repository's scenarios
-(`conformance`), and targeted inputs for branches those miss (`gaps`,
-`lifted`, `supplement`). [FORMAT.md](FORMAT.md) describes the fixture
-format. [ADAPTERS.md](ADAPTERS.md) describes how to replay the fixtures
-against your engine.
+Each fixture's *source* says where its call came from:
+- `unit`: concerto-core 5.0.0's own test suite;
+- `data`: its test data;
+- `conformance`: this repository's scenarios;
+- `gaps`, `lifted`, `supplement`: targeted inputs for code those miss.
 
 ## Quick start
 
