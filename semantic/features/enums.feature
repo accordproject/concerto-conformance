@@ -1,6 +1,5 @@
 Feature: Semantic Validation of Enum Declarations in CTO Models
 
-  @skip-rust
   Scenario: Duplicate enum names in the same file should throw an error
     Given I load the following models:
       | model_file                                                   | alias      |
@@ -39,7 +38,7 @@ Feature: Semantic Validation of Enum Declarations in CTO Models
     When I validate the models
     Then no error should be thrown
 
-  @rule:MODEL_ELEMENT_002 @skip-rust
+  @rule:MODEL_ELEMENT_002
   Scenario: Invalid enum identifier name should throw an error
     Given I load the following models:
       | model_file                                                   | alias      |

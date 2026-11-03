@@ -26,7 +26,6 @@ Feature: Semantic Validation of CTO Model Imports
     Then no error should be thrown
 
   
-  @skip-rust
   Scenario: Importing a non-existent type should throw an error
     Given I load the following models:
       | model_file                                                                       | alias  |
@@ -54,13 +53,11 @@ Feature: Semantic Validation of CTO Model Imports
 
   # Scenarios below this line were promoted by P5-08b from the oracle corpus and
   # the fuzz records (concerto migration/CONFORMANCE-PROMOTION-PLAN.md). Each one
-  # asserts an error class and a @rule tag, never TS message text. They are
-  # tagged @skip-rust until the Rust runner gains the class step (and, where
-  # used, the options and validated-load steps); see the plan, section 5.1.
+  # asserts an error class and a @rule tag, never TS message text.
 
   # NSI-05. Source: F:unit/ModelManager.addCTOModel/562a1f000f083a9b744e2130. The existing MODEL_FILE_001
   # negative imports from an unregistered namespace; here the namespace is registered.
-  @rule:MODEL_FILE_001 @skip-rust
+  @rule:MODEL_FILE_001
   Scenario: Importing a type that a registered namespace does not declare
     Given I load the following models:
       | model_file                                                                               | alias |

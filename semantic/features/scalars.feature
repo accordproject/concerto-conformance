@@ -8,7 +8,7 @@ Feature: Semantic Validation of CTO Scalars specification
 
   # Validator errors are BaseException in TS today; the class is not asserted
   # until they move to IllegalModelException (maintainer decision Q-15).
-  @rule:NUMBER_VALIDATOR_001 @skip-rust
+  @rule:NUMBER_VALIDATOR_001
   Scenario: should throw for no number bounds
     Given I load the following models:
       |  model_file                     |alias|
@@ -49,7 +49,7 @@ Feature: Semantic Validation of CTO Scalars specification
   # bound slips through, and Rust copies this in introspect/validators.rs
   # (length_bound_field). Validator errors are BaseException in TS today, so
   # no class is asserted (maintainer decision Q-15).
-  @skip @rule:STRING_VALIDATOR_001 @skip-rust
+  @skip @rule:STRING_VALIDATOR_001
   Scenario: should throw for empty string length bounds
     Given I load the following models:
       |  model_file                     |alias|
@@ -89,7 +89,7 @@ Feature: Semantic Validation of CTO Scalars specification
 
   # Validator errors are BaseException in TS today; the class is not asserted
   # until they move to IllegalModelException (maintainer decision Q-15).
-  @rule:STRING_VALIDATOR_004 @skip-rust
+  @rule:STRING_VALIDATOR_004
   Scenario: should throw for invalid regex
     Given I load the following models:
       |  model_file                     |alias|

@@ -4,13 +4,11 @@ Feature: Semantic Validation of Identifiers
   # The models are JSON ASTs only: a digit-leading name cannot be written in CTO
   # (the parser rejects it before any semantic rule runs, plan exclusion X-06),
   # and the positive cases use the same form.
-  # The negative scenarios are tagged @skip-rust until the Rust runner has the
-  # class step (plan section 5.1); the IDN-02 positives run on it.
 
   # IDN-01. Source: F:unit/ModelUtil.isValidIdentifier/ea8308fef78b0e065847f858 (`2nd`, ClassDeclaration);
   # #219 cluster 1 (IllegalModelException for an invalid name in a JSON AST).
   # The error class comes from fuzz cluster #219 c1; the cited unit fixtures record only `false`.
-  @rule:MODEL_ELEMENT_002 @skip-rust
+  @rule:MODEL_ELEMENT_002
   Scenario: A declaration name starts with a digit
     Given I load the following models:
       | model_file                                                                                     | alias |
@@ -20,7 +18,7 @@ Feature: Semantic Validation of Identifiers
 
   # IDN-01. Source: F:unit/ModelUtil.isValidIdentifier/f803bb772273772d782c8927 (`1st`, Property);
   # #219 cluster 1. The error class comes from fuzz cluster #219 c1; the cited unit fixture records only `false`.
-  @rule:MODEL_ELEMENT_002 @skip-rust
+  @rule:MODEL_ELEMENT_002
   Scenario: A property name starts with a digit
     Given I load the following models:
       | model_file                                                                                  | alias |
@@ -51,7 +49,7 @@ Feature: Semantic Validation of Identifiers
   # 8100fbc6e9d66fbf6a792eaf (Integer), 66b1a81f435fdb22b9971480 (Long), aff4b12d70d311e5a7bea5bc (Boolean),
   # 44b6a59e84ffb25d95fa6f74 (DateTime). (The family has 7 fixtures; the 7th, ea25da09d9cf2605bfdc527d, is a positive.
   # It is not promoted: the plan does not require it.)
-  @rule:SCALAR_DECLARATION_001 @skip-rust
+  @rule:SCALAR_DECLARATION_001
   Scenario Outline: A scalar is named after a primitive type
     Given I load the following models:
       | model_file                                                                                     | alias |

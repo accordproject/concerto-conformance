@@ -1,0 +1,26 @@
+{
+  "$class": "concerto.metamodel@1.0.0.Model",
+  "decorators": [],
+  "namespace": "org.acme.collections@1.0.0",
+  "imports": [],
+  "declarations": [
+    {
+      "$class": "concerto.metamodel@1.0.0.ConceptDeclaration",
+      "name": "BoundedTags",
+      "isAbstract": false,
+      "properties": [
+        {
+          "$class": "concerto.metamodel@1.0.0.StringProperty",
+          "name": "tags",
+          "isArray": true,
+          "isOptional": false,
+          "sizeValidator": {
+            "$class": "concerto.metamodel@1.0.0.CollectionSizeValidator",
+            "minSize": 2,
+            "maxSize": 5
+          }
+        }
+      ]
+    }
+  ]
+}
