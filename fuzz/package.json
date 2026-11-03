@@ -1,0 +1,14 @@
+{
+  "name": "concerto-fuzz",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Differential fuzzing of a candidate Concerto engine against the concerto-core 5.0.0 reference, seeded from the oracle corpus.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "fuzz": "node bin/fuzz.js",
+    "test": "node --test test/*.test.js"
+  }
+}
