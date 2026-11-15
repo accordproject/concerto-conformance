@@ -1,16 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <GenerateSpecFlowAssemblyHooks>true</GenerateSpecFlowAssemblyHooks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RootNamespace>Concerto.Conformance</RootNamespace>
+    <!-- Keep the generated code-behind in obj/, not next to the shared feature files. -->
+    <ReqnrollUseIntermediateOutputPathForCodeBehind>true</ReqnrollUseIntermediateOutputPathForCodeBehind>
+    <!-- The repository root, so fixtures resolve whatever directory the run starts from. -->
+    <ConformanceRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../../../../'))</ConformanceRoot>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.9.0" />
-    <PackageReference Include="Reqnroll" Version="2.4.1" />
-    <PackageReference Include="Reqnroll.NUnit" Version="2.4.1" />
-    <PackageReference Include="Reqnroll.Tools.MsBuild.Generation" Version="2.4.1" />
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>ConformanceRoot</_Parameter1>
+      <_Parameter2>$(ConformanceRoot)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!--
+    The feature files are shared with the JavaScript and Rust runners: link them
+    in place, never copy them.
+  -->
+  <ItemGroup>
+    <ReqnrollFeatureFiles Include="../../../*.feature" Link="Features/semantic/%(Filename)%(Extension)" />
+    <ReqnrollFeatureFiles Include="../../../../../validate/features/*.feature" Link="Features/validate/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Runtimes/Reference/reference-bridge.mjs" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
+    <PackageReference Include="NUnit" Version="4.6.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
+    <PackageReference Include="Reqnroll.NUnit" Version="3.3.4" />
+  </ItemGroup>
+
+  <!--
+    The `engine` runtime (concerto-dotnet's AccordProject.Concerto.Engine, the
+    .NET binding over concerto-rust) is compiled in only when its project is
+    given:  dotnet test -p:ConcertoEngineProject=/path/to/AccordProject.Concerto.Engine.csproj
+  -->
+  <PropertyGroup Condition="'$(ConcertoEngineProject)' != ''">
+    <DefineConstants>$(DefineConstants);CONCERTO_ENGINE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(ConcertoEngineProject)' != ''">
+    <ProjectReference Include="$(ConcertoEngineProject)" />
   </ItemGroup>
 
 </Project>

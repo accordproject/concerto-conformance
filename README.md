@@ -8,7 +8,7 @@ This repository includes:
 1. A set of semantic validation rules
 2. Comprehensive valid and invalid model examples
 3. Tests written using Cucumber, offering behavior-driven, human-readable test definitions
-4. Support for both JavaScript, C#(partially) and Rust runtimes.
+4. Runners for JavaScript, C# and Rust.
 The suite specifically tests core components of the Concerto ecosystem: the `ModelFile` and `ModelManager` classes from `@accordproject/concerto-core`
 
 ## Working:
@@ -22,8 +22,10 @@ This test suite enables straightforward integration with CI/CD pipelines, so Con
     `npm install`
 2. Run the Javascript test suite (semantic and instance features):
     `npm test`
-3. Run tests for C#:
+3. Run the C# runner (semantic and instance features; needs the .NET 8 SDK):
     `npm run test:csharp`
+   It runs against the reference implementation by default; see
+   [the C# runner's README](semantic/features/support/C%23/README.md) to test a .NET runtime.
 4. Running tests for Rust can be done through the concerto-rust repository.   
 
 ## Interactive CLI:
@@ -49,13 +51,12 @@ source (an oracle fixture or a fuzz cluster, see concerto's
 `migration/CONFORMANCE-PROMOTION-PLAN.md`). A missing or unreadable fixture fails
 the step instead of counting as the expected error.
 
-The Rust and C# runners do not have these steps yet, so the semantic scenarios
+The Rust runner does not have these steps yet, so the semantic scenarios
 that use them are tagged `@skip-rust` (positive scenarios that need only the
 existing steps run on the Rust runner). The Rust runner needs the class step (a
 mapping from the crate's error to its class name), the mention step, the options
 step and the validated-load step, plus instance steps to run the instance
 features; the models added by P5-08b have `.ast.json` siblings for that, and the
-older `validate/models` still need them. The C# runner needs
-the same steps. `@skip-rust` does not apply to it, so once it runs these
-feature files it will hit the undefined steps and fail those scenarios.
+older `validate/models` still need them. The C# runner has every step;
+`@skip-rust` does not apply to it (it has its own `@skip-csharp`).
 
