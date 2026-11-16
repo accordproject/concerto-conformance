@@ -42,7 +42,7 @@ Feature: Semantic Validation of CTO Namespace Imports
     When I validate the models
     Then an error should be thrown with message "Can't import same names for different namespaces"
 
-  Scenario: Valid unique namespace imports should pass
+  Scenario: Valid unique names imported from different namespaces should pass
     Given I load the following models:
       | model_file                                               | alias    |
       | namespaces/models/MODEL_FILE_004/importedTypes.json       | imported |

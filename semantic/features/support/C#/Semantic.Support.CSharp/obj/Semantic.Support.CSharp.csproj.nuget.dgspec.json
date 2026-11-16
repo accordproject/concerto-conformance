@@ -1,34 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Asus\\OneDrive\\Desktop\\concerto-conformance-official\\concerto-conformance\\semantic\\features\\support\\C#\\Semantic.Support.CSharp\\Semantic.Support.CSharp.csproj": {}
+    "/home/shrinjali/Desktop/accord/concerto-conformance/semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Asus\\OneDrive\\Desktop\\concerto-conformance-official\\concerto-conformance\\semantic\\features\\support\\C#\\Semantic.Support.CSharp\\Semantic.Support.CSharp.csproj": {
+    "/home/shrinjali/Desktop/accord/concerto-conformance/semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\OneDrive\\Desktop\\concerto-conformance-official\\concerto-conformance\\semantic\\features\\support\\C#\\Semantic.Support.CSharp\\Semantic.Support.CSharp.csproj",
+        "projectUniqueName": "/home/shrinjali/Desktop/accord/concerto-conformance/semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj",
         "projectName": "Semantic.Support.CSharp",
-        "projectPath": "C:\\Users\\Asus\\OneDrive\\Desktop\\concerto-conformance-official\\concerto-conformance\\semantic\\features\\support\\C#\\Semantic.Support.CSharp\\Semantic.Support.CSharp.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\OneDrive\\Desktop\\concerto-conformance-official\\concerto-conformance\\semantic\\features\\support\\C#\\Semantic.Support.CSharp\\obj\\",
+        "projectPath": "/home/shrinjali/Desktop/accord/concerto-conformance/semantic/features/support/C#/Semantic.Support.CSharp/Semantic.Support.CSharp.csproj",
+        "packagesPath": "/home/shrinjali/.nuget/packages/",
+        "outputPath": "/home/shrinjali/Desktop/accord/concerto-conformance/semantic/features/support/C#/Semantic.Support.CSharp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/shrinjali/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
         "warningProperties": {
+          "allWarningsAsErrors": true,
           "warnAsError": [
             "NU1605"
           ]
@@ -37,28 +38,27 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "FluentAssertions": {
+            "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[6.9.0, )"
+              "version": "[18.12.0, )"
             },
-            "Reqnroll": {
+            "NUnit": {
               "target": "Package",
-              "version": "[2.4.1, )"
+              "version": "[4.6.1, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[6.3.1, )"
             },
             "Reqnroll.NUnit": {
               "target": "Package",
-              "version": "[2.4.1, )"
-            },
-            "Reqnroll.Tools.MsBuild.Generation": {
-              "target": "Package",
-              "version": "[2.4.1, )"
+              "version": "[3.3.4, )"
             }
           },
           "imports": [
@@ -72,26 +72,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/shrinjali/.dotnet/sdk/8.0.428/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

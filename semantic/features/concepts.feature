@@ -119,28 +119,28 @@ Feature: Semantic Validation for CTO Class Declarations
     Then no error should be thrown
 
   @skip-rust
-  Scenario: Unique property names across inheritance
+  Scenario: Circular inheritance
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_009/class_declaration_009_circular_inheritance.json | main        |
     When I validate the models
     Then an error should be thrown with message "Maximum call stack size exceeded"
 
-  Scenario: Unique property names across inheritance
+  Scenario: Inheritance without a cycle
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_009/class_declaration_009_valid_inheritance.json | main        |
     When I validate the models
     Then no error should be thrown
 
-  Scenario: Unique property names across inheritance
+  Scenario: Property name redeclared in a subclass
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_010/class_declaration_010_duplicate_property_from_super.json | main        |
     When I validate the models
     Then an error should be thrown with message "has more than one field"
 
-  Scenario: Unique property names across inheritance
+  Scenario: Subclass declares only new property names
     Given I load the following models:
       | model_file                                                                 | alias       |
       | concepts/models/CLASS_DECLARATION_010/class_declaration_010_unique_property_from_super.json | main        |

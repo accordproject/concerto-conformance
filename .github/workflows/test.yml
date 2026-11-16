@@ -27,3 +27,27 @@ jobs:
       - name: Run Conformance Tests
         run: npm test
         
+  csharp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Dependencies
+        run: npm install
+
+      # The reference runtime: the C# steps against concerto-core, which must
+      # give the same results as the JavaScript runner.
+      - name: Run C# Conformance Tests
+        run: npm run test:csharp
