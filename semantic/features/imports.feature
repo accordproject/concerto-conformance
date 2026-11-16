@@ -8,14 +8,15 @@ Feature: Semantic Validation of CTO Model Imports
     When I validate the models
     Then no error should be thrown
 
-  @skip
+  @rule:DECLARATION_002 @skip-rust
   Scenario: Conflict with imported type name should throw an error
     Given I load the following models:
       | model_file                                                               | alias      |
       | imports/models/DECLARATION_002/importedTypes.json                         | imported   |
       | imports/models/DECLARATION_002/declaration_002_conflict_with_imported_type.json | main |
     When I validate the models
-    Then an error should be thrown with message "already defined in an imported model"
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "Type"
 
   Scenario: Valid import and reference of existing type should pass validation
     Given I load the following models:
