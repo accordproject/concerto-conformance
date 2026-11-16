@@ -23,14 +23,15 @@ Feature: Semantic Validation of Enum Declarations in CTO Models
     When I validate the models
     Then no error should be thrown
 
-  @skip
+  @rule:DECLARATION_002 @skip-rust
   Scenario: Enum name conflicts with imported enum should throw an error
     Given I load the following models:
       | model_file                                                   | alias      |
       | enums/models/DECLARATION_002/importedTypes.json                      | imported   |
       | enums/models/DECLARATION_002/declaration_002_name_conflict_with_import.json | main |
     When I validate the models
-    Then an error should be thrown with message "already defined in an imported model"
+    Then an error of class "IllegalModelException" should be thrown
+    And the error should mention "ConflictEnum"
 
   Scenario: Valid enum identifier name should pass validation
     Given I load the following models:
